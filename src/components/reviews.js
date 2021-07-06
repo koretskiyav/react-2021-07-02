@@ -5,7 +5,7 @@ export default function Reviews({ reviews }) {
     <div>
       <h1>Reviews</h1>
       {reviews.map((review) => (
-        <Review review={review} />
+        <Review key={review.id} review={review} />
       ))}
     </div>
   );

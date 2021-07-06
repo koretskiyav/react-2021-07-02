@@ -3,7 +3,7 @@ import Rate from './rate';
 
 export default function Review({ review }) {
   return (
-    <div className={styles.reviewCard} key={review.id}>
+    <div className={styles.reviewCard}>
       <p className={styles.name}>{review.user}</p>
       <p>{review.text}</p>
       <Rate rating={review.rating} />
