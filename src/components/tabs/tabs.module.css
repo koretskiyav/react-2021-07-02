@@ -9,6 +9,7 @@
   font-size: 28px;
 }
 
+.tab-selected,
 .tab {
   cursor: pointer;
   color: #F0E5DA;
@@ -19,4 +20,8 @@
 
 .tab:hover {
   color: #c2b9af;
+}
+
+.tab-selected {
+  font-weight: bold;
 }

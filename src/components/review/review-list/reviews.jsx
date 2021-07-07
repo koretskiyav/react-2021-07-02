@@ -5,13 +5,13 @@ const Reviews = ({ reviews }) => {
   return (
     <div className={styles['container']}>
       <p className={styles['title']}>
-        {`Отзывы (${reviews.length})`}
+        {`Reviews (${reviews.length})`}
       </p>
-      <div className={'list'}>
+      <div className={styles['list']}>
         {
           reviews.length > 0
           ? reviews.map(r => <Review review={r} key={r.id} />)
-          : <p className={styles['banner']}>Пока нет отзывов</p>
+          : <p className={styles['banner']}>No reviews yet</p>
         }
       </div>
     </div>

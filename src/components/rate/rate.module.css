@@ -4,9 +4,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #DAE8F6;
   border-radius: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
   margin: 10px 0;
 }

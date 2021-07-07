@@ -1,5 +1,4 @@
 .container {
-  max-width: 640px;
   margin: 0 auto;
 }
 
@@ -8,4 +7,13 @@
   color: #333;
   line-height: 32px;
   font-size: 24px;
+}
+
+.list {
+  max-width: 640px;
+}
+
+.banner {
+  color: #777;
+  text-align: center;
 }
