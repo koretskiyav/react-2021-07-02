@@ -1,6 +1,6 @@
 import style from './review.module.css';
 
-import Rate from './rate';
+import Rate from '../../Rate';
 
 export default function Review({ user, text, rating }) {
   return (

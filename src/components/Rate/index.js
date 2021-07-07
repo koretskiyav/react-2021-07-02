@@ -1,4 +1,4 @@
-import { ReactComponent as Star } from '../icons/star.svg';
+import { ReactComponent as Star } from '../../icons/star.svg';
 import style from './rate.module.css';
 
 export default function Rate({ rating, type }) {

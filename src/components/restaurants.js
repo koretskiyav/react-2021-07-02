@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
-import Tabs from './tabs';
-import Restaurant from './restaurant';
+import Tabs from './Tabs';
+import Restaurant from './Restaurant';
 
 export default function Restaurants({ restaurants }) {
   const [activeId, setActiveId] = useState(restaurants[0].id);

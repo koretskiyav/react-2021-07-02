@@ -1,6 +1,6 @@
 import style from './reviews.module.css';
 
-import Review from './review';
+import Review from './Review';
 
 export default function Reviews({ reviews }) {
   return (

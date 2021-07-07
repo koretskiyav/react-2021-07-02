@@ -1,6 +1,6 @@
-import Menu from './menu';
-import Reviews from './reviews';
-import Rate from './rate';
+import Menu from '../Menu';
+import Reviews from '../Reviews';
+import Rate from '../Rate';
 
 export default function Restaurant({ restaurant }) {
   const avrgRating =
