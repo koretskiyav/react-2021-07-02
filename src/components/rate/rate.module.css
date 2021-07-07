@@ -1,10 +1,10 @@
 .star-container {
-  width: calc(32px * 5 + 20px);
-  height: calc(32px + 6px);
+  width: calc(16px * 5 + 32px);
+  height: calc(16px + 12px);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  background-color: slategray;
+  background-color: #DAE8F6;
   border-radius: 4px;
   padding-left: 10px;
   padding-right: 10px;

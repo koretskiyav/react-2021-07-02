@@ -8,7 +8,7 @@ const MAX_RATING = 5
 const Rate = ({ value }) => {
 
   const rating = useMemo(() => {
-    if (typeof value !== 'number' || value === NaN)
+    if (typeof value !== 'number' || isNaN(value))
       return 0;
 
     if (value > MAX_RATING)
@@ -32,8 +32,8 @@ const Rate = ({ value }) => {
 
   return (
     <div className={styles['star-container']}>
-        {stars.map(star => (
-          star ? <StarFilled /> : <StarUnfilled />
+        {stars.map((star, index) => (
+          star ? <StarFilled key={index} /> : <StarUnfilled key={index}/>
         ))}
     </div>
   )
