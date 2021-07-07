@@ -1,0 +1,9 @@
+.star-container {
+  width: calc(16px * 5 + 32px);
+  height: calc(16px + 12px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  margin: 10px 0;
+}

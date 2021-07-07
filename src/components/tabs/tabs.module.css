@@ -1,0 +1,27 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  background-color: #520C15;
+  padding: 20px;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+.tab-selected,
+.tab {
+  cursor: pointer;
+  color: #F0E5DA;
+  font-size: 18px;
+  background-color: #520C15;
+  padding: 0 10px;
+}
+
+.tab:hover {
+  color: #c2b9af;
+}
+
+.tab-selected {
+  font-weight: bold;
+}

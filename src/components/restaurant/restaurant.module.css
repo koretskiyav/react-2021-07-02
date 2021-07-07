@@ -1,0 +1,15 @@
+.container {
+  max-width: 780px;
+  margin: 20px auto;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  color: #333;
+  font-size: 32px;
+  margin-right: 8px;
+}
