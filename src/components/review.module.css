@@ -1,0 +1,28 @@
+.ul{
+  border: 1px solid #ff7905;
+  width: 700px;
+  margin: auto;
+  padding: 10px;
+}
+.user{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.comment{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.text{
+  font-size: 20px
+}
+.rating{
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.container{
+  margin-bottom: 20px;
+}

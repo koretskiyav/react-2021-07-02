@@ -1,0 +1,12 @@
+.tabs{
+  padding: 10px 20px 10px 20px;
+  margin-right: 20px;
+  font-size: 20px;
+  border: 2px solid #ff7905;
+  background: transparent;
+  color: #ff7905;
+  cursor: pointer;
+}
+.tabs:hover{
+  box-shadow: 0px 0px 9px 0px #ff7905;
+}
