@@ -1,0 +1,31 @@
+.review {
+  margin: 8px;
+  padding: 8px;
+  background-color: #eee;
+  border: 1px solid blue;
+  border-radius: 8px;
+  width: 800px;
+}
+
+.text {
+  text-align: center;
+  font-size: 20;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-right: 10px;
+}
+
+.rating {
+  margin-top: 7px;
+  margin-bottom: 0px;
+}
+
+.user {
+  font-weight: bold;
+  margin-top: 7px;
+}

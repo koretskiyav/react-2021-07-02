@@ -1,0 +1,25 @@
+.star {
+  padding-right: 10px;
+}
+
+.stars {
+  display: flex;
+  list-style-type: none;
+}
+
+.rate {
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.rateText {
+  padding-right: 5px;
+  color: black;
+  font-size: 20px;
+}
+
+.rateNumber {
+  color: brown;
+  font-size: 30px;
+}
