@@ -1,0 +1,13 @@
+.menu{
+  margin-top: 20px;
+}
+.hedear{
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+.menu_block{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

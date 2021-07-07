@@ -1,11 +1,36 @@
 .card {
   margin: 8px;
-  padding: 8px;
-  background-color: #eee;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+    padding: 11px;
+    background-color: transparent;
+    border: 1px solid #ff7905;
+    width: 300px;
+    height: 150px;
 }
 
 .icon path {
-  fill: red;
+  fill: #ff7905;
+}
+.button{
+  padding: 8px 13px 8px 13px;
+  border: 1px solid #ff7905;
+  background: transparent;
+  cursor: pointer;
+}
+.button:hover{
+  box-shadow: 0px 0px 9px 0px #ff7905;
+}
+.product_name{
+  font-size: 20px;
+  text-align: center;
+}
+.product_price{
+  font-size: 20px;
+  text-align: center;
+}
+.product_amount{
+  font-size: 20px;
+  margin: 0px 10px 0px 10px;
+}
+.product_nav{
+  text-align: center;
 }

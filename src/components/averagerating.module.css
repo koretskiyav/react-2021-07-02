@@ -1,0 +1,17 @@
+.text{
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 20px;
+  margin-top: 0px;
+  margin-right: 20px;
+}
+.container{
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+}
+.stars{
+  display: flex;
+    justify-content: center
+}
