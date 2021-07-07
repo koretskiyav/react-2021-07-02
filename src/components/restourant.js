@@ -16,8 +16,8 @@ export default function Restaurant({ restaurant }) {
       <div>
         <h2>Restaurant rating</h2>
         <div className={styles.rating}>
-          <Rate rating={commonRating} />
-          <b>{Math.round(commonRating)}</b>
+          <Rate rating={Math.round(commonRating)} />
+          <b>{commonRating}</b>
         </div>
       </div>
       <Menu menu={menu} />
