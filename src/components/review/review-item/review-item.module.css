@@ -1,0 +1,31 @@
+.container {
+  min-height: 160px;
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 16px 0;
+  border-radius: 4px;
+}
+
+.avatar {
+  width: 24%;
+  display: grid;
+  place-items: center;
+}
+
+.content {
+  width: calc(100% - 24%)
+}
+
+.banner {
+  margin: 10px 0;
+  color: #CCC;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.user-comment {
+  font-size: 14px;
+}

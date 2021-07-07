@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import Menu from './menu';
 import Rate from './rate/rate';
+import Reviews from './review/review-list/reviews';
 import Tabs from './tabs';
 
 export default function Restaurants({ restaurants }) {
@@ -22,6 +23,7 @@ export default function Restaurants({ restaurants }) {
       <Rate value={3}/>
       <Tabs tabs={tabs} onChange={setActiveId} />
       <Menu menu={activeRestaurant.menu} />
+      <Reviews reviews={activeRestaurant.reviews} />
     </div>
   );
 }
