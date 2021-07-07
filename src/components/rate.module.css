@@ -1,0 +1,13 @@
+.rating {
+  width: 300px;
+  height: auto;
+
+  margin: 8px;
+  padding: 8px;
+  border: 1px #dfdfdf;
+  border-radius: 5px;
+}
+
+.icon path {
+  fill: gold;
+}
