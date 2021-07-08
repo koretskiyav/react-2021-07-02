@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import Restaurants from './restaurants';
+import Restaurants from '../restaurants';
 
 export default class App extends PureComponent {
   render() {
