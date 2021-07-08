@@ -4,6 +4,7 @@ import counter from '../hocs/counter';
 import style from './product.module.css';
 
 function Product({ product, amount, decrement, increment }) {
+
   return (
     <div className={style.card}>
       <p>{product.name}</p>
