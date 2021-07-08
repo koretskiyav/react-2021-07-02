@@ -9,3 +9,7 @@
 .icon path {
   fill: red;
 }
+
+.icon_star path {
+  fill: yellow;
+}
