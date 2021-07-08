@@ -1,0 +1,14 @@
+.rating {
+    margin-top: 5px;
+}
+
+.stars {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.star {
+    width: 15px;
+    height: 15px;
+}

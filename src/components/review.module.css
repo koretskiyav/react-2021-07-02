@@ -1,0 +1,16 @@
+.review {
+    margin-left: 10px;
+}
+
+.review:nth-child(1) {
+    margin-left: 0;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.text {
+    margin-top: 17px;
+    max-width: 150px;
+}

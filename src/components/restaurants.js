@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
-import Menu from './menu';
 import Tabs from './tabs';
+import Restaurant from '../hocs/restaurant.js';
 
 export default function Restaurants({ restaurants }) {
   const [activeId, setActiveId] = useState(restaurants[0].id);
@@ -17,9 +17,12 @@ export default function Restaurants({ restaurants }) {
   );
 
   return (
-    <div>
+    <div className={'restaurants'}>
       <Tabs tabs={tabs} onChange={setActiveId} />
-      <Menu menu={activeRestaurant.menu} />
+      <Restaurant
+        menu={activeRestaurant.menu}
+        reviews={activeRestaurant.reviews}
+      />
     </div>
   );
 }
