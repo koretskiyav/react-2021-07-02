@@ -1,20 +1,26 @@
-import { ReactComponent as Minus } from '../../icons/minus.svg';
-import { ReactComponent as Plus } from '../../icons/plus.svg';
 import counter from '../../hocs/counter';
-import style from './product.module.css';
+import styles from './product.module.css';
+import Button from '../button';
 
 function Product({ product, amount, decrement, increment }) {
   return (
-    <div className={style.card}>
-      <p>{product.name}</p>
-      <p>{product.price} $</p>
-      <button onClick={decrement}>
-        <Minus className={style.icon} />
-      </button>
-      <span>{amount}</span>
-      <button onClick={increment}>
-        <Plus className={style.icon} />
-      </button>
+    <div className={styles.product}>
+      <div className={styles.content}>
+        <div>
+          <h4 className={styles.title}>{product.name}</h4>
+          <p className={styles.description}>{product.ingredients.join(', ')}</p>
+          <div className={styles.price}>{product.price} $</div>
+        </div>
+        <div>
+          <div className={styles.counter}>
+            <div className={styles.count}>{amount}</div>
+            <div className={styles.buttons}>
+              <Button onClick={decrement} icon="minus" />
+              <Button onClick={increment} icon="plus" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,20 @@
+@import '~normalize.css/normalize.css';
+
+:root {
+  --black: #1d1d1d;
+  --white: #ffffff;
+  --orange: #e4661e;
+  --orange-light: #f0894e;
+  --pink: #fff0db;
+  --yellow: #f0ad4e;
+  --yellow-light: #ffd25d;
+  --green: #49ab39;
+  --grey: #e5e5e5;
+  --grey-dark: #898989;
+}
+
 body {
   margin: 0;
-  padding: 36px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -13,6 +27,8 @@ code {
     monospace;
 }
 
+a,
 button {
+  text-decoration: none;
   outline: none;
 }
