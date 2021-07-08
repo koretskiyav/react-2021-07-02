@@ -1,12 +1,17 @@
+import { useMemo } from 'react';
+
 import Menu from '../Menu';
 import Reviews from '../Reviews';
 import Rate from '../Rate';
 
 export default function Restaurant({ restaurant }) {
-  const avrgRating =
-    restaurant.reviews.reduce((acc, curVal) => {
-      return acc + curVal.rating;
-    }, 0) / restaurant.reviews.length;
+  const avrgRating = useMemo(
+    () =>
+      restaurant.reviews.reduce((acc, curVal) => {
+        return acc + curVal.rating;
+      }, 0) / restaurant.reviews.length,
+    [restaurant.reviews]
+  );
 
   return (
     <div>
