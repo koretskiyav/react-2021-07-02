@@ -7,7 +7,7 @@ export default function Review({ review }) {
     <div className={style.card}>
       <h4>{review.user}</h4>
       <p>{review.text}</p>
-      <Rate id={review.id} rate={review.rating}></Rate>
+      <Rate rate={review.rating}></Rate>
     </div>
   );
 }

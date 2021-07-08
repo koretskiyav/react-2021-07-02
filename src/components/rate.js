@@ -3,20 +3,17 @@ import { ReactComponent as Star } from '../icons/star.svg';
 
 import style from './rate.module.css';
 
-export default function Rate({ id, rate }) {
+export default function Rate({ rate }) {
   const stars = useMemo(
     () =>
       Array.apply(null, Array(5)).map((elem, index) => {
         return index < rate ? (
-          <Star
-            key={id + index}
-            className={[style.star, style.fill].join(' ')}
-          />
+          <Star key={index} className={[style.star, style.fill].join(' ')} />
         ) : (
-          <Star key={id + index} className={style.star} />
+          <Star key={index} className={style.star} />
         );
       }),
-    [rate, id]
+    [rate]
   );
 
   return <div>{stars}</div>;

@@ -13,7 +13,7 @@ export default function Restaurant({ restaurant }) {
       <h3>Reviews</h3>
       <Reviews reviews={restaurant.reviews} />
       <h3>Average rating</h3>
-      <Rate rate={average} id={restaurant.id} />
+      <Rate rate={average} />
     </div>
   );
 }
