@@ -4,15 +4,15 @@ import { ReactComponent as StarDefault } from '../icons/star_default.svg';
 import styles from './rate.module.css';
 
 export default function Rate({ rating = 3 }) {
-  const stars = [];
-
-  for (let i = 1; i <= 5; i++) {
-    stars.push(
-      <li key={'star' + i} className={styles.item}>
-        {i <= rating ? <StarActive /> : <StarDefault />}
-      </li>
-    );
-  }
+  const stars = Array(5)
+    .fill(1)
+    .map((item, i) => {
+      return (
+        <li key={'star' + i} className={styles.item}>
+          {i + 1 <= rating ? <StarActive /> : <StarDefault />}
+        </li>
+      );
+    });
 
   return (
     <div>

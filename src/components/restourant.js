@@ -9,9 +9,9 @@ export default function Restaurant({ restaurant }) {
   const { menu, reviews } = restaurant;
 
   const commonRating = useMemo(() => {
-    return (
+    return Math.round(
       reviews.reduce((amount, { rating }) => (amount += rating), 0) /
-      reviews.length
+        reviews.length
     );
   }, [reviews]);
 
@@ -20,8 +20,8 @@ export default function Restaurant({ restaurant }) {
       <div>
         <h2>Restaurant rating</h2>
         <div className={styles.rating}>
-          <Rate rating={Math.round(commonRating)} />
-          <b>{+commonRating.toFixed(1)}</b>
+          <Rate rating={commonRating} />
+          <b>{commonRating}</b>
         </div>
       </div>
       <Menu menu={menu} />
