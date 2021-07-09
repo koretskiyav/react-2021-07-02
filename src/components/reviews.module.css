@@ -1,0 +1,22 @@
+.card {
+	width: 50%;
+	margin: 8px;
+	padding: 8px;
+	background-color: #eee;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+}
+
+.rating {
+	display: flex;
+	align-items: center;
+}
+
+.rating p {
+	padding-right: 10px;
+}
+
+.icon {
+	width: 20px;
+}
+  
