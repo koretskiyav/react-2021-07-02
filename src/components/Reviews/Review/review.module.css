@@ -1,0 +1,37 @@
+.block {
+  margin: 8px;
+  padding: 8px;
+
+  background-color: #f2f2f2;
+  border: 1px solid #666;
+  border-radius: 5px;
+}
+
+figure {
+  margin: auto;
+}
+
+blockquote {
+  margin: 5px 5px 5px 15px;
+  font-style: italic;
+  font-size: 1.15em;
+}
+
+blockquote > p {
+  margin-top: 0;
+}
+
+blockquote::before {
+  font-size: 1.25em;
+  font-family: Georgia, serif;
+  line-height: 1.5em;
+  content: '“';
+  color: black;
+  margin-left: -10px;
+}
+
+figcaption {
+  margin: 5px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
