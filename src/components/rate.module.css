@@ -1,0 +1,17 @@
+.ratebar {
+  display: flex;
+  gap: 4px;
+}
+
+.ratebar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.active path {
+  fill: orange;
+}
+
+.inactive path {
+  fill: lightgray;
+}
