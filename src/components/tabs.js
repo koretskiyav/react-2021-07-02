@@ -1,4 +1,5 @@
 import Rate from './rate'
+
 export default function Tabs({ tabs, onChange }) {
 
   return (
@@ -15,11 +16,9 @@ export default function Tabs({ tabs, onChange }) {
 
 
 const rating = (reviews) => {
-  const rating = []
 
-  reviews.forEach((sum) => {
-    rating.push(sum.rating);
-  });
-
-  return (Math.round(rating.reduce((sum, current) => sum + current, 0) / reviews.length));
+  return (
+    Math.round(
+      reviews.reduce((sum, current) => sum + current.rating, 0
+    ) / reviews.length));
 }

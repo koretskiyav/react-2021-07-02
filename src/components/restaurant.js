@@ -1,7 +1,7 @@
-import Menu from "./menu"
-import Reviews from "./reviews";
+import Menu from './menu'
+import Reviews from './reviews';
 
-import style from "./restaurant.module.css"
+import style from './restaurant.module.css'
 
 export default function Restaurant ({restaurant: {menu, reviews}}) {
 	return (
