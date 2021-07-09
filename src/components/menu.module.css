@@ -1,0 +1,8 @@
+.restaurant {
+	display: flex;
+	justify-content: center;
+}
+
+.menu {
+	width: 50%;
+}

@@ -1,6 +1,6 @@
 import Product from './product';
 
-import style from "./restaurant.module.css"
+import style from "./menu.module.css"
 
 export default function Menu({ menu }) {
   return (
