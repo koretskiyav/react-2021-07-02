@@ -7,7 +7,7 @@ export default function Restaurant({ menu, reviews }) {
     const rate = reviews.map(({ rating }) => {
       return rating;
     });
-    return (rate.reduce((a, b) => a + b) / rate.length).toFixed(1);
+    return Math.round(rate.reduce((a, b) => a + b) / rate.length);
   }, [reviews]);
   return (
     <div>

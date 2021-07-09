@@ -10,7 +10,7 @@ export default function Reviews({ reviews, middleRate }) {
       {reviews.map((review) => (
         <Review key={review.id} review={review} />
       ))}
-      <Rate middleRate={middleRate} value={3} />
+      <Rate middleRate={middleRate} />
     </div>
   );
 }
