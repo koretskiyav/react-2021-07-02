@@ -6,6 +6,8 @@ import Product from '../product';
 import styles from './menu.module.css';
 
 class Menu extends Component {
+  state = { error: null };
+
   static propTypes = {
     menu: PropTypes.arrayOf(
       PropTypes.shape({
@@ -14,8 +16,17 @@ class Menu extends Component {
     ).isRequired,
   };
 
+  componentDidCatch(error) {
+    this.setState({ error });
+  }
+
   render() {
     const { menu } = this.props;
+
+    if (this.state.error) {
+      return <p>Меню этого ресторана сейчас недоступно :(</p>;
+    }
+
     return (
       <div className={styles.menu}>
         <div>
