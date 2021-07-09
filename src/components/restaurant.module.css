@@ -1,0 +1,9 @@
+.rating {
+    display: flex;
+    align-items: baseline;
+}
+
+.rating > b {
+    font-size: 40px;
+    margin-left: 20px;
+}
