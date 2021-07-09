@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react';
-
-import Menu from './menu';
+import Restaurant from './restaurant';
 import Tabs from './tabs';
 
 export default function Restaurants({ restaurants }) {
-  const [activeId, setActiveId] = useState(restaurants[0].id);
+  const [activeId, setActiveId] = useState(restaurants[1].id);
 
   const tabs = useMemo(
     () => restaurants.map(({ id, name }) => ({ id, label: name })),
@@ -19,7 +18,7 @@ export default function Restaurants({ restaurants }) {
   return (
     <div>
       <Tabs tabs={tabs} onChange={setActiveId} />
-      <Menu menu={activeRestaurant.menu} />
+      <Restaurant restaurant={activeRestaurant} />
     </div>
   );
 }
