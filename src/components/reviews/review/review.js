@@ -1,3 +1,5 @@
+import ProtoTypes from 'prop-types';
+
 import Rate from '../../rate';
 import styles from './review.module.css';
 
@@ -15,8 +17,16 @@ const Review = ({ user, text, rating }) => (
   </div>
 );
 
+Review.protoTypes = {
+  user: ProtoTypes.string,
+  text: ProtoTypes.string,
+  rating: ProtoTypes.number,
+};
+
 Review.defaultProps = {
   user: 'Anonymous',
+  text: '',
+  rating: 0,
 };
 
 export default Review;
