@@ -47,6 +47,11 @@ Product.propTypes = {
   amount: PropTypes.number.isRequired,
   increment: PropTypes.func.isRequired,
   decrement: PropTypes.func.isRequired,
+  fetchData: PropTypes.func
+};
+
+PropTypes.defaultProps = {
+  fetchData: () => false
 };
 
 export default counter(Product);
