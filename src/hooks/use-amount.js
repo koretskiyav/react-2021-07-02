@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function useAmount(initialAmount) {
   const [amount, setAmount] = useState(initialAmount);
@@ -8,3 +9,7 @@ export default function useAmount(initialAmount) {
 
   return { amount, decrement, increment };
 }
+
+useAmount.propTypes = {
+  initialAmount: PropTypes.number.isRequired
+};

@@ -8,14 +8,6 @@ import styles from './menu.module.css';
 class Menu extends Component {
   state = { error: null };
 
-  static propTypes = {
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      }).isRequired
-    ).isRequired,
-  };
-
   componentDidCatch(error) {
     this.setState({ error });
   }
@@ -39,12 +31,12 @@ class Menu extends Component {
   }
 }
 
-// Menu.propTypes = {
-//   menu: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     }).isRequired
-//   ).isRequired,
-// };
+Menu.propTypes = {
+  menu: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired
+};
 
 export default Menu;

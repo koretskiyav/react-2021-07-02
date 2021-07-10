@@ -38,14 +38,15 @@ function Product({ product, amount, decrement, increment, fetchData }) {
 }
 
 Product.propTypes = {
-  product: PropTypes.shape({
-    name: PropTypes.string,
-    price: PropTypes.number,
+  product: PropTypes.exact({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
-  amount: PropTypes.number,
-  increment: PropTypes.func,
-  decrement: PropTypes.func,
+  amount: PropTypes.number.isRequired,
+  increment: PropTypes.func.isRequired,
+  decrement: PropTypes.func.isRequired,
 };
 
 export default counter(Product);
