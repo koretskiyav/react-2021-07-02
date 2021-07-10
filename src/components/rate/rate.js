@@ -1,6 +1,6 @@
-import {ReactComponent as Star} from '../icons/star.svg'
+import {ReactComponent as Star} from '../../icons/star.svg'
 
-import style from './reviews.module.css';
+import style from './rate.module.css';
 
 export default function Rate ({value}) {
 	const stars = Array(value).fill('star');

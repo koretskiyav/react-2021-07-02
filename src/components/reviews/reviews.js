@@ -1,4 +1,4 @@
-import Review from './review';
+import Review from '../review/review';
 import style from './reviews.module.css';
 
 export default function Reviews ({reviews}) {

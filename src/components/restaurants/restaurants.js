@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 
-import Rate from './rate';
-import Tabs from './tabs';
-import Restaurant from './restaurant';
+import Rate from '../rate/';
+import Tabs from '../tabs/';
+import Restaurant from '../restaurant';
+
 import style from './restaurants.module.css';
 
 export default function Restaurants({ restaurants }) {

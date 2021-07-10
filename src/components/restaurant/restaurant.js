@@ -1,5 +1,5 @@
-import Menu from './menu'
-import Reviews from './reviews';
+import Menu from '../menu'
+import Reviews from '../reviews/';
 
 import style from './restaurant.module.css'
 
