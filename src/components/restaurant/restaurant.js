@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
@@ -24,6 +25,15 @@ const Restaurant = ({ restaurant }) => {
       </div>
     </div>
   );
+};
+
+Restaurant.prototypes = {
+    restaurant: PropTypes.exact({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        menu: PropTypes.arrayOf(PropTypes.object).isRequired,
+        reviews: PropTypes.arrayOf(PropTypes.object)
+    })
 };
 
 export default Restaurant;
