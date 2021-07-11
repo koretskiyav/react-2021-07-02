@@ -41,7 +41,7 @@ Product.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   amount: PropTypes.number,
   increment: PropTypes.func,
