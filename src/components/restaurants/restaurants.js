@@ -38,8 +38,8 @@ const findActiveRestaurant = (restaurants, activeId) => {
 }
 
 const rating = (reviews) => {
-  return (
-    Math.round(
-      reviews.reduce((sum, current) => sum + current.rating, 0
-    ) / reviews.length));
+  const total = reviews.reduce((sum, current) => sum + current.rating, 0);
+  const averageRating = Math.round(total / reviews.length);
+  
+  return averageRating;
 }
