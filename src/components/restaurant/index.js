@@ -1,1 +1,1 @@
-export { default } from './restaurant';
+export { default, restaurantPropTypes } from './restaurant';

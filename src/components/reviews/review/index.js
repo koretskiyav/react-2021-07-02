@@ -1,1 +1,1 @@
-export { default } from './review';
+export { default, reviewPropTypes } from './review';

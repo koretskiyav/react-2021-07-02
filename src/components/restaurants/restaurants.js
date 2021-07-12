@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 
-import Restaurant from '../restaurant';
+import Restaurant, { restaurantPropTypes } from '../restaurant';
 import Tabs from '../tabs';
 
-export default function Restaurants({ restaurants }) {
+const Restaurants = function ({ restaurants }) {
   const [activeId, setActiveId] = useState(restaurants[0].id);
 
   const tabs = useMemo(
@@ -23,3 +24,9 @@ export default function Restaurants({ restaurants }) {
     </div>
   );
 }
+
+Restaurants.propTypes = {
+  restaurants: PropTypes.arrayOf(restaurantPropTypes).isRequired
+};
+
+export default Restaurants;
