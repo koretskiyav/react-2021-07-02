@@ -23,7 +23,11 @@ function Product({ product, amount, decrement, increment, fetchData }) {
               {amount}
             </div>
             <div className={styles.buttons}>
-              <Button onClick={decrement} icon="minus" />
+              <Button
+                onClick={decrement}
+                icon="minus"
+                data-id="product-decrement"
+              />
               <Button
                 onClick={increment}
                 icon="plus"
@@ -41,7 +45,7 @@ Product.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   amount: PropTypes.number,
   increment: PropTypes.func,
