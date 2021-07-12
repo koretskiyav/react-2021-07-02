@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import cn from 'classnames';
-
 import styles from './tabs.module.css';
 
 export default function Tabs({ tabs, activeId, onChange }) {
@@ -11,9 +11,19 @@ export default function Tabs({ tabs, activeId, onChange }) {
           className={cn(styles.tab, { [styles.active]: id === activeId })}
           onClick={() => onChange(id)}
         >
-          {label}
+          {label || `Неопознанный ресторан`}
         </span>
       ))}
     </div>
   );
 }
+
+Tabs.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string
+    }).isRequired
+  ).isRequired,
+  activeId: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+};
