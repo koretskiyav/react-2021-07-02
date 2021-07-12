@@ -12,6 +12,9 @@ class Menu extends Component {
     menu: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
       }).isRequired
     ).isRequired,
   };
@@ -38,13 +41,5 @@ class Menu extends Component {
     );
   }
 }
-
-// Menu.propTypes = {
-//   menu: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     }).isRequired
-//   ).isRequired,
-// };
 
 export default Menu;

@@ -1,5 +1,6 @@
 import Rate from '../../rate';
 import styles from './review.module.css';
+import PropTypes from 'prop-types';
 
 const Review = ({ user, text, rating }) => (
   <div className={styles.review} data-id="review">
@@ -18,5 +19,11 @@ const Review = ({ user, text, rating }) => (
 Review.defaultProps = {
   user: 'Anonymous',
 };
+
+Review.propTypes = {
+  user: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired
+}
 
 export default Review;
