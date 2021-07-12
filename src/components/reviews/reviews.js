@@ -5,7 +5,7 @@ import { ReviewType } from './review';
 
 const Reviews = ({ reviews }) => {
   return (
-    <div className={styles.reviews}>
+    <div className={styles.reviews} data-id="reviews-root">
       {reviews.map((review) => (
         <Review key={review.id} {...review} />
       ))}
