@@ -3,9 +3,7 @@ import Reviews from './reviews';
 import Rate from './rate';
 
 export default function Restaurant({ activeRestaurant }) {
-  const menu = activeRestaurant.menu;
-  const reviews = activeRestaurant.reviews;
-  const name = activeRestaurant.name;
+  const { name, menu, reviews } = activeRestaurant;
   const ratings = activeRestaurant.reviews.map((reviews) => reviews.rating);
   const averageRating = ratings.reduce((a, b) => a + b) / ratings.length;
 

@@ -9,7 +9,7 @@ export default function Reviews({ reviews }) {
           <p>
             {reviews.user}: {reviews.text}
           </p>
-          <Rate rating={reviews.rating} />
+          <Rate rating={reviews.rating} id={reviews.id} />
         </div>
       ))}
     </div>
