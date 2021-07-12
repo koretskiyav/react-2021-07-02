@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import counter from '../../hocs/counter';
 import styles from './product.module.css';
 import Button from '../button';
@@ -43,9 +43,10 @@ Product.propTypes = {
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
-  amount: PropTypes.number,
-  increment: PropTypes.func,
-  decrement: PropTypes.func,
+  amount: PropTypes.number.isRequired,
+  increment: PropTypes.func.isRequired,
+  decrement: PropTypes.func.isRequired,
+  fetchData: PropTypes.func,
 };
 
 export default counter(Product);

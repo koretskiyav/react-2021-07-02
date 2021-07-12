@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import Review from './review';
 import styles from './reviews.module.css';
+import { ReviewType } from './review';
 
 const Reviews = ({ reviews }) => {
   return (
@@ -9,6 +11,10 @@ const Reviews = ({ reviews }) => {
       ))}
     </div>
   );
+};
+
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(ReviewType.isRequired).isRequired,
 };
 
 export default Reviews;

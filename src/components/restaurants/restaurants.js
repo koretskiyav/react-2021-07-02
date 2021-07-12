@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { useMemo, useState } from 'react';
 
-import Restaurant from '../restaurant';
+import Restaurant, { RestaurantType } from '../restaurant';
 import Tabs from '../tabs';
 
 export default function Restaurants({ restaurants }) {
@@ -23,3 +24,7 @@ export default function Restaurants({ restaurants }) {
     </div>
   );
 }
+
+Restaurants.propTypes = {
+  restaurants: PropTypes.arrayOf(RestaurantType.isRequired).isRequired,
+};
