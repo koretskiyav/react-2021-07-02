@@ -10,6 +10,11 @@ const Rate = ({ value }) => (
       <Star
         key={i}
         className={cn(styles.star, { [styles.checked]: i <= value - 1 })}
+        data-id={
+          i <= value - 1 
+          ? "rating-star-checked"
+          : "rating-star-unchecked"
+        }
       />
     ))}
   </div>
