@@ -7,7 +7,6 @@ import { restaurants } from '../../fixtures';
 Enzyme.configure({ adapter: new Adapter() });
 
 const product = restaurants[0].menu[0];
-
 describe('Product', () => {
   it('should render', () => {
     const wrapper = mount(<Product product={product} />);
@@ -29,5 +28,17 @@ describe('Product', () => {
     const fn = jest.fn();
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
+  });
+
+  it('should not decrement 0 amount', () => {
+    const wrapper = mount(<Product product={product} initialCount={0} />);
+    wrapper.find('button[data-id="product-decrement"]').simulate('click');
+    expect(wrapper.find('[data-id="product-amount"]').text()).toBe('0');
+  });
+
+  it('should decrement positive amount', () => {
+    const wrapper = mount(<Product product={product} initialCount={2} />);
+    wrapper.find('button[data-id="product-decrement"]').simulate('click');
+    expect(wrapper.find('[data-id="product-amount"]').text()).toBe('1');
   });
 });
