@@ -10,7 +10,7 @@ const review = restaurants[0].reviews[0];
 
 describe('Review', () => {
   it('should render', () => {
-    const wrapper = mount(<Review review={review} />);
+    const wrapper = mount(<Review {...review} />);
     expect(wrapper.find('[data-id="review"]').length).toBe(1);
   })
 
