@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './button.module.css';
 
 import { ReactComponent as PlusIcon } from '../../icons/plus.svg';
@@ -15,6 +16,14 @@ const Button = ({ icon, ...props }) => {
       {Icon && <Icon />}
     </button>
   );
+};
+
+Button.propTypes = {
+  icon: PropTypes.string,
+  props: PropTypes.shape({
+    onClick: PropTypes.func.isRequired,
+    dataId: PropTypes.string,
+  }),
 };
 
 export default Button;
