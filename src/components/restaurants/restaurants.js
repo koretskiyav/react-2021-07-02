@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-
+import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
 
@@ -23,3 +23,7 @@ export default function Restaurants({ restaurants }) {
     </div>
   );
 }
+
+Restaurants.propTypes = {
+  restaurants: PropTypes.array.isRequired,
+};

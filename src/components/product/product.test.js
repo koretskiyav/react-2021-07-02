@@ -30,4 +30,10 @@ describe('Product', () => {
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
   });
+
+  it('should remain 0 if amount is 0 and button decrement was clicked', () => {
+    const wrapper = mount(<Product product={product} />);
+    wrapper.find('button[data-id="product-decrement"]').simulate('click');
+    expect(wrapper.find('[data-id="product-amount"]').text()).toBe('0');
+  });
 });
