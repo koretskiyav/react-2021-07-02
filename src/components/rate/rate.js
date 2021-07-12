@@ -6,7 +6,7 @@ import { ReactComponent as Star } from '../../icons/star.svg';
 import styles from './rate.module.css';
 
 const Rate = ({ value }) => (
-  <div>
+  <div data-id="rate">
     {[...Array(5)].map((_, i) => (
       <Star
         key={i}
