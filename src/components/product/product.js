@@ -10,7 +10,7 @@ function Product({ product, amount, decrement, increment, fetchData }) {
   }, []); // eslint-disable-line
 
   return (
-    <div className={styles.product} data-id="product">
+    <div className={styles.product} data-id='product'>
       <div className={styles.content}>
         <div>
           <h4 className={styles.title}>{product.name}</h4>
@@ -19,15 +19,18 @@ function Product({ product, amount, decrement, increment, fetchData }) {
         </div>
         <div>
           <div className={styles.counter}>
-            <div className={styles.count} data-id="product-amount">
+            <div className={styles.count} data-id='product-amount'>
               {amount}
             </div>
             <div className={styles.buttons}>
-              <Button onClick={decrement} icon="minus" />
+              <Button onClick={decrement}
+                      icon='minus'
+                      data-id='product-decrement'
+              />
               <Button
                 onClick={increment}
-                icon="plus"
-                data-id="product-increment"
+                icon='plus'
+                data-id='product-increment'
               />
             </div>
           </div>
@@ -41,11 +44,11 @@ Product.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   }).isRequired,
   amount: PropTypes.number,
   increment: PropTypes.func,
-  decrement: PropTypes.func,
+  decrement: PropTypes.func
 };
 
 export default counter(Product);
