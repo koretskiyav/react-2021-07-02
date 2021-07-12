@@ -1,0 +1,10 @@
+.middleRateBox {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.middleRateBoxTitle {
+    margin-right: 10px;
+    font-weight: bold;
+}
