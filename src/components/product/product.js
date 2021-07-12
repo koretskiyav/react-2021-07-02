@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import PropTypes from "prop-types";
-import counter from "../../hocs/counter";
-import styles from "./product.module.css";
-import Button from "../button";
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import counter from '../../hocs/counter';
+import styles from './product.module.css';
+import Button from '../button';
 
 function Product({ product, amount, decrement, increment, fetchData }) {
   useEffect(() => {
@@ -14,7 +14,7 @@ function Product({ product, amount, decrement, increment, fetchData }) {
       <div className={styles.content}>
         <div>
           <h4 className={styles.title}>{product.name}</h4>
-          <p className={styles.description}>{product.ingredients.join(", ")}</p>
+          <p className={styles.description}>{product.ingredients.join(', ')}</p>
           <div className={styles.price}>{product.price} $</div>
         </div>
         <div>
@@ -42,14 +42,10 @@ function Product({ product, amount, decrement, increment, fetchData }) {
 }
 
 Product.propTypes = {
-  product: PropTypes.shape({
-    name: PropTypes.string,
-    price: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }).isRequired,
   amount: PropTypes.number,
   increment: PropTypes.func,
   decrement: PropTypes.func,
+  fetchData: PropTypes.func,
 };
 
 export default counter(Product);
