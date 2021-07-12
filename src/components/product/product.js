@@ -23,7 +23,11 @@ function Product({ product, amount, decrement, increment, fetchData }) {
               {amount}
             </div>
             <div className={styles.buttons}>
-              <Button onClick={decrement} icon="minus" />
+              <Button
+                onClick={decrement}
+                icon="minus"
+                data-id="product-decrement"
+              />
               <Button
                 onClick={increment}
                 icon="plus"
@@ -46,6 +50,13 @@ Product.propTypes = {
   amount: PropTypes.number,
   increment: PropTypes.func,
   decrement: PropTypes.func,
+  fetchData: PropTypes.func,
+};
+Product.defaultProps = {
+  amount: 0,
+  increment: () => {},
+  decrement: () => {},
+  fetchData: () => {},
 };
 
 export default counter(Product);
