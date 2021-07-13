@@ -15,7 +15,8 @@ const Banner = ({ heading, children }) => (
 );
 
 Banner.propTypes = {
-  heading: PropTypes.string
+  heading: PropTypes.string,
+  children: PropTypes.element
 }
 
 export default Banner;
