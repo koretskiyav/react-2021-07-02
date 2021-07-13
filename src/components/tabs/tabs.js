@@ -25,5 +25,5 @@ Tabs.propTypes = {
     label: PropTypes.string
   }).isRequired).isRequired,
   activeId: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func.isRequired
 }

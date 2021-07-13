@@ -32,5 +32,18 @@ export default Restaurant;
 Restaurant.propTypes = {
   restaurant : PropTypes.shape({
     id: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    menu: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      price: PropTypes.number,
+      ingredients: PropTypes.arrayOf(PropTypes.string)
+    }),
+    reviews: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      user: PropTypes.string,
+      text: PropTypes.string,
+      rating: PropTypes.number,
+    })
   }).isRequired
 }
