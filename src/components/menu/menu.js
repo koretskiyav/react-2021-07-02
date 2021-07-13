@@ -6,8 +6,6 @@ import Product from '../product';
 import styles from './menu.module.css';
 
 class Menu extends Component {
-  state = { error: null };
-
   static propTypes = {
     menu: PropTypes.arrayOf(
       PropTypes.shape({
@@ -15,6 +13,8 @@ class Menu extends Component {
       }).isRequired
     ).isRequired,
   };
+
+  state = { error: null };
 
   componentDidCatch(error) {
     this.setState({ error });
@@ -38,13 +38,5 @@ class Menu extends Component {
     );
   }
 }
-
-// Menu.propTypes = {
-//   menu: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     }).isRequired
-//   ).isRequired,
-// };
 
 export default Menu;
