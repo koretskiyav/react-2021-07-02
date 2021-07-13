@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import counter from '../../hocs/counter';
 import styles from './product.module.css';
 import Button from '../button';
 
@@ -48,10 +48,19 @@ Product.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
   fetchData: PropTypes.func,
-  // from HOC counter
+  // from connect
   amount: PropTypes.number,
   increment: PropTypes.func,
   decrement: PropTypes.func,
 };
 
-export default counter(Product);
+const mapStateToProps = (state) => ({
+  amount: state.order,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  increment: () => dispatch({ type: 'increment' }),
+  decrement: () => dispatch({ type: 'decrement' }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
