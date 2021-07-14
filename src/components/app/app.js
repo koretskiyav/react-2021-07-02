@@ -5,28 +5,7 @@ import PropTypes from 'prop-types';
 
 export default class App extends PureComponent {
   static propTypes = {
-    restaurants: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        menu: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            price: PropTypes.number.isRequired,
-            ingredients: PropTypes.array,
-          })
-        ).isRequired,
-        reviews: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            user: PropTypes.string.isRequired,
-            text: PropTypes.string.isRequired,
-            rating: PropTypes.number.isRequired,
-          })
-        ),
-      }).isRequired
-    ).isRequired,
+    restaurants: PropTypes.array.isRequired,
   };
   render() {
     return (

@@ -29,24 +29,10 @@ Restaurants.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      menu: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          price: PropTypes.number.isRequired,
-          ingredients: PropTypes.array,
-        })
-      ).isRequired,
-      reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          user: PropTypes.string.isRequired,
-          text: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-        })
-      ),
+      menu: PropTypes.array.isRequired,
+      reviews: PropTypes.array.isRequired,
     }).isRequired
-  ).isRequired,
+  ),
 };
 
 export default Restaurants;

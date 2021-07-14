@@ -24,9 +24,9 @@ describe('Review', () => {
     expect(wrapper.find('[data-id="text"]').text()).toBe(review.text);
   });
   it('should have default name', () => {
-    const wrapper = mount(<Review />);
+    const wrapper = mount(<Review key={review.id} {...emptyReview} />);
     expect(wrapper.find('[data-id="name"]').text()).toBe(
-      Review.defaultProps.user
+      Review.props.user || `Anonymous`
     );
   });
 

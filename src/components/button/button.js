@@ -20,9 +20,6 @@ const Button = ({ icon, ...props }) => {
 
 Button.propTypes = {
   icon: PropTypes.string.isRequired,
-  button: PropTypes.shape({
-    onClick: PropTypes.func.isRequired,
-  }),
 };
 
 export default Button;
