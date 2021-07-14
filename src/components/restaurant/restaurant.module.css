@@ -1,3 +1,5 @@
 .restaurant {
+  box-sizing: border-box;
+  flex: 1 1 calc(100% - 440px);
   padding: 12px;
 }

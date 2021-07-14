@@ -1,0 +1,52 @@
+.item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.item > * {
+    margin: 0;
+    padding: 0;
+}
+
+.name {
+    margin-right: auto;
+}
+
+.amount {
+    margin-right: 10px;
+}
+
+.amount > span {
+    display: inline-block;
+    min-width: 30px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.amount > button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-width: 22px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.price {
+    text-align: right;
+    min-width: 60px;
+}
+
+.remove {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    outline: none;
+    border: none;
+    background: transparent;
+}
