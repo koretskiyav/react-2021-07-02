@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
+import Bucket from '../bucket';
 
 function Restaurants({ restaurants }) {
   const [activeId, setActiveId] = useState(restaurants[0].id);
@@ -19,6 +20,7 @@ function Restaurants({ restaurants }) {
   return (
     <div>
       <Tabs tabs={tabs} onChange={setActiveId} activeId={activeId} />
+      <Bucket />
       <Restaurant restaurant={activeRestaurant} />
     </div>
   );
