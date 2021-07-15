@@ -1,0 +1,42 @@
+.container {
+  width: 360px;
+  margin: 20px auto;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.06), 0px 2px 32px rgba(0, 0, 0, 0.16);
+}
+
+.header {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+}
+
+.header-corner {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-content: center;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.no-products-banner {
+  padding: 10px 0;
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  margin: 0;
+}
+
+.total {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 16px;
+}
