@@ -7,7 +7,7 @@ import { ReactComponent as MinusIcon } from '../../icons/minus.svg';
 
 const icons = {
   plus: PlusIcon,
-  minus: MinusIcon,
+  minus: MinusIcon
 };
 
 const Button = ({ icon, ...props }) => {

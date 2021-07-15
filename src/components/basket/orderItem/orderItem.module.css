@@ -1,0 +1,39 @@
+.orderItem {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.buttons {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons button {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.buttons :last-child svg{
+    transform: rotate(45deg);
+}
+
+.label {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.price {
+    display: flex;
+}
+
+.price :nth-child(2) {
+    width: 80px;
+    display: flex;
+    justify-content: flex-end;
+}
