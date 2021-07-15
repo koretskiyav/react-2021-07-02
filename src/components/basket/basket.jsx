@@ -2,10 +2,11 @@ import styles from './basket.module.css'
 import { ReactComponent as BasketIcon } from '../../icons/basket.svg'
 import { connect } from 'react-redux'
 import { restaurants } from '../../fixtures'
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 import BasketProduct from './basket-product/basket-product'
 
 const Basket = ({ order }) => {
+
   const findProduct = (id) => {
     let result
 
@@ -42,6 +43,12 @@ const Basket = ({ order }) => {
     return result
   }, [order])
 
+  const totalSum = useMemo(() => (
+    selectedProducts.reduce(
+      (prevSum, currentProduct) => (prevSum + currentProduct.sum), 0
+    )
+  ), [selectedProducts])
+
   return (
     <div className={styles['container']}>
       <div className={styles['header']}>
@@ -52,9 +59,19 @@ const Basket = ({ order }) => {
         <div className={styles['header-corner']}></div>
       </div>
       <div className={styles['selected-products']}>
-        {!!selectedProducts.length ? (selectedProducts.map(product => (
-          <BasketProduct product={product} />
-        ))) : (
+        {!!selectedProducts.length ? (
+          <Fragment>
+            {selectedProducts.map(product => (
+              <BasketProduct product={product} />
+            ))}
+            {totalSum && (
+              <div className={styles['total']}>
+                <span className={'total-title'}>Total:&nbsp;</span>
+                <span className={'total-sum'}>{totalSum}$</span>
+              </div>
+            )}
+          </Fragment>
+        ) : (
           <p className={styles['no-products-banner']}>No products</p>
         )}
       </div>
