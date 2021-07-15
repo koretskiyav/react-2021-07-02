@@ -1,0 +1,71 @@
+.basket{
+  padding: 20px 26px;
+  margin-bottom: 12px;
+  border: 1px solid red;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.price {
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  color: var(--yellow);
+}
+.sum {
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  color: var(--yellow);
+}
+
+.total {
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  color: var(red);
+  text-align: right;
+}
+
+
+.count {
+  color: var(--grey-dark);
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 18px;
+  line-height: 28px;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.counter {
+  padding: 5px 0;
+  text-align: center;
+}
+
+.content > *:first-child {
+  flex: 1 0 93%;
+}
+
+.content > *:last-child {
+  flex: 1 0 7%;
+  justify-content: flex-end;
+}
