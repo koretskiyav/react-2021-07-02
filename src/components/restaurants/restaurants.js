@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
 
-function Restaurants({ restaurants }) {
+function Restaurants({ restaurants, className }) {
   const [activeId, setActiveId] = useState(restaurants[0].id);
 
   const tabs = useMemo(
@@ -17,7 +17,7 @@ function Restaurants({ restaurants }) {
   );
 
   return (
-    <div>
+    <div className={className}>
       <Tabs tabs={tabs} onChange={setActiveId} activeId={activeId} />
       <Restaurant restaurant={activeRestaurant} />
     </div>

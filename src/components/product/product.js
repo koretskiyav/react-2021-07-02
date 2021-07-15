@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import Button from '../button';
-import { decrement, increment } from '../../redux/actions';
+import { decrement, increment, empty } from '../../redux/actions';
 
-function Product({ product, amount, decrement, increment, fetchData }) {
+function Product({ product, amount, decrement, increment, empty, fetchData, hasTotal }) {
   useEffect(() => {
     fetchData && fetchData(product.id);
   }, []); // eslint-disable-line
@@ -35,6 +35,18 @@ function Product({ product, amount, decrement, increment, fetchData }) {
                 data-id="product-increment"
               />
             </div>
+            {hasTotal ? 
+              <div>
+                <span className={styles.total}>
+                  Сумма: {product.price * amount}
+                </span>
+                <Button
+                  onClick={empty}
+                  icon="delete"
+                />
+              </div> : 
+              null 
+            }
           </div>
         </div>
       </div>
@@ -53,6 +65,7 @@ Product.propTypes = {
   amount: PropTypes.number,
   increment: PropTypes.func,
   decrement: PropTypes.func,
+  empty: PropTypes.func,
 };
 
 const mapStateToProps = (state, props) => ({
@@ -67,6 +80,7 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch, props) => ({
   increment: () => dispatch(increment(props.product.id)),
   decrement: () => dispatch(decrement(props.product.id)),
+  empty: () => dispatch(empty(props.product.id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
