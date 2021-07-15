@@ -4,7 +4,8 @@ import Restaurant from '../restaurant';
 import Tabs from '../tabs';
 import Bucket from '../bucket';
 
-function Restaurants({ restaurants }) {
+function Restaurants({ restaurants, state = 0 }) {
+  console.log(state);
   const [activeId, setActiveId] = useState(restaurants[0].id);
 
   const tabs = useMemo(
@@ -20,7 +21,7 @@ function Restaurants({ restaurants }) {
   return (
     <div>
       <Tabs tabs={tabs} onChange={setActiveId} activeId={activeId} />
-      <Bucket />
+      <Bucket amount={state} allRestaurants={restaurants} />
       <Restaurant restaurant={activeRestaurant} />
     </div>
   );
