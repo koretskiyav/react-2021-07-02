@@ -1,14 +1,19 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import Button from '../button';
-import { decrement, increment } from '../../redux/actions';
+import { decrement, increment, append } from '../../redux/actions';
 
-function Product({ product, amount, decrement, increment, fetchData }) {
+function Product({ product, amount, decrement, increment, fetchData, append }) {
   useEffect(() => {
     fetchData && fetchData(product.id);
   }, []); // eslint-disable-line
+
+  const handleIncrement = useCallback(() => {
+    increment();
+    append();
+  }, [append, increment])
 
   return (
     <div className={styles.product} data-id="product">
@@ -30,7 +35,7 @@ function Product({ product, amount, decrement, increment, fetchData }) {
                 data-id="product-decrement"
               />
               <Button
-                onClick={increment}
+                onClick={() => handleIncrement()}
                 icon="plus"
                 data-id="product-increment"
               />
@@ -67,6 +72,7 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch, props) => ({
   increment: () => dispatch(increment(props.product.id)),
   decrement: () => dispatch(decrement(props.product.id)),
+  append: () => dispatch(append(props.product)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
