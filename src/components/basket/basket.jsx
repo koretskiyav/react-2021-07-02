@@ -53,7 +53,7 @@ const Basket = ({ order }) => {
       </div>
       <div className={styles['selected-products']}>
         {selectedProducts.map(product => (
-          <BasketProduct />
+          <BasketProduct product={product} />
         ))}
       </div>
     </div>

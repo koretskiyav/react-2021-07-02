@@ -1,0 +1,23 @@
+.product {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  width: 40%;
+  padding-left: 10px;
+}
+
+.price {
+  width: 20%;
+}
+
+.amount {
+  width: 20%;
+}
+
+.buttons {
+  width: 20%;
+  display: flex;
+}
