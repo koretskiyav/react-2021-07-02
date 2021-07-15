@@ -1,4 +1,4 @@
-import { DECREMENT, INCREMENT } from '../constants';
+import { DECREMENT, INCREMENT, RESET } from '../constants';
 
 const initialState = {
 }
@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
       return { ...state, [id]: (state[id] || 0) + 1 };
     case DECREMENT:
       return { ...state, [id]: (state[id] || 1) - 1 };
+    case RESET:
+      return { ...state, [id]: 0 }
     default:
       return state;
   }
