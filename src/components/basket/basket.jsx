@@ -52,9 +52,11 @@ const Basket = ({ order }) => {
         <div className={styles['header-corner']}></div>
       </div>
       <div className={styles['selected-products']}>
-        {selectedProducts.map(product => (
+        {!!selectedProducts.length ? (selectedProducts.map(product => (
           <BasketProduct product={product} />
-        ))}
+        ))) : (
+          <p className={styles['no-products-banner']}>No products</p>
+        )}
       </div>
     </div>
   )

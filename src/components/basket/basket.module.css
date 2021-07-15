@@ -23,3 +23,11 @@
   font-size: 18px;
   font-weight: bold;
 }
+
+.no-products-banner {
+  padding: 10px 0;
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  margin: 0;
+}
