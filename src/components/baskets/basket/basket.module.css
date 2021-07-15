@@ -1,0 +1,37 @@
+.basket {
+  display: flex;
+  flex-direction: 'row';
+  align-items: center;
+}
+
+.name {
+  padding-right: 7px;
+  width: calc(34%);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: 'row';
+  align-items: center;
+}
+
+.amout {
+  padding-left: 7px;
+  padding-right: 7px;
+  color: red;
+}
+
+.price {
+  color: black;
+  font-weight: bold;
+  padding-left: 7px;
+  width: calc(44%);
+}
+
+.delete {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

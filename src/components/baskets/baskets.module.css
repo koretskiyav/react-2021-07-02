@@ -1,0 +1,47 @@
+.baskets {
+  display: flex;
+  flex-direction: column;
+  color: var(--black);
+}
+
+.button {
+  position: absolute;
+  margin-top: 4px;
+  right: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.activeButton {
+  border: 1px solid var(--grey);
+  background-color: var(--yellow);
+}
+
+.basket {
+  position: absolute;
+  right: 0px;
+  margin-top: 42px;
+  padding-right: 25px;
+  padding-left: 25px;
+  background-color: var(--grey);
+  z-index: 3;
+  min-width: 455px;
+}
+
+.titleShop {
+  margin-bottom: 7px;
+}
+
+.totalPrice {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 15px;
+}
+
+.numberPrice {
+  font-weight: 800;
+}
