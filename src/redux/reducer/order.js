@@ -1,4 +1,4 @@
-import { DECREMENT, INCREMENT } from '../constants';
+import { DECREMENT, INCREMENT, EMPTY } from '../constants';
 
 // { [productId]: amount }
 export default (state = {}, action) => {
@@ -8,6 +8,8 @@ export default (state = {}, action) => {
       return { ...state, [id]: (state[id] || 0) + 1 };
     case DECREMENT:
       return { ...state, [id]: (state[id] || 0) - 1 };
+    case EMPTY:
+      return { ...state, [id]: 0 }
     default:
       return state;
   }

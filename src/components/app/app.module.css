@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.restaurants {
+    width: 70%;
+}
+
+.basket {
+    width: 25%;
+}
