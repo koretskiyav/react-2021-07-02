@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import Basket from '../basket';
 import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
@@ -15,7 +16,7 @@ const Restaurant = ({ restaurant }) => {
   }, [reviews]);
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <Banner heading={name}>
         <Rate value={averageRating} />
       </Banner>
@@ -23,6 +24,7 @@ const Restaurant = ({ restaurant }) => {
         <Menu key={id} menu={menu} />
         <Reviews reviews={reviews} />
       </div>
+      <Basket />
     </div>
   );
 };
