@@ -7,15 +7,14 @@ import { useMemo } from 'react';
 
 
 function Basket({ restaurants, order, decrement, increment, remove }) {
-
   const menu = restaurants.map((restaurant) => {
     return restaurant.menu;
   });
 
-  const items = menu.flatMap(restProducts => {
+  const items = menu.flatMap(products => {
     return Object.keys(order)
       .flatMap(key => {
-        return restProducts
+        return products
           .filter(o => o.id === key)
           .map(o => {
             return {
@@ -29,7 +28,6 @@ function Basket({ restaurants, order, decrement, increment, remove }) {
       });
   })
     .filter(String);
-
 
   const orderPrice = useMemo(() => {
     return items.reduce((prev, next) => prev + next.sumPrice, 0);
