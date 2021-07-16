@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import Button from '../button';
-import { decrement, increment } from '../../redux/actions';
+import { decrement, increment } from '../../redux/features/order';
 
 function Product({ product, amount, decrement, increment, fetchData }) {
   useEffect(() => {

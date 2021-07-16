@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import { increment, decrement, remove } from '../../../redux/actions';
+import { increment, decrement, remove } from '../../../redux/features/order';
 import Button from '../../button';
 import styles from './basket-item.module.css';
 
