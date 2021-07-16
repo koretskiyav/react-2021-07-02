@@ -8,3 +8,5 @@ export default (restaurants = defaultRestaurants, action) => {
       return restaurants;
   }
 };
+
+export const restaurantsSelector = (state) => state.restaurants;

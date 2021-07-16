@@ -19,3 +19,5 @@ export default (state = {}, action) => {
       return state;
   }
 };
+
+export const orderSelector = (state) => state.order;
