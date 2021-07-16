@@ -1,10 +1,6 @@
 import { createSelector } from 'reselect';
 import { orderSelector } from './features/order';
-import { restaurantsSelector } from './features/restaurants';
-
-const productsSelector = createSelector(restaurantsSelector, (restaurants) =>
-  restaurants.flatMap((restaurant) => restaurant.menu)
-);
+import { productsSelector } from './features/products';
 
 export const orderProductsSelector = createSelector(
   productsSelector,
