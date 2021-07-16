@@ -1,0 +1,18 @@
+.basket {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+
+  width: auto;
+  height: auto;
+
+  padding: 10px;
+
+  background-color: yellow;
+  z-index: 1000;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
