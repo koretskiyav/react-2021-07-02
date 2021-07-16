@@ -1,25 +1,24 @@
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { ReactComponent as Star } from '../../icons/star.svg';
 
 import styles from './rate.module.css';
-import PropTypes from 'prop-types';
 
 const Rate = ({ value }) => (
   <div>
     {[...Array(5)].map((_, i) => (
       <Star
         key={i}
+        data-id={i <= value - 1 ? 'full-star' : 'empty-star'}
         className={cn(styles.star, { [styles.checked]: i <= value - 1 })}
-        data-id="review-star"
       />
     ))}
   </div>
 );
 
-// Not required, because number < undefined - number is always false
 Rate.propTypes = {
-  value: PropTypes.number
-}
+  value: PropTypes.number.isRequired,
+};
 
 export default Rate;

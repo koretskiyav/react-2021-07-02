@@ -1,49 +1,49 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
-import styles from './restaurant.module.css';
-import PropTypes from 'prop-types';
+import Tabs from '../tabs';
 
 const Restaurant = ({ restaurant }) => {
   const { id, name, menu, reviews } = restaurant;
+
+  const [activeTab, setActiveTab] = useState('menu');
 
   const averageRating = useMemo(() => {
     const total = reviews.reduce((acc, { rating }) => acc + rating, 0);
     return Math.round(total / reviews.length);
   }, [reviews]);
 
+  const tabs = [
+    { id: 'menu', label: 'Menu' },
+    { id: 'reviews', label: 'Reviews' },
+  ];
+
   return (
     <div>
       <Banner heading={name}>
         <Rate value={averageRating} />
       </Banner>
-      <div className={styles.restaurant}>
-        <Menu key={id} menu={menu} />
-        <Reviews reviews={reviews} />
-      </div>
+      <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
+      {activeTab === 'menu' && <Menu menu={menu} key={id} />}
+      {activeTab === 'reviews' && <Reviews reviews={reviews} />}
     </div>
   );
 };
 
-export default Restaurant;
-
 Restaurant.propTypes = {
-  restaurant : PropTypes.shape({
+  restaurant: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string,
-    menu: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string,
-      price: PropTypes.number,
-      ingredients: PropTypes.arrayOf(PropTypes.string)
-    }),
-    reviews: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      user: PropTypes.string,
-      text: PropTypes.string,
-      rating: PropTypes.number,
-    })
-  }).isRequired
-}
+    menu: PropTypes.array,
+    reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        rating: PropTypes.number.isRequired,
+      }).isRequired
+    ).isRequired,
+  }).isRequired,
+};
+
+export default Restaurant;

@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
 
-export default function Restaurants({ restaurants }) {
+function Restaurants({ restaurants }) {
   const [activeId, setActiveId] = useState(restaurants[0].id);
 
   const tabs = useMemo(
@@ -28,8 +28,12 @@ export default function Restaurants({ restaurants }) {
 Restaurants.propTypes = {
   restaurants: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string,
     }).isRequired
-  ).isRequired
-}
+  ).isRequired,
+};
+
+export default connect((state) => ({
+  restaurants: state.restaurants,
+}))(Restaurants);
