@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Rate from '../../rate';
 import styles from './review.module.css';
 
-const Review = ({ userId, text, rating }) => (
+const Review = ({ userId, text, rating, user }) => (
   <div className={styles.review} data-id="review">
     <div className={styles.content}>
       <div>
         <h4 className={styles.name} data-id="review-user">
-          {userId}
+          {user.name}
         </h4>
         <p className={styles.comment} data-id="review-text">
           {text}
@@ -31,4 +32,6 @@ Review.defaultProps = {
   userId: 'Anonymous',
 };
 
-export default Review;
+export default connect((state, props) => ({
+  user: state.users[props.userId],
+}))(Review);
