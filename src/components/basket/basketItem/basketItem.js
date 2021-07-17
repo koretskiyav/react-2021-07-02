@@ -7,7 +7,7 @@ import styles from './basketItem.module.css';
 import { ReactComponent as Remove } from '../../../icons/remove.svg';
 
 const BasketItem = ({ product, increment, decrement, remove }) => {
-  const { name, amount, price } = product;
+  const { name, amount, subTotal } = product;
 
   return (
     <li className={styles.item}>
@@ -17,7 +17,7 @@ const BasketItem = ({ product, increment, decrement, remove }) => {
         <span>{amount}</span>
         <button onClick={increment}>+</button>
       </p>
-      <p className={styles.price}>{price} $</p>
+      <p className={styles.price}>{subTotal} $</p>
       <button className={styles.remove} onClick={remove}>
         <Remove />
       </button>
@@ -30,7 +30,7 @@ BasketItem.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
+    subTotal: PropTypes.number.isRequired,
   }).isRequired,
   increment: PropTypes.func.isRequired,
   decrement: PropTypes.func.isRequired,
@@ -38,8 +38,8 @@ BasketItem.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  increment: () => dispatch(increment(props.product)),
-  decrement: () => dispatch(decrement(props.product)),
+  increment: () => dispatch(increment(props.product.id)),
+  decrement: () => dispatch(decrement(props.product.id)),
   remove: () => dispatch(remove(props.product.id)),
 });
 

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
@@ -33,4 +34,8 @@ Restaurants.propTypes = {
   ).isRequired,
 };
 
-export default Restaurants;
+const mapStateToProps = (state, props) => ({
+  restaurants: state.restaurants,
+});
+
+export default connect(mapStateToProps)(Restaurants);
