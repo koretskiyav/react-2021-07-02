@@ -13,4 +13,4 @@ export default (users = defaultUsers, action) => {
   }
 };
 
-export const userSelector = (state) => state.users;
+export const usersSelector = (state) => state.users;

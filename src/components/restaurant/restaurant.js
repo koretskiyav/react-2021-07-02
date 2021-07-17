@@ -6,20 +6,14 @@ import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
 import Tabs from '../tabs';
+import { reviewByRestaurantSelector } from '../../redux/selectors';
 
-const Restaurant = ({ restaurant, normalizedReviews }) => {
-  const { id, name, menu, reviews } = restaurant;
-
+const Restaurant = ({ restaurant, reviews }) => {
+  const { id, name, menu } = restaurant;
+  console.log('id', id);
   const [activeTab, setActiveTab] = useState('menu');
 
-  const filtered = Object.keys(normalizedReviews)
-    .filter((key) => reviews.includes(key))
-    .reduce((obj, key) => {
-      obj[key] = normalizedReviews[key];
-      return obj;
-    }, {});
-
-  const reviewList = Object.values(filtered);
+  const reviewList = Object.values(reviews);
   const averageRating = useMemo(() => {
     const total = reviewList.reduce((acc, { rating }) => acc + rating, 0);
     return Math.round(total / reviewList.length);
@@ -46,8 +40,8 @@ Restaurant.propTypes = {
   restaurant: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string,
-    menu: PropTypes.array,
-    reviews: PropTypes.arrayOf(
+    menu: PropTypes.object,
+    reviews: PropTypes.objectOf(
       PropTypes.shape({
         rating: PropTypes.number.isRequired,
       }).isRequired
@@ -55,6 +49,7 @@ Restaurant.propTypes = {
   }).isRequired,
 };
 
-export default connect((state) => ({
-  normalizedReviews: state.reviews,
+export default connect((state, ownProps) => ({
+  ...ownProps,
+  reviews: reviewByRestaurantSelector(state)([ownProps.restaurant.id]),
 }))(Restaurant);
