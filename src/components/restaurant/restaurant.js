@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
@@ -6,19 +7,27 @@ import Banner from '../banner';
 import Rate from '../rate';
 import Tabs from '../tabs';
 
-const Restaurant = ({ restaurant }) => {
+const Restaurant = ({ restaurant, normalizedReviews }) => {
   const { id, name, menu, reviews } = restaurant;
 
   const [activeTab, setActiveTab] = useState('menu');
 
+  const filtered = Object.keys(normalizedReviews)
+    .filter((key) => reviews.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = normalizedReviews[key];
+      return obj;
+    }, {});
+
+  const reviewList = Object.values(filtered);
   const averageRating = useMemo(() => {
-    const total = reviews.reduce((acc, { rating }) => acc + rating, 0);
-    return Math.round(total / reviews.length);
-  }, [reviews]);
+    const total = reviewList.reduce((acc, { rating }) => acc + rating, 0);
+    return Math.round(total / reviewList.length);
+  }, [reviewList]);
 
   const tabs = [
-    { id: 'menu', label: 'Menu' },
-    { id: 'reviews', label: 'Reviews' },
+    { id: 'menu', name: 'Menu' },
+    { id: 'reviews', name: 'Reviews' },
   ];
 
   return (
@@ -28,7 +37,7 @@ const Restaurant = ({ restaurant }) => {
       </Banner>
       <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
       {activeTab === 'menu' && <Menu menu={menu} key={id} />}
-      {activeTab === 'reviews' && <Reviews reviews={reviews} />}
+      {activeTab === 'reviews' && <Reviews reviews={reviewList} />}
     </div>
   );
 };
@@ -46,4 +55,6 @@ Restaurant.propTypes = {
   }).isRequired,
 };
 
-export default Restaurant;
+export default connect((state) => ({
+  normalizedReviews: state.reviews,
+}))(Restaurant);

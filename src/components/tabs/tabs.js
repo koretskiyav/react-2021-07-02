@@ -6,13 +6,13 @@ import styles from './tabs.module.css';
 function Tabs({ tabs, activeId, onChange }) {
   return (
     <div className={styles.tabs}>
-      {tabs.map(({ id, label }) => (
+      {tabs.map(({ id, name }) => (
         <span
           key={id}
           className={cn(styles.tab, { [styles.active]: id === activeId })}
           onClick={() => onChange(id)}
         >
-          {label}
+          {name}
         </span>
       ))}
     </div>

@@ -60,11 +60,6 @@ const mapStateToProps = (state, props) => ({
   product: state.products[props.id],
 });
 
-// const mapDispatchToProps = {
-//   increment,
-//   decrement,
-// };
-
 const mapDispatchToProps = (dispatch, props) => ({
   increment: () => dispatch(increment(props.id)),
   decrement: () => dispatch(decrement(props.id)),
