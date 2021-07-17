@@ -1,39 +1,31 @@
 import { DECREMENT, INCREMENT, REMOVE } from '../constants';
 
 // { [productId]: amount }
-export default (state = {}, action) => {
-  const { type, payload: { id, name, price } = {} } = action;
+export default (orders = {}, action) => {
+  const { type, payload: id } = action;
 
   switch (type) {
     case INCREMENT:
-      return {
-        ...state,
-        [id]: {
-          amount: (state[id]?.amount || 0) + 1,
-          name,
-          price,
-        },
-      };
+      return { ...orders, [id]: (orders[id] || 0) + 1 };
     case DECREMENT:
-      if (!state[id]) return state;
+      if (!orders[id]) return orders;
 
-      if (state[id] && state[id].amount === 1) {
-        delete state[id];
-        return { ...state };
+      if (orders[id] && orders[id] === 1) {
+        const newOrders = { ...orders };
+
+        delete newOrders[id];
+
+        return newOrders;
       }
 
-      return {
-        ...state,
-        [id]: {
-          amount: (state[id]?.amount || 0) - 1,
-          name,
-          price,
-        },
-      };
+      return { ...orders, [id]: (orders[id] || 0) - 1 };
     case REMOVE:
-      delete state[id];
-      return { ...state };
+      const newOrders = { ...orders };
+
+      delete newOrders[id];
+
+      return newOrders;
     default:
-      return state;
+      return orders;
   }
 };
