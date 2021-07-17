@@ -34,7 +34,7 @@ Basket.propTypes = {
 
 const mapStateToProps = (state, props) => {
   const products = state.restaurants
-    .reduce((acc, restaurant) => acc.concat(restaurant.menu), [])
+    .flatMap(restaurant => restaurant.menu)
     .reduce(
       (acc, product) => (acc = { ...acc, [product.id]: { ...product } }),
       {}
