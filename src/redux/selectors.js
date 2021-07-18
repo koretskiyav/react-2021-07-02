@@ -3,7 +3,8 @@ import { restaurants } from '../fixtures';
 import { orderSelector } from './features/order';
 import { productsSelector } from './features/products';
 import { restaurantsSelector } from './features/restaurants';
-
+import { userSelector } from './features/users';
+import { reviewSelector } from './features/reviews';
 export const orderProductsSelector = createSelector(
   productsSelector,
   orderSelector,
@@ -27,3 +28,5 @@ export const allRestaurantsSelector = createSelector(
   restaurantsSelector,
   (restaurants) => restaurants
 );
+export const reviewUserSelector = (state, reviewId) =>
+  userSelector(state)[reviewSelector(state)[reviewId].userId];
