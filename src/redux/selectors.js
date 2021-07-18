@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
+import { restaurants } from '../fixtures';
 import { orderSelector } from './features/order';
 import { productsSelector } from './features/products';
+import { restaurantsSelector } from './features/restaurants';
 
 export const orderProductsSelector = createSelector(
   productsSelector,
@@ -20,4 +22,8 @@ export const totalSelector = createSelector(
   orderProductsSelector,
   (orderProducts) =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
+);
+export const allRestaurantsSelector = createSelector(
+  restaurantsSelector,
+  (restaurants) => restaurants
 );
