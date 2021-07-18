@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Menu from '../menu';
 import Reviews from '../reviews';
 import Banner from '../banner';
@@ -38,11 +39,7 @@ Restaurant.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string,
     menu: PropTypes.array,
-    reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        rating: PropTypes.number.isRequired,
-      }).isRequired
-    ).isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
 

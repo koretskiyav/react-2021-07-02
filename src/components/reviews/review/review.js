@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Rate from '../../rate';
 import styles from './review.module.css';
@@ -31,4 +32,6 @@ Review.defaultProps = {
   user: 'Anonymous',
 };
 
-export default Review;
+const mapStateToProps = (state, props) => ({... state.reviews[props.id]});
+
+export default connect(mapStateToProps)(Review);
