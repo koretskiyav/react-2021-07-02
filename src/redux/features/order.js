@@ -21,3 +21,5 @@ export default (state = {}, action) => {
 };
 
 export const orderSelector = (state) => state.order;
+
+export const amountProductSelector = (state, props) => state.order[props.id];
