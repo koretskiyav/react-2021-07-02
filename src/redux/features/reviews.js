@@ -5,9 +5,9 @@ import { ADD_REVIEW } from '../constants';
 //text: 'Not bad',
 //rating: 5
 
-export const addreview = (id, userId, text, rating, name) => ({
+export const addreview = (id, userId, text, rating, name, restaurantId) => ({
   type: ADD_REVIEW,
-  payload: { id, userId, text, rating, name },
+  payload: { id, userId, text, rating, name, restaurantId },
 });
 
 const defaultReviews = normalizedReviews.reduce(
@@ -16,7 +16,6 @@ const defaultReviews = normalizedReviews.reduce(
 );
 export default (reviews = defaultReviews, action) => {
   const { type, payload } = action;
-  debugger;
   switch (type) {
     case ADD_REVIEW: {
       return {

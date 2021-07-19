@@ -9,7 +9,7 @@ import styles from './review-form.module.css';
 
 const INITIAL_VALUES = { name: '', text: '', rating: 3 };
 
-const ReviewForm = ({ onSubmit }) => {
+const ReviewForm = ({ onSubmit, restaurantId }) => {
   const { values, handlers, reset } = useForm(INITIAL_VALUES);
 
   const handleSubmit = (ev) => {
@@ -51,24 +51,7 @@ const ReviewForm = ({ onSubmit }) => {
     </div>
   );
 };
-// function submit() {
-//   return function(dispatch) {
-//     dispatch({
-//       type: 'NAVIGATION/NAVIGATE',
-//       location: {name: 'documentEdit', {id: data.id}},
-//     )
-//     dispatch({
-//       type: 'DOCUMENT_VIEW/RESET',
-//       id: data.id,
-//     })
-//     dispatch({
-//       type: 'DOCUMENT_DATA/POST',
-//       data,
-//     })
-//   }
-// }
-// }
-export default connect(null, (dispatch) => ({
+export default connect(null, (dispatch, restaurantId) => ({
   onSubmit: ({ name, text, rating }) =>
-    dispatch(addreview('', '', text, rating, name)),
+    dispatch(addreview('', '', text, rating, name, restaurantId)),
 }))(ReviewForm);

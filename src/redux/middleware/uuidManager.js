@@ -13,7 +13,7 @@ export default (store) => (next) => (action) => {
   //{ id, userId, text, rating }
   const {
     type,
-    payload: { text, rating, name },
+    payload: { text, rating, name, restaurantId },
   } = action;
   const newUserId = uuidv4();
   const newReviewId = uuidv4();
@@ -29,7 +29,7 @@ export default (store) => (next) => (action) => {
       });
       next({
         type: ADD_RESTARANT_REVIEW,
-        payload: { id: newReviewId, restaruntId: '' },
+        payload: { id: newReviewId, restaurantId: restaurantId.restaurantId },
       });
       break;
     }

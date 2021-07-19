@@ -10,10 +10,8 @@ export default (restaurants = defaultRestaurants, action) => {
 
   switch (type) {
     case ADD_RESTARANT_REVIEW: {
-      debugger;
-      const firstRestrantId = Object.keys(restaurants)[0];
       let resCopy = { ...restaurants };
-      resCopy[firstRestrantId].reviews.push(payload.id);
+      resCopy[payload.restaurantId].reviews.push(payload.id);
 
       return resCopy;
     }
