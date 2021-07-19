@@ -54,3 +54,9 @@ export const averageRatingSelector = createSelector(
     return Math.round(total / restaurant.reviews.length);
   }
 );
+
+export const reviewSelector = createSelector(
+  reviewsSelector,
+  (state, props) => props.id, 
+  (reviews, id) => reviews[id]
+);
