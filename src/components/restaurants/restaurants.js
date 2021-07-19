@@ -5,7 +5,6 @@ import Restaurant from '../restaurant';
 import Tabs from '../tabs';
 import { allRestaurantsSelector } from './../../redux/selectors';
 function Restaurants({ restaurants }) {
-  debugger;
   const [activeId, setActiveId] = useState(Object.keys(restaurants)[0]);
 
   const tabs = useMemo(

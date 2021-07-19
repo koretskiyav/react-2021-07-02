@@ -332,3 +332,5 @@ export const normalizedUsers = [
     name: 'Sam',
   },
 ];
+
+const products = restaurants.map((restaurant) => console.log(restaurant.menu));

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import useForm from '../../../hooks/use-form';
 import Rate from '../../rate';
 import Button from '../../button';
-
+import { addreview } from '../../../redux/features/reviews';
+import { addUser } from '../../../redux/features/users';
 import styles from './review-form.module.css';
 
 const INITIAL_VALUES = { name: '', text: '', rating: 3 };
@@ -50,7 +51,24 @@ const ReviewForm = ({ onSubmit }) => {
     </div>
   );
 };
-
-export default connect(null, () => ({
-  onSubmit: (values) => console.log(values), // TODO
+// function submit() {
+//   return function(dispatch) {
+//     dispatch({
+//       type: 'NAVIGATION/NAVIGATE',
+//       location: {name: 'documentEdit', {id: data.id}},
+//     )
+//     dispatch({
+//       type: 'DOCUMENT_VIEW/RESET',
+//       id: data.id,
+//     })
+//     dispatch({
+//       type: 'DOCUMENT_DATA/POST',
+//       data,
+//     })
+//   }
+// }
+// }
+export default connect(null, (dispatch) => ({
+  onSubmit: ({ name, text, rating }) =>
+    dispatch(addreview('', '', text, rating, name)),
 }))(ReviewForm);
