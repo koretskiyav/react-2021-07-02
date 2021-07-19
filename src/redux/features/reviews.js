@@ -14,4 +14,4 @@ export default (reviews = defaultReviews, action) => {
   }
 };
 
-export const reviewsSelector = state => state.reviews
+export const reviewsSelector = (state) => state.reviews

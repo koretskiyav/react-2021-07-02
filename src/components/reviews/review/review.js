@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { reviewSelector } from '../../../redux/selectors'
+import { reviewUserSelector } from '../../../redux/selectors'
 
 import Rate from '../../rate';
 import styles from './review.module.css';
@@ -32,8 +34,8 @@ Review.propTypes = {
 
 const mapStateToProps = (state, props) => {
   return {
-    review: state.reviews[props.id],
-    user: state.users[state.reviews[props.id].userId]
+    review: reviewSelector(state, props),
+    user: reviewUserSelector(state, props)
   }
 }
 
