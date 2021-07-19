@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import Button from '../button';
 import { decrement, increment } from '../../redux/features/order';
+import { getAmountProduct, getProductById } from '../../redux/selectors';
 
 function Product({ product, amount, decrement, increment, fetchData }) {
   useEffect(() => {
@@ -11,7 +12,7 @@ function Product({ product, amount, decrement, increment, fetchData }) {
   }, []); // eslint-disable-line
 
   return (
-    <div className={styles.product} data-id="product">
+    <div className={styles.product} data-id='product'>
       <div className={styles.content}>
         <div>
           <h4 className={styles.title}>{product.name}</h4>
@@ -20,19 +21,19 @@ function Product({ product, amount, decrement, increment, fetchData }) {
         </div>
         <div>
           <div className={styles.counter}>
-            <div className={styles.count} data-id="product-amount">
+            <div className={styles.count} data-id='product-amount'>
               {amount}
             </div>
             <div className={styles.buttons}>
               <Button
                 onClick={decrement}
-                icon="minus"
-                data-id="product-decrement"
+                icon='minus'
+                data-id='product-decrement'
               />
               <Button
                 onClick={increment}
-                icon="plus"
-                data-id="product-increment"
+                icon='plus'
+                data-id='product-increment'
               />
             </div>
           </div>
@@ -46,18 +47,18 @@ Product.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   }).isRequired,
   fetchData: PropTypes.func,
   // from connect
   amount: PropTypes.number,
   increment: PropTypes.func,
-  decrement: PropTypes.func,
+  decrement: PropTypes.func
 };
 
 const mapStateToProps = (state, props) => ({
-  amount: state.order[props.id] || 0,
-  product: state.products[props.id],
+  amount: getAmountProduct(state, props),
+  product: getProductById(state, props)
 });
 
 // const mapDispatchToProps = {
@@ -67,7 +68,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   increment: () => dispatch(increment(props.id)),
-  decrement: () => dispatch(decrement(props.id)),
+  decrement: () => dispatch(decrement(props.id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
