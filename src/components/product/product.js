@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import Button from '../button';
 import { decrement, increment } from '../../redux/features/order';
+import { orderSelector } from '../../redux/features/order';
 import { productsSelector } from '../../redux/features/products';
 
 function Product({ product, amount, decrement, increment, fetchData }) {
@@ -57,9 +58,9 @@ Product.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  amount: state.order[props.id] || 0,
-  product: state.products[props.id],
-  //product: productsSelector(props.id)
+  amount: orderSelector(state)[props.id] || 0,
+  //product: state.products[props.id],
+  product: productsSelector(state)[props.id]
 });
 
 // const mapDispatchToProps = {

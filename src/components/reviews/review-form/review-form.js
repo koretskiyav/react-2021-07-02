@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import useForm from '../../../hooks/use-form';
 import Rate from '../../rate';
 import Button from '../../button';
+import createReview from  '../../../redux/features/reviews';
 
 import styles from './review-form.module.css';
 
@@ -51,6 +52,12 @@ const ReviewForm = ({ onSubmit }) => {
   );
 };
 
-export default connect(null, () => ({
-  onSubmit: (values) => console.log(values), // TODO
-}))(ReviewForm);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onSubmit: ({text, rating}) => {
+    return dispatch({type: 'REVIEW_CREATED', payload: {text, rating }});
+  }
+  //onSubmit: () => dispatch(createReview({name: 'aaa', text: 'bbb', review: 3}))
+});
+
+
+export default connect(null, mapDispatchToProps)(ReviewForm);
