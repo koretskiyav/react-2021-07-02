@@ -4,6 +4,8 @@ import useForm from '../../../hooks/use-form';
 import Rate from '../../rate';
 import Button from '../../button';
 
+import { GET_FORM_VALUES } from '../../../redux/features/reviews';
+
 import styles from './review-form.module.css';
 
 const INITIAL_VALUES = { name: '', text: '', rating: 3 };
@@ -51,6 +53,10 @@ const ReviewForm = ({ onSubmit }) => {
   );
 };
 
-export default connect(null, () => ({
-  onSubmit: (values) => console.log(values), // TODO
+export default connect(null, (dispatch, props) => ({
+  onSubmit: (values) =>
+    dispatch({
+      type: GET_FORM_VALUES,
+      payload: { restaurantId: props.restaurantId, ...values },
+    }),
 }))(ReviewForm);
