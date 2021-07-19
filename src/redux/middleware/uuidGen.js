@@ -1,12 +1,11 @@
 import { v4 as uuidv4 } from 'uuid'
+import { ADD_REVIEW } from '../features/reviews'
 
 export default (store) => (next) => (action) => {
 
-  // change condition
-  if (action.payload && !action.payload.id) {
-    const uuid =  uuidv4()
-    console.log(uuid)
-    // action.payload.id = uuid
+  if (action.type = ADD_REVIEW) {
+    action.payload.userId = uuidv4()
+    action.payload.reviewId = uuidv4()
   }
 
   next(action)
