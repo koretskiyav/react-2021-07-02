@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
 
-function Restaurants({ restaurants }) {
-  const [activeId, setActiveId] = useState(restaurants[0].id);
+function Restaurants({ restaurants, restaurantIds }) {
+  const [activeId, setActiveId] = useState(restaurantIds[0]);
 
   const tabs = useMemo(
-    () => restaurants.map(({ id, name }) => ({ id, label: name })),
+    () => restaurantIds.map((id) => ({ id, label: restaurants[id].name })),
     [restaurants]
   );
 
   const activeRestaurant = useMemo(
-    () => restaurants.find((restaurant) => restaurant.id === activeId),
+    () => restaurants[activeId],
     [activeId, restaurants]
   );
 
@@ -36,4 +36,5 @@ Restaurants.propTypes = {
 
 export default connect((state) => ({
   restaurants: state.restaurants,
+  restaurantIds: Object.keys(state.restaurants)
 }))(Restaurants);
