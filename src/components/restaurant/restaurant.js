@@ -10,7 +10,6 @@ import { reviewByRestaurantSelector } from '../../redux/selectors';
 
 const Restaurant = ({ restaurant, reviews }) => {
   const { id, name, menu } = restaurant;
-  console.log('id', id);
   const [activeTab, setActiveTab] = useState('menu');
 
   const reviewList = Object.values(reviews);
@@ -31,7 +30,9 @@ const Restaurant = ({ restaurant, reviews }) => {
       </Banner>
       <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
       {activeTab === 'menu' && <Menu menu={menu} key={id} />}
-      {activeTab === 'reviews' && <Reviews reviews={reviewList} />}
+      {activeTab === 'reviews' && (
+        <Reviews reviews={reviewList} restaurantId={id} />
+      )}
     </div>
   );
 };

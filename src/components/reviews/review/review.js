@@ -5,7 +5,7 @@ import { userSelector } from '../../../redux/selectors';
 import Rate from '../../rate';
 import styles from './review.module.css';
 
-const Review = ({ text, rating, user }) => (
+const Review = ({ user, text, rating }) => (
   <div className={styles.review} data-id="review">
     <div className={styles.content}>
       <div>
@@ -24,7 +24,7 @@ const Review = ({ text, rating, user }) => (
 );
 
 Review.propTypes = {
-  userId: PropTypes.string,
+  user: PropTypes.object,
   text: PropTypes.string,
   rating: PropTypes.number.isRequired,
 };
