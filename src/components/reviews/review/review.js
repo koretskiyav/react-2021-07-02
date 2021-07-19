@@ -4,17 +4,15 @@ import { connect } from 'react-redux';
 import Rate from '../../rate';
 import styles from './review.module.css';
 
-const Review = ({ review }) => {
-  // TODO user name
-
-  const { name, text, rating } = review
+const Review = ({ review, user }) => {
+  const { text, rating } = review
 
   return (
     <div className={styles.review} data-id="review">
       <div className={styles.content}>
         <div>
           <h4 className={styles.name} data-id="review-user">
-            {name ?? 'Anonymous'}
+            {user.name ?? 'Anonymous'}
           </h4>
           <p className={styles.comment} data-id="review-text">
             {text}
@@ -34,7 +32,8 @@ Review.propTypes = {
 
 const mapStateToProps = (state, props) => {
   return {
-    review: state.reviews[props.id]
+    review: state.reviews[props.id],
+    user: state.users[state.reviews[props.id].userId]
   }
 }
 
