@@ -15,3 +15,4 @@ export default (products = defaultProducts, action) => {
 };
 
 export const productsSelector = (state) => state.products;
+export const productsItemSelector = (state, id) => state.products[id];
