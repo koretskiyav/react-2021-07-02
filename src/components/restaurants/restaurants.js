@@ -1,22 +1,37 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
+import Loader from '../loader';
 
-import { restaurantsListSelector } from '../../redux/features/restaurants';
+import {
+  activeRestaurantIdSelector,
+  restaurantsListSelector,
+  changeRestaurant,
+  loadRestaurants,
+} from '../../redux/features/restaurants';
 
-function Restaurants({ restaurants }) {
-  const [activeId, setActiveId] = useState(restaurants[0].id);
+function Restaurants({
+  activeId,
+  restaurants,
+  changeRestaurant,
+  loadRestaurants,
+}) {
+  useEffect(() => {
+    loadRestaurants();
+  }, []); // eslint-disable-line
 
   const tabs = useMemo(
     () => restaurants.map(({ id, name }) => ({ id, label: name })),
     [restaurants]
   );
 
+  if (!activeId) return <Loader />;
+
   return (
     <div>
-      <Tabs tabs={tabs} onChange={setActiveId} activeId={activeId} />
+      <Tabs tabs={tabs} onChange={changeRestaurant} activeId={activeId} />
       <Restaurant id={activeId} />
     </div>
   );
@@ -32,7 +47,13 @@ Restaurants.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  activeId: activeRestaurantIdSelector(state),
   restaurants: restaurantsListSelector(state),
 });
 
-export default connect(mapStateToProps)(Restaurants);
+const mapDispatchToProps = {
+  changeRestaurant,
+  loadRestaurants,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);
