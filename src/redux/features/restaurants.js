@@ -1,3 +1,4 @@
+import produce from 'immer';
 import { createSelector } from 'reselect';
 import { ADD_REVIEW } from './reviews';
 import { normalizedRestaurants } from '../../fixtures';
@@ -8,16 +9,19 @@ export default (state = arrToMap(normalizedRestaurants), action) => {
 
   switch (type) {
     case ADD_REVIEW:
-      const { resId, reviewId } = payload;
+      return produce(state, (draft) => {
+        draft[payload.resId].reviews.push(payload.reviewId);
+      });
+    // const { resId, reviewId } = payload;
 
-      const restaurant = state[resId];
-      return {
-        ...state,
-        [resId]: {
-          ...restaurant,
-          reviews: [...restaurant.reviews, reviewId],
-        },
-      };
+    // const restaurant = state[resId];
+    // return {
+    //   ...state,
+    //   [resId]: {
+    //     ...restaurant,
+    //     reviews: [...restaurant.reviews, reviewId],
+    //   },
+    // };
 
     default:
       return state;
