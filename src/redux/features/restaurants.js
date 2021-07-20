@@ -2,6 +2,7 @@ import produce from 'immer';
 import { createSelector } from 'reselect';
 import { ADD_REVIEW } from './reviews';
 import { arrToMap } from '../utils';
+import api from '../../api';
 
 const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
 const LOAD_RESTAURANTS = 'LOAD_RESTAURANTS';
@@ -14,7 +15,7 @@ export const changeRestaurant = (activeId) => ({
 export const loadRestaurants = () => ({
   type: LOAD_RESTAURANTS,
   meta: {
-    apiCall: () => fetch('/api/restaurants').then((res) => res.json()),
+    apiCall: () => api.loadRestaurants(),
   },
 });
 
