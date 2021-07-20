@@ -10,11 +10,13 @@ import {
   restaurantsListSelector,
   changeRestaurant,
   loadRestaurants,
+  restaurantsLoadingSelector,
 } from '../../redux/features/restaurants';
 
 function Restaurants({
   activeId,
   restaurants,
+  loading,
   changeRestaurant,
   loadRestaurants,
 }) {
@@ -27,7 +29,7 @@ function Restaurants({
     [restaurants]
   );
 
-  if (!activeId) return <Loader />;
+  if (loading) return <Loader />;
 
   return (
     <div>
@@ -49,6 +51,7 @@ Restaurants.propTypes = {
 const mapStateToProps = (state) => ({
   activeId: activeRestaurantIdSelector(state),
   restaurants: restaurantsListSelector(state),
+  loading: restaurantsLoadingSelector(state),
 });
 
 const mapDispatchToProps = {
