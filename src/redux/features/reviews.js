@@ -1,5 +1,6 @@
 import api from '../../api';
 import { normalizedReviews } from '../../fixtures';
+import { FAILURE, REQUEST, SUCCESS } from '../constants';
 import { arrToMap } from '../utils';
 
 export const ADD_REVIEW = 'ADD_REVIEW';
@@ -11,13 +12,16 @@ export const addReview = (review, resId) => ({
   meta: { generateId: ['reviewId', 'userId'] },
 });
 
-export const loadReviews = (restId) => ({
-  type: LOAD_REVIEWS,
-  restId,
-  meta: {
-    apiCall: () => api.loadReviews(restId),
-  },
-});
+export const loadReviews = (restId) => async (dispatch) => {
+  dispatch({ type: LOAD_REVIEWS + REQUEST, restId });
+
+  try {
+    const payload = await api.loadReviews(restId);
+    dispatch({ type: LOAD_REVIEWS + SUCCESS, payload, restId });
+  } catch (error) {
+    dispatch({ type: LOAD_REVIEWS + FAILURE, error, restId });
+  }
+};
 
 export default (state = arrToMap(normalizedReviews), action) => {
   const { type, payload } = action;
