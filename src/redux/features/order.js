@@ -21,3 +21,5 @@ export default (state = {}, action) => {
 };
 
 export const orderSelector = (state) => state.order;
+
+export const amountSelector = (state, { id }) => orderSelector(state)[id] || 0;

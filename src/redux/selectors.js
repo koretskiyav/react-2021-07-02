@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect';
 import { orderSelector } from './features/order';
 import { productsSelector } from './features/products';
+import { restaurantSelector } from './features/restaurants';
+import { reviewSelector, reviewsSelector } from './features/reviews';
+import { usersSelector } from './features/users';
 
 export const orderProductsSelector = createSelector(
   productsSelector,
@@ -20,4 +23,24 @@ export const totalSelector = createSelector(
   orderProductsSelector,
   (orderProducts) =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
+);
+
+export const reviewWitUserSelector = createSelector(
+  reviewSelector,
+  usersSelector,
+  (review, users) => ({
+    ...review,
+    user: users[review.userId]?.name,
+  })
+);
+
+export const averageRatingSelector = createSelector(
+  reviewsSelector,
+  restaurantSelector,
+  (reviews, restaurant) => {
+    const ratings = restaurant.reviews.map((id) => reviews[id].rating);
+    return Math.round(
+      ratings.reduce((acc, rating) => acc + rating) / ratings.length
+    );
+  }
 );
