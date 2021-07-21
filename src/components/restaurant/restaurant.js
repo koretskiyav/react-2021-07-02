@@ -6,7 +6,7 @@ import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
 import Tabs from '../tabs';
-
+//import Loader from '../loader';
 import { restaurantSelector } from '../../redux/features/restaurants';
 import { averageRatingSelector } from '../../redux/selectors';
 
@@ -26,7 +26,7 @@ const Restaurant = ({ restaurant, averageRating }) => {
         <Rate value={averageRating} />
       </Banner>
       <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
-      {activeTab === 'menu' && <Menu menu={menu} key={id} />}
+      {activeTab === 'menu' && <Menu id={id} key={id} />}
       {activeTab === 'reviews' && <Reviews reviews={reviews} resId={id} />}
     </div>
   );
