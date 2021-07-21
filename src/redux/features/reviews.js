@@ -1,8 +1,14 @@
 import api from '../../api';
-import { normalizedReviews } from '../../fixtures';
-import { FAILURE, REQUEST, SUCCESS } from '../constants';
 import { arrToMap } from '../utils';
-
+import {
+  idle,
+  pending,
+  fulfilled,
+  rejected,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from '../constants';
 export const ADD_REVIEW = 'ADD_REVIEW';
 const LOAD_REVIEWS = 'LOAD_REVIEWS';
 
@@ -22,11 +28,22 @@ export const loadReviews = (restId) => async (dispatch) => {
     dispatch({ type: LOAD_REVIEWS + FAILURE, error, restId });
   }
 };
-
-export default (state = arrToMap(normalizedReviews), action) => {
+const initialState = {
+  status: idle,
+  entities: null,
+  error: null,
+};
+export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case LOAD_REVIEWS + SUCCESS: {
+      return {
+        ...state,
+        status: fulfilled,
+        entities: payload,
+      };
+    }
     case ADD_REVIEW:
       const { review, reviewId, userId } = payload;
       const { text, rating } = review;
@@ -39,6 +56,14 @@ export default (state = arrToMap(normalizedReviews), action) => {
   }
 };
 
-export const reviewsSelector = (state) => state.reviews;
+export const reviewsSelector = (state) => state.reviews?.entities;
 
-export const reviewSelector = (state, { id }) => reviewsSelector(state)[id];
+export const reviewLoadingSelector = (state) =>
+  state.reviews.status !== fulfilled;
+export const reviewSelector = (state, { id }) => {
+  debugger;
+  if (state.reviews.status === idle) return undefined;
+  let a = reviewsSelector(state);
+  let b = arrToMap(a);
+  return arrToMap(reviewsSelector(state))[id];
+};
