@@ -28,17 +28,19 @@ export const totalSelector = createSelector(
 export const reviewWitUserSelector = createSelector(
   reviewSelector,
   usersSelector,
-  (review, users) => ({
-    ...review,
-    user: users[review.userId]?.name,
-  })
+  (review, users) => {
+    if (!users) return { ...review };
+    return { ...review, user: users[review.userId]?.name };
+  }
 );
 
 export const averageRatingSelector = createSelector(
   reviewsSelector,
-  restaurantSelector,
-  (reviews, restaurant) => {
-    const ratings = restaurant.reviews.map((id) => reviews[id].rating);
+
+  (reviews) => {
+    if (!reviews) return 0;
+
+    const ratings = reviews.map((review) => review.rating);
     return Math.round(
       ratings.reduce((acc, rating) => acc + rating) / ratings.length
     );

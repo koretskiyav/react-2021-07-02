@@ -1,5 +1,8 @@
 {
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "search.actionsPosition": "auto",
+  "editor.minimap.side": "left",
+  "workbench.editor.openPositioning": "left"
 }

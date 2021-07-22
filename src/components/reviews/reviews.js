@@ -3,19 +3,25 @@ import PropTypes from 'prop-types';
 import Review from './review';
 import ReviewForm from './review-form';
 import styles from './reviews.module.css';
-
-import { loadReviews } from '../../redux/features/reviews';
+import Loader from '../loader';
+import {
+  loadReviews,
+  reviewsSelector,
+  reviewLoadingSelector,
+} from '../../redux/features/reviews';
 import { useEffect } from 'react';
+import { loadUsers } from '../../redux/features/users';
 
-const Reviews = ({ reviews, resId, loadReviews }) => {
+const Reviews = ({ reviews, resId, loading, loadReviews, loadUsers }) => {
   useEffect(() => {
     loadReviews(resId);
+    loadUsers();
   }, [resId, loadReviews]);
-
+  if (loading) return <Loader />;
   return (
     <div className={styles.reviews}>
-      {reviews.map((id) => (
-        <Review key={id} id={id} />
+      {reviews.map((review) => (
+        <Review key={review.id} id={review.id} />
       ))}
       <ReviewForm resId={resId} />
     </div>
@@ -29,6 +35,10 @@ Reviews.propTypes = {
 
 const mapDispatchToProps = {
   loadReviews,
+  loadUsers,
 };
-
-export default connect(null, mapDispatchToProps)(Reviews);
+const mapStateToProps = (state, props) => ({
+  reviews: reviewsSelector(state),
+  loading: reviewLoadingSelector(state),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
