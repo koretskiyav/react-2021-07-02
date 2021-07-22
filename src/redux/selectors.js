@@ -1,8 +1,17 @@
 import { createSelector } from 'reselect';
 import { orderSelector } from './features/order';
-import { productsSelector } from './features/products';
+import {
+  productsSelector,
+  productMenuSelector,
+  productsSelectorLoadingId,
+} from './features/products';
 import { restaurantSelector } from './features/restaurants';
-import { reviewSelector, reviewsSelector } from './features/reviews';
+import {
+  reviewSelector,
+  reviewsSelector,
+  reviewsSelectorLoadingId,
+  reviewsRestIdSelector,
+} from './features/reviews';
 import { usersSelector } from './features/users';
 
 export const orderProductsSelector = createSelector(
@@ -38,9 +47,29 @@ export const averageRatingSelector = createSelector(
   reviewsSelector,
   restaurantSelector,
   (reviews, restaurant) => {
-    const ratings = restaurant.reviews.map((id) => reviews[id].rating);
+    const ratings = restaurant.reviews.map((id) => reviews[id]?.rating);
     return Math.round(
       ratings.reduce((acc, rating) => acc + rating) / ratings.length
     );
   }
 );
+
+export const productsIsLoadingSelector = createSelector(
+  productsSelectorLoadingId,
+  productMenuSelector,
+  (loadingsId, restId) => {
+    return loadingsId.includes(restId);
+  }
+);
+
+export const reviewsIsLoadingSelector = createSelector(
+  reviewsSelectorLoadingId,
+  reviewsRestIdSelector,
+  (loadingsId, restId) => {
+    return loadingsId.includes(restId);
+  }
+);
+
+export const usersISLoadingSelector = createSelector(usersSelector, (users) => {
+  return Object.values(users).length !== 0;
+});

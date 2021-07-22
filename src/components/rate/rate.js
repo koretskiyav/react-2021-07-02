@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { averageRatingSelector } from '../../redux/selectors';
+import { connect } from 'react-redux';
 
 import { ReactComponent as Star } from '../../icons/star.svg';
 
@@ -25,4 +27,8 @@ Rate.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default Rate;
+const mapStateToProps = (state, props) => ({
+});
+
+export default connect(mapStateToProps)(Rate);
+

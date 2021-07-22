@@ -1,7 +1,15 @@
 import api from '../../api';
-import { normalizedReviews } from '../../fixtures';
-import { FAILURE, REQUEST, SUCCESS } from '../constants';
 import { arrToMap } from '../utils';
+import {
+  idle,
+  pending,
+  fulfilled,
+  rejected,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from '../constants';
+import produce from 'immer';
 
 export const ADD_REVIEW = 'ADD_REVIEW';
 const LOAD_REVIEWS = 'LOAD_REVIEWS';
@@ -23,22 +31,60 @@ export const loadReviews = (restId) => async (dispatch) => {
   }
 };
 
-export default (state = arrToMap(normalizedReviews), action) => {
-  const { type, payload } = action;
+const initialState = {
+  status: idle,
+  entities: {
+    restLoadingId: [],
+    content: {},
+  },
+  error: null,
+};
+
+export default produce((draft = initialState, action) => {
+  const { type, payload, error, restId } = action;
 
   switch (type) {
     case ADD_REVIEW:
       const { review, reviewId, userId } = payload;
       const { text, rating } = review;
+      const newContent = [{ id: reviewId, userId, text, rating }];
       return {
-        ...state,
-        [reviewId]: { id: reviewId, userId, text, rating },
+        ...draft,
+        entities: {
+          restLoadingId: [...draft.entities.restLoadingId],
+          content: { ...draft.entities.content, ...arrToMap(newContent) },
+        },
       };
+    case LOAD_REVIEWS + REQUEST:
+      return { ...draft, status: pending, error: null };
+    case LOAD_REVIEWS + SUCCESS:
+      const newRestLoadingId = [...draft.entities.restLoadingId];
+      const isResrId = newRestLoadingId.includes(restId);
+      if (isResrId === false) {
+        newRestLoadingId.push(restId);
+      }
+      return {
+        ...draft,
+        status: fulfilled,
+        entities: {
+          restLoadingId: newRestLoadingId,
+          content: { ...draft.entities.content, ...arrToMap(payload) },
+        },
+      };
+    case LOAD_REVIEWS + FAILURE:
+      return { ...draft, status: rejected, error };
     default:
-      return state;
+      return draft;
   }
+});
+
+export const reviewsSelector = (state) => state.reviews.entities.content;
+
+export const reviewSelector = (state, { id }) => {
+  return reviewsSelector(state)[id];
 };
 
-export const reviewsSelector = (state) => state.reviews;
+export const reviewsSelectorLoadingId = (state) =>
+  state.reviews.entities.restLoadingId;
 
-export const reviewSelector = (state, { id }) => reviewsSelector(state)[id];
+export const reviewsRestIdSelector = (state, { resId }) => resId;
