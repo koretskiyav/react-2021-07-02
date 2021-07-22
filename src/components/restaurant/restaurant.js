@@ -26,8 +26,8 @@ const Restaurant = ({ restaurant, averageRating }) => {
         <Rate value={averageRating} />
       </Banner>
       <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
-      {activeTab === 'menu' && <Menu menu={menu} key={id} />}
-      {activeTab === 'reviews' && <Reviews reviews={reviews} resId={id} />}
+      {activeTab === 'menu' && <Menu menu={menu} key={id} restId={id} />}
+      {activeTab === 'reviews' && <Reviews reviews={reviews} restId={id} />}
     </div>
   );
 };
@@ -44,7 +44,7 @@ Restaurant.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   restaurant: restaurantSelector(state, props),
-  averageRating: averageRatingSelector(state, props),
+  averageRating: averageRatingSelector(state, props) || 0,
 });
 
 export default connect(mapStateToProps)(Restaurant);

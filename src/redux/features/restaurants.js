@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
       return { ...state, status: rejected, error };
     case ADD_REVIEW:
       return produce(state, (draft) => {
-        draft.entities[payload.resId].reviews.push(payload.reviewId);
+        draft.entities[payload.restId].reviews.push(payload.reviewId);
       });
 
     default:
