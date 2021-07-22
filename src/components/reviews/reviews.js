@@ -4,31 +4,43 @@ import Review from './review';
 import ReviewForm from './review-form';
 import styles from './reviews.module.css';
 
-import { loadReviews } from '../../redux/features/reviews';
+import {
+  loadingReviewsSelector,
+  loadReviews,
+} from '../../redux/features/reviews';
 import { useEffect } from 'react';
+import Loader from '../loader';
 
-const Reviews = ({ reviews, resId, loadReviews }) => {
+const Reviews = ({ reviews, restId, loading, loadReviews }) => {
   useEffect(() => {
-    loadReviews(resId);
-  }, [resId, loadReviews]);
+    loading && loadReviews(restId);
+  }, [restId, loading, loadReviews]);
+
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.reviews}>
       {reviews.map((id) => (
         <Review key={id} id={id} />
       ))}
-      <ReviewForm resId={resId} />
+      <ReviewForm restId={restId} />
     </div>
   );
 };
 
 Reviews.propTypes = {
-  resId: PropTypes.string,
+  restId: PropTypes.string,
   reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  loading: PropTypes.bool.isRequired,
+  loadReviews: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state, props) => ({
+  loading: loadingReviewsSelector(state, props),
+});
 
 const mapDispatchToProps = {
   loadReviews,
 };
 
-export default connect(null, mapDispatchToProps)(Reviews);
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
