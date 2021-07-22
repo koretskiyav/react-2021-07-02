@@ -1,13 +1,20 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+
 import Review from './review';
 import ReviewForm from './review-form';
 import styles from './reviews.module.css';
 
 import { loadReviews } from '../../redux/features/reviews';
-import { useEffect } from 'react';
+import { loadUsers } from '../../redux/features/users';
 
-const Reviews = ({ reviews, resId, loadReviews }) => {
+
+const Reviews = ({ reviews, resId, loadReviews, loadUsers }) => {
+  useEffect(() => {
+    loadUsers();
+  }, []); //eslint-disable-line
+
   useEffect(() => {
     loadReviews(resId);
   }, [resId, loadReviews]);
@@ -25,10 +32,12 @@ const Reviews = ({ reviews, resId, loadReviews }) => {
 Reviews.propTypes = {
   resId: PropTypes.string,
   reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  loadUsers: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {
   loadReviews,
+  loadUsers
 };
 
 export default connect(null, mapDispatchToProps)(Reviews);
