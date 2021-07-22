@@ -10,13 +10,14 @@ import {
   reviewLoadingSelector,
 } from '../../redux/features/reviews';
 import { useEffect } from 'react';
+import { loadUsers } from '../../redux/features/users';
 
-const Reviews = ({ reviews, resId, loading, loadReviews }) => {
+const Reviews = ({ reviews, resId, loading, loadReviews, loadUsers }) => {
   useEffect(() => {
     loadReviews(resId);
+    loadUsers();
   }, [resId, loadReviews]);
   if (loading) return <Loader />;
-  debugger;
   return (
     <div className={styles.reviews}>
       {reviews.map((review) => (
@@ -34,6 +35,7 @@ Reviews.propTypes = {
 
 const mapDispatchToProps = {
   loadReviews,
+  loadUsers,
 };
 const mapStateToProps = (state, props) => ({
   reviews: reviewsSelector(state),

@@ -1,14 +1,6 @@
 import api from '../../api';
 import { arrToMap } from '../utils';
-import {
-  idle,
-  pending,
-  fulfilled,
-  rejected,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from '../constants';
+import { idle, fulfilled, REQUEST, SUCCESS, FAILURE } from '../constants';
 export const ADD_REVIEW = 'ADD_REVIEW';
 const LOAD_REVIEWS = 'LOAD_REVIEWS';
 
@@ -61,9 +53,6 @@ export const reviewsSelector = (state) => state.reviews?.entities;
 export const reviewLoadingSelector = (state) =>
   state.reviews.status !== fulfilled;
 export const reviewSelector = (state, { id }) => {
-  debugger;
   if (state.reviews.status === idle) return undefined;
-  let a = reviewsSelector(state);
-  let b = arrToMap(a);
   return arrToMap(reviewsSelector(state))[id];
 };

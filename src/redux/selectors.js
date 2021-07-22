@@ -28,10 +28,10 @@ export const totalSelector = createSelector(
 export const reviewWitUserSelector = createSelector(
   reviewSelector,
   usersSelector,
-  (review, users) => ({
-    ...review,
-    user: users[review.userId]?.name,
-  })
+  (review, users) => {
+    if (!users) return { ...review };
+    return { ...review, user: users[review.userId]?.name };
+  }
 );
 
 export const averageRatingSelector = createSelector(
