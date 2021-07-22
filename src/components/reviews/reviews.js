@@ -4,40 +4,44 @@ import { useEffect } from 'react';
 
 import Review from './review';
 import ReviewForm from './review-form';
+
+import { loadUsers } from '../../redux/features/users';
+import { fulfilled } from '../../redux/constants';
+
 import styles from './reviews.module.css';
 
-import { loadReviews } from '../../redux/features/reviews';
-import { loadUsers } from '../../redux/features/users';
+const Reviews = ({ reviewsIds, resId, users, loadUsers }) => {
 
-
-const Reviews = ({ reviews, resId, loadReviews, loadUsers }) => {
   useEffect(() => {
-    loadUsers();
+    if(!users.status === fulfilled) loadUsers();
   }, []); //eslint-disable-line
-
-  useEffect(() => {
-    loadReviews(resId);
-  }, [resId, loadReviews]);
 
   return (
     <div className={styles.reviews}>
-      {reviews.map((id) => (
+      {reviewsIds.map((id) => (
         <Review key={id} id={id} />
       ))}
       <ReviewForm resId={resId} />
     </div>
-  );
+  )
 };
 
 Reviews.propTypes = {
   resId: PropTypes.string,
-  reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  loadUsers: PropTypes.func.isRequired
+  reviewsIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  loadUsers: PropTypes.func.isRequired,
+  users: PropTypes.shape({
+    error: PropTypes.bool,
+    status: PropTypes.string
+  }),
 };
 
+const mapStateToProps = (state) => ({
+  users: state.users,
+});
+
 const mapDispatchToProps = {
-  loadReviews,
   loadUsers
 };
 
-export default connect(null, mapDispatchToProps)(Reviews);
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

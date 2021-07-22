@@ -1,6 +1,5 @@
 import api from '../../api';
-import { normalizedReviews } from '../../fixtures';
-import { FAILURE, REQUEST, SUCCESS } from '../constants';
+import {FAILURE, fulfilled, pending, rejected, REQUEST, SUCCESS} from '../constants';
 import { arrToMap } from '../utils';
 
 export const ADD_REVIEW = 'ADD_REVIEW';
@@ -23,8 +22,8 @@ export const loadReviews = (restId) => async (dispatch) => {
   }
 };
 
-export default (state = arrToMap(normalizedReviews), action) => {
-  const { type, payload } = action;
+export default (state = {}, action) => {
+  const { type, payload, error } = action;
 
   switch (type) {
     case ADD_REVIEW:
@@ -34,6 +33,12 @@ export default (state = arrToMap(normalizedReviews), action) => {
         ...state,
         [reviewId]: { id: reviewId, userId, text, rating },
       };
+    case LOAD_REVIEWS + REQUEST:
+      return { ...state, status: pending, error: null };
+    case LOAD_REVIEWS + SUCCESS:
+      return { ...state,  status: fulfilled, error: null , ...arrToMap(payload) };
+    case LOAD_REVIEWS + FAILURE:
+      return { ...state, status: rejected, error };
     default:
       return state;
   }
