@@ -12,16 +12,21 @@ import {
   loadRestaurants,
   restaurantsLoadingSelector,
 } from '../../redux/features/restaurants';
+import {
+  loadUsers,
+} from '../../redux/features/users';
 
 function Restaurants({
   activeId,
   restaurants,
   loading,
   changeRestaurant,
+  loadUsers,
   loadRestaurants,
 }) {
   useEffect(() => {
     loadRestaurants();
+    loadUsers();
   }, []); // eslint-disable-line
 
   const tabs = useMemo(
@@ -57,6 +62,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   changeRestaurant,
   loadRestaurants,
+  loadUsers
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);
