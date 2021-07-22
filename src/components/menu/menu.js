@@ -1,42 +1,46 @@
-import { Component } from 'react';
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Product from '../product';
 import Basket from '../basket';
+import Loader from '../loader';
 
 import styles from './menu.module.css';
+import { loadProducts, productsLoadingSelector } from '../../redux/features/products';
 
-class Menu extends Component {
-  static propTypes = {
-    menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  };
+const Menu = ({ menu, loading, restaurantId, loadProducts }) => {
+  useEffect(() => {
+    loadProducts(restaurantId);
+  }, [restaurantId, loadProducts]);
 
-  state = { error: null };
+  if (loading) return <Loader />;
 
-  componentDidCatch(error) {
-    this.setState({ error });
-  }
-
-  render() {
-    const { menu } = this.props;
-
-    if (this.state.error) {
-      return <p>Меню этого ресторана сейчас недоступно :(</p>;
-    }
-
-    return (
-      <div className={styles.menu}>
-        <div>
-          {menu.map((id) => (
-            <Product key={id} id={id} />
-          ))}
-        </div>
-        <div>
-          <Basket />
-        </div>
+  return (
+    <div className={styles.menu}>
+      <div>
+        {menu.map((id) => (
+          <Product key={id} id={id} />    
+        ))}
       </div>
-    );
-  }
+      <div>
+        <Basket />
+      </div>
+    </div>
+  );
 }
 
-export default Menu;
+Menu.propTypes = {
+  restaurantId: PropTypes.string,
+  menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  loading: productsLoadingSelector(state),
+});
+
+const mapDispatchToProps = {
+  loadProducts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
