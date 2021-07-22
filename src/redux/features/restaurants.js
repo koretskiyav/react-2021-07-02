@@ -13,7 +13,7 @@ import {
   FAILURE,
 } from '../constants';
 
-const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
+export const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
 const LOAD_RESTAURANTS = 'LOAD_RESTAURANTS';
 
 export const changeRestaurant = (activeId) => ({
