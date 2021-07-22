@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { loadReviews } from '../../redux/features/reviews'
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
@@ -14,6 +15,10 @@ const Restaurant = ({ restaurant, averageRating }) => {
   const { id, name, menu, reviews } = restaurant;
 
   const [activeTab, setActiveTab] = useState('menu');
+
+  useEffect(() => {
+    loadReviews()
+  }, [])
 
   const tabs = [
     { id: 'menu', label: 'Menu' },
