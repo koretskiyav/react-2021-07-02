@@ -57,9 +57,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  loadProducts,
-  changeRestaurant,
-  loadRestaurants,
-};
+      loadProducts,
+      changeRestaurant,
+      loadRestaurants,
+  };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);
