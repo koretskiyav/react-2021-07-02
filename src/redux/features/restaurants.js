@@ -13,8 +13,8 @@ import {
   FAILURE,
 } from '../constants';
 
-const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
 const LOAD_RESTAURANTS = 'LOAD_RESTAURANTS';
+const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
 
 export const changeRestaurant = (activeId) => ({
   type: CHANGE_RESTAURANT,
@@ -63,7 +63,9 @@ export default (state = initialState, action) => {
 };
 
 export const activeRestaurantIdSelector = (state) => state.restaurants.activeId;
+
 const restaurantsSelector = (state) => state.restaurants.entities;
+
 export const restaurantsLoadingSelector = (state) =>
   state.restaurants.status !== fulfilled;
 

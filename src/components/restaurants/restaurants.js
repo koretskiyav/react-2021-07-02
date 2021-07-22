@@ -12,11 +12,13 @@ import {
   loadRestaurants,
   restaurantsLoadingSelector,
 } from '../../redux/features/restaurants';
+import { loadProducts } from '../../redux/features/products';
 
 function Restaurants({
   activeId,
   restaurants,
   loading,
+  loadProducts,
   changeRestaurant,
   loadRestaurants,
 }) {
@@ -33,7 +35,7 @@ function Restaurants({
 
   return (
     <div>
-      <Tabs tabs={tabs} onChange={changeRestaurant} activeId={activeId} />
+      <Tabs tabs={tabs} onChange={(newId) => {loadProducts(newId); changeRestaurant(newId);}} activeId={activeId} />
       <Restaurant id={activeId} />
     </div>
   );
@@ -55,6 +57,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
+  loadProducts,
   changeRestaurant,
   loadRestaurants,
 };
