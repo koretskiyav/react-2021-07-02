@@ -10,11 +10,14 @@ import {
   increment,
 } from '../../redux/features/order';
 import { productSelector } from '../../redux/features/products';
+import Loader from "../loader";
 
 function Product({ product, amount, decrement, increment, fetchData }) {
   useEffect(() => {
     fetchData && fetchData(product.id);
   }, []); // eslint-disable-line
+
+  if(!product) return <Loader />
 
   return (
     <div className={styles.product} data-id="product">
