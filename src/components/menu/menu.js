@@ -5,30 +5,43 @@ import Product from '../product';
 import Basket from '../basket';
 
 import styles from './menu.module.css';
+import { connect } from 'react-redux';
+import Loader from '../loader';
+import {
+  loadProducts,
+  productsLoadingSelector,
+  productsListSelector
+} from '../../redux/features/products'
 
 class Menu extends Component {
   static propTypes = {
-    menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    restaurantId: PropTypes.string.isRequired
   };
 
   state = { error: null };
+
+  componentDidMount() {
+    this.props.loadProducts(this.props.restaurantId)
+  }
 
   componentDidCatch(error) {
     this.setState({ error });
   }
 
   render() {
-    const { menu } = this.props;
+    const { products } = this.props;
 
     if (this.state.error) {
       return <p>Меню этого ресторана сейчас недоступно :(</p>;
     }
 
+    if (this.props.loading) return <Loader />;
+
     return (
       <div className={styles.menu}>
         <div>
-          {menu.map((id) => (
-            <Product key={id} id={id} />
+          {products.map((product) => (
+            <Product key={product.id} product={product} />
           ))}
         </div>
         <div>
@@ -39,4 +52,13 @@ class Menu extends Component {
   }
 }
 
-export default Menu;
+const mapStateToProps = (state, props) => ({
+  loading: productsLoadingSelector(state),
+  products: productsListSelector(state)
+})
+
+const mapDispatchToProps = {
+  loadProducts
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
