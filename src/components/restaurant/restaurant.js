@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
@@ -8,10 +8,11 @@ import Rate from '../rate';
 import Tabs from '../tabs';
 
 import { restaurantSelector } from '../../redux/features/restaurants';
+import { loadProducts } from '../../redux/features/products'
 import { averageRatingSelector } from '../../redux/selectors';
 
-const Restaurant = ({ restaurant, averageRating }) => {
-  const { id, name, menu, reviews } = restaurant;
+const Restaurant = ({ restaurant, averageRating, loadProducts, products }) => {
+  const { id, name, menu,  reviews } = restaurant;
 
   const [activeTab, setActiveTab] = useState('menu');
 
@@ -19,6 +20,10 @@ const Restaurant = ({ restaurant, averageRating }) => {
     { id: 'menu', label: 'Menu' },
     { id: 'reviews', label: 'Reviews' },
   ];
+
+  useEffect(() => {
+    products[menu[0]] || loadProducts();
+  }, [restaurant]);
 
   return (
     <div>
@@ -45,6 +50,11 @@ Restaurant.propTypes = {
 const mapStateToProps = (state, props) => ({
   restaurant: restaurantSelector(state, props),
   averageRating: averageRatingSelector(state, props),
+  products: state.products
 });
 
-export default connect(mapStateToProps)(Restaurant);
+const mapDispatchToProps = (dispatch, props) => ({
+  loadProducts: () => dispatch(loadProducts(props.id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Restaurant);
