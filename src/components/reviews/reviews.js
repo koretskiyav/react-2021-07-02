@@ -13,7 +13,7 @@ import styles from './reviews.module.css';
 const Reviews = ({ reviewsIds, resId, users, loadUsers }) => {
 
   useEffect(() => {
-    if(!users.status === fulfilled) loadUsers();
+    if(users.status !== fulfilled) loadUsers();
   }, []); //eslint-disable-line
 
   return (
