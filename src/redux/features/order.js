@@ -1,23 +1,24 @@
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const increment = createAction('order/increment');
-export const decrement = createAction('order/decrement');
-export const remove = createAction('order/remove');
-
-export default createReducer(
-  {},
-  {
-    [increment]: (state, { payload: id }) => {
+const { reducer, actions } = createSlice({
+  name: 'my-order',
+  initialState: {},
+  reducers: {
+    increment: (state, { payload: id }) => {
       state[id] = (state[id] || 0) + 1;
     },
-    [decrement]: (state, { payload: id }) => {
+    decrement: (state, { payload: id }) => {
       state[id] = state[id] > 0 ? (state[id] || 0) - 1 : 0;
     },
-    [remove]: (state, { payload: id }) => {
+    remove: (state, { payload: id }) => {
       state[id] = 0;
     },
-  }
-);
+  },
+});
+
+export default reducer;
+const { increment, decrement, remove } = actions;
+export { increment, decrement, remove };
 
 export const orderSelector = (state) => state.order;
 
