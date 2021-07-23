@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import produce from 'immer';
 import api from '../../api';
@@ -22,34 +22,31 @@ const initialState = {
   error: null,
 };
 
-export default produce((draft = initialState, action) => {
-  const { type, payload, error, meta } = action;
-
-  switch (type) {
-    case loadReviews.pending.type: {
-      draft.status[meta.arg] = pending;
-      draft.error = null;
-      break;
-    }
-    case loadReviews.fulfilled.type: {
-      draft.status[meta.arg] = fulfilled;
-      Object.assign(draft.entities, arrToMap(payload));
-      break;
-    }
-    case loadReviews.rejected.type: {
-      draft.status[meta.arg] = rejected;
-      draft.error = error;
-      break;
-    }
-    case addReview.type:
+const { reducer } = createSlice({
+  name: 'reviews',
+  initialState,
+  extraReducers: {
+    [loadReviews.pending]: (state, { meta }) => {
+      state.status[meta.arg] = pending;
+      state.error = null;
+    },
+    [loadReviews.fulfilled]: (state, { payload, meta }) => {
+      state.status[meta.arg] = fulfilled;
+      Object.assign(state.entities, arrToMap(payload));
+    },
+    [loadReviews.rejected]: (state, { meta, error }) => {
+      state.status[meta.arg] = rejected;
+      state.error = error;
+    },
+    [addReview]: (state, { payload }) => {
       const { review, reviewId, userId } = payload;
       const { text, rating } = review;
-      draft.entities[reviewId] = { id: reviewId, userId, text, rating };
-      break;
-    default:
-      return draft;
-  }
+      state.entities[reviewId] = { id: reviewId, userId, text, rating };
+    },
+  },
 });
+
+export default reducer;
 
 export const reviewsSelector = (state) => state.reviews.entities;
 
