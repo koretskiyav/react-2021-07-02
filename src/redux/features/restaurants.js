@@ -1,6 +1,5 @@
 import produce from 'immer';
 import { createSelector } from 'reselect';
-import { ADD_REVIEW } from './reviews';
 import { arrToMap, isLoaded, shouldLoad } from '../utils';
 import api from '../../api';
 import {
@@ -12,6 +11,7 @@ import {
   SUCCESS,
   FAILURE,
 } from '../constants';
+import { addReview } from './reviews';
 
 const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
 const LOAD_RESTAURANTS = 'LOAD_RESTAURANTS';
@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
       };
     case LOAD_RESTAURANTS + FAILURE:
       return { ...state, status: rejected, error };
-    case ADD_REVIEW:
+    case addReview.type:
       return produce(state, (draft) => {
         draft.entities[payload.restId].reviews.push(payload.reviewId);
       });

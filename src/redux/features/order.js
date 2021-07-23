@@ -4,13 +4,13 @@ const { reducer, actions } = createSlice({
   name: 'my-order',
   initialState: {},
   reducers: {
-    increment: (state, { payload: id }) => {
+    increment(state, { payload: id }) {
       state[id] = (state[id] || 0) + 1;
     },
-    decrement: (state, { payload: id }) => {
+    decrement(state, { payload: id }) {
       state[id] = state[id] > 0 ? (state[id] || 0) - 1 : 0;
     },
-    remove: (state, { payload: id }) => {
+    remove(state, { payload: id }) {
       state[id] = 0;
     },
   },

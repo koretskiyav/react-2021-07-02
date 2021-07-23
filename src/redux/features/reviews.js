@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 import produce from 'immer';
 import api from '../../api';
 import {
@@ -11,14 +13,12 @@ import {
 
 import { arrToMap, isLoaded, shouldLoad } from '../utils';
 
-export const ADD_REVIEW = 'ADD_REVIEW';
 const LOAD_REVIEWS = 'LOAD_REVIEWS';
 
-export const addReview = (review, restId) => ({
-  type: ADD_REVIEW,
+export const addReview = createAction('reviews/add', (review, restId) => ({
   payload: { review, restId },
   meta: { generateId: ['reviewId', 'userId'] },
-});
+}));
 
 export const loadReviews = (restId) => async (dispatch, getState) => {
   const shouldLoad = shouldLoadReviewsSelector(getState(), { restId });
@@ -59,7 +59,7 @@ export default produce((draft = initialState, action) => {
       draft.error = error;
       break;
     }
-    case ADD_REVIEW:
+    case addReview.type:
       const { review, reviewId, userId } = payload;
       const { text, rating } = review;
       draft.entities[reviewId] = { id: reviewId, userId, text, rating };
