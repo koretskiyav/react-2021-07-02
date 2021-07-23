@@ -1,38 +1,20 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import produce from 'immer';
 import api from '../../api';
-import {
-  pending,
-  fulfilled,
-  rejected,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from '../constants';
+import { pending, fulfilled, rejected } from '../constants';
 
 import { arrToMap, isLoaded, shouldLoad } from '../utils';
-
-const LOAD_REVIEWS = 'LOAD_REVIEWS';
 
 export const addReview = createAction('reviews/add', (review, restId) => ({
   payload: { review, restId },
   meta: { generateId: ['reviewId', 'userId'] },
 }));
 
-export const loadReviews = (restId) => async (dispatch, getState) => {
-  const shouldLoad = shouldLoadReviewsSelector(getState(), { restId });
-
-  if (!shouldLoad) return;
-  dispatch({ type: LOAD_REVIEWS + REQUEST, meta: { restId } });
-
-  try {
-    const payload = await api.loadReviews(restId);
-    dispatch({ type: LOAD_REVIEWS + SUCCESS, payload, meta: { restId } });
-  } catch (error) {
-    dispatch({ type: LOAD_REVIEWS + FAILURE, error, meta: { restId } });
-  }
-};
+export const loadReviews = createAsyncThunk('reviews/load', api.loadReviews, {
+  condition: (restId, { getState }) =>
+    shouldLoadReviewsSelector(getState(), { restId }),
+});
 
 const initialState = {
   status: {},
@@ -44,18 +26,18 @@ export default produce((draft = initialState, action) => {
   const { type, payload, error, meta } = action;
 
   switch (type) {
-    case LOAD_REVIEWS + REQUEST: {
-      draft.status[meta.restId] = pending;
+    case loadReviews.pending.type: {
+      draft.status[meta.arg] = pending;
       draft.error = null;
       break;
     }
-    case LOAD_REVIEWS + SUCCESS: {
-      draft.status[meta.restId] = fulfilled;
+    case loadReviews.fulfilled.type: {
+      draft.status[meta.arg] = fulfilled;
       Object.assign(draft.entities, arrToMap(payload));
       break;
     }
-    case LOAD_REVIEWS + FAILURE: {
-      draft.status[meta.restId] = rejected;
+    case loadReviews.rejected.type: {
+      draft.status[meta.arg] = rejected;
       draft.error = error;
       break;
     }

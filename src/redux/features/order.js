@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const { reducer, actions } = createSlice({
-  name: 'my-order',
+  name: 'order',
   initialState: {},
   reducers: {
     increment(state, { payload: id }) {
