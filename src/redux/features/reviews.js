@@ -8,7 +8,7 @@ import {
 import api from '../../api';
 import { pending, fulfilled, rejected } from '../constants';
 
-import { arrToMap, isLoaded, shouldLoad } from '../utils';
+import { isLoaded, shouldLoad } from '../utils';
 
 export const addReview = createAction('reviews/add', (review, restId) => ({
   payload: { review, restId },

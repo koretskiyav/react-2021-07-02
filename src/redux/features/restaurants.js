@@ -1,5 +1,4 @@
-import produce from 'immer';
-import { createSelector } from 'reselect';
+import { createSelector, createNextState } from '@reduxjs/toolkit';
 import { arrToMap, isLoaded, shouldLoad } from '../utils';
 import api from '../../api';
 import {
@@ -53,7 +52,7 @@ export default (state = initialState, action) => {
     case LOAD_RESTAURANTS + FAILURE:
       return { ...state, status: rejected, error };
     case addReview.type:
-      return produce(state, (draft) => {
+      return createNextState(state, (draft) => {
         draft.entities[payload.restId].reviews.push(payload.reviewId);
       });
 

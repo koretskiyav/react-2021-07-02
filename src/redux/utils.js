@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import { fulfilled, pending } from './constants';
 
 export const arrToMap = (arr) =>

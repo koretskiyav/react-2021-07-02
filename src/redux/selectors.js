@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import { orderSelector } from './features/order';
 import { productsSelector } from './features/products';
 import { restaurantSelector } from './features/restaurants';

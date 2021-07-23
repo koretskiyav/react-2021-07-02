@@ -1,4 +1,4 @@
-import produce from 'immer';
+import { createNextState } from '@reduxjs/toolkit';
 import { arrToMap, isLoaded, shouldLoad } from '../utils';
 import api from '../../api';
 import {
@@ -35,7 +35,7 @@ const initialState = {
   error: null,
 };
 
-export default produce((draft = initialState, action) => {
+export default createNextState((draft = initialState, action) => {
   const { type, payload, error } = action;
 
   switch (type) {
