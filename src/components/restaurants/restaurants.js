@@ -10,26 +10,28 @@ import {
   restaurantsListSelector,
   changeRestaurant,
   loadRestaurants,
-  restaurantsLoadingSelector,
+  restaurantsLoadedSelector,
+  shouldLoadRestaurantsSelector,
 } from '../../redux/features/restaurants';
 
 function Restaurants({
   activeId,
   restaurants,
-  loading,
+  loaded,
+  shouldLoad,
   changeRestaurant,
   loadRestaurants,
 }) {
   useEffect(() => {
-    loadRestaurants();
-  }, []); // eslint-disable-line
+    if (shouldLoad) loadRestaurants();
+  }, [shouldLoad]); // eslint-disable-line
 
   const tabs = useMemo(
     () => restaurants.map(({ id, name }) => ({ id, label: name })),
     [restaurants]
   );
 
-  if (loading) return <Loader />;
+  if (!loaded) return <Loader />;
 
   return (
     <div>
@@ -51,7 +53,8 @@ Restaurants.propTypes = {
 const mapStateToProps = (state) => ({
   activeId: activeRestaurantIdSelector(state),
   restaurants: restaurantsListSelector(state),
-  loading: restaurantsLoadingSelector(state),
+  loaded: restaurantsLoadedSelector(state),
+  shouldLoad: shouldLoadRestaurantsSelector(state),
 });
 
 const mapDispatchToProps = {

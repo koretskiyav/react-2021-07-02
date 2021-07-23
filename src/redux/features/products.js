@@ -1,15 +1,60 @@
-import { normalizedProducts } from '../../fixtures';
-import { arrToMap } from '../utils';
+import produce from 'immer';
+import api from '../../api';
+import {
+  pending,
+  fulfilled,
+  rejected,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from '../constants';
 
-export default (state = arrToMap(normalizedProducts), action) => {
-  const { type } = action;
+import { arrToMap, isLoaded, shouldLoad } from '../utils';
 
-  switch (type) {
-    default:
-      return state;
-  }
+const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
+
+export const loadProducts = (restId) => ({
+  type: LOAD_PRODUCTS,
+  meta: {
+    apiCall: () => api.loadProducts(restId),
+    restId,
+  },
+});
+
+const initialState = {
+  status: {},
+  entities: {},
+  error: null,
 };
 
-export const productsSelector = (state) => state.products;
+export default produce((draft = initialState, action) => {
+  const { type, payload, error, meta } = action;
+
+  switch (type) {
+    case LOAD_PRODUCTS + REQUEST: {
+      draft.status[meta.restId] = pending;
+      draft.error = null;
+      break;
+    }
+    case LOAD_PRODUCTS + SUCCESS: {
+      draft.status[meta.restId] = fulfilled;
+      Object.assign(draft.entities, arrToMap(payload));
+      break;
+    }
+    case LOAD_PRODUCTS + FAILURE: {
+      draft.status[meta.restId] = rejected;
+      draft.error = error;
+      break;
+    }
+    default:
+      return draft;
+  }
+});
+
+export const productsSelector = (state) => state.products.entities;
 
 export const productSelector = (state, { id }) => productsSelector(state)[id];
+const productsStatusSelector = (state, { restId }) =>
+  state.products.status[restId];
+export const productsLoadedSelector = isLoaded(productsStatusSelector);
+export const shouldLoadProductsSelector = shouldLoad(productsStatusSelector);

@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { createSelector } from 'reselect';
 import { ADD_REVIEW } from './reviews';
-import { arrToMap } from '../utils';
+import { arrToMap, isLoaded, shouldLoad } from '../utils';
 import api from '../../api';
 import {
   idle,
@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
       return { ...state, status: rejected, error };
     case ADD_REVIEW:
       return produce(state, (draft) => {
-        draft.entities[payload.resId].reviews.push(payload.reviewId);
+        draft.entities[payload.restId].reviews.push(payload.reviewId);
       });
 
     default:
@@ -64,8 +64,7 @@ export default (state = initialState, action) => {
 
 export const activeRestaurantIdSelector = (state) => state.restaurants.activeId;
 const restaurantsSelector = (state) => state.restaurants.entities;
-export const restaurantsLoadingSelector = (state) =>
-  state.restaurants.status !== fulfilled;
+const restaurantsStatusSelector = (state) => state.restaurants.status;
 
 export const restaurantsListSelector = createSelector(
   restaurantsSelector,
@@ -73,3 +72,8 @@ export const restaurantsListSelector = createSelector(
 );
 export const restaurantSelector = (state, { id }) =>
   restaurantsSelector(state)[id];
+
+export const restaurantsLoadedSelector = isLoaded(restaurantsStatusSelector);
+export const shouldLoadRestaurantsSelector = shouldLoad(
+  restaurantsStatusSelector
+);

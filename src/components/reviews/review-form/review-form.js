@@ -55,11 +55,11 @@ const ReviewForm = ({ onSubmit }) => {
 
 ReviewForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  resId: PropTypes.string.isRequired,
+  restId: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  onSubmit: (review) => dispatch(addReview(review, props.resId)),
+  onSubmit: (review) => dispatch(addReview(review, props.restId)),
 });
 
 export default connect(null, mapDispatchToProps)(ReviewForm);

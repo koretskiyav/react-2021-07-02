@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
@@ -11,11 +10,7 @@ import {
 } from '../../redux/features/order';
 import { productSelector } from '../../redux/features/products';
 
-function Product({ product, amount, decrement, increment, fetchData }) {
-  useEffect(() => {
-    fetchData && fetchData(product.id);
-  }, []); // eslint-disable-line
-
+function Product({ product, amount, decrement, increment }) {
   return (
     <div className={styles.product} data-id="product">
       <div className={styles.content}>
@@ -54,7 +49,6 @@ Product.propTypes = {
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
-  fetchData: PropTypes.func,
   // from connect
   amount: PropTypes.number,
   increment: PropTypes.func,
