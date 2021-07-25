@@ -1,55 +1,38 @@
-import { createNextState } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+
 import api from '../../api';
-import {
-  pending,
-  fulfilled,
-  rejected,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from '../constants';
+import { pending, fulfilled, rejected } from '../constants';
+import { isLoaded, shouldLoad } from '../utils';
 
-import { arrToMap, isLoaded, shouldLoad } from '../utils';
+export const loadProducts = createAsyncThunk('products/load', api.loadProducts);
 
-const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
-
-export const loadProducts = (restId) => ({
-  type: LOAD_PRODUCTS,
-  meta: {
-    apiCall: () => api.loadProducts(restId),
-    restId,
-  },
-});
-
-const initialState = {
+const Products = createEntityAdapter();
+const initialState = Products.getInitialState({
   status: {},
   entities: {},
   error: null,
-};
+});
 
-export default createNextState((draft = initialState, action) => {
-  const { type, payload, error, meta } = action;
-
-  switch (type) {
-    case LOAD_PRODUCTS + REQUEST: {
-      draft.status[meta.restId] = pending;
-      draft.error = null;
-      break;
-    }
-    case LOAD_PRODUCTS + SUCCESS: {
-      draft.status[meta.restId] = fulfilled;
-      Object.assign(draft.entities, arrToMap(payload));
-      break;
-    }
-    case LOAD_PRODUCTS + FAILURE: {
-      draft.status[meta.restId] = rejected;
-      draft.error = error;
-      break;
-    }
-    default:
-      return draft;
+const { reducer } = createSlice({
+  name: 'products',
+  initialState,
+  extraReducers: {
+    [loadProducts.pending] :(state, action) => {
+      state.status[action.meta.arg] = pending;
+      state.error = null;
+    },
+    [loadProducts.fulfilled] :(state, { meta, payload }) => {
+      state.status[meta.arg] = fulfilled;
+      Products.addMany(state, payload);
+    },
+    [loadProducts.rejected] :(state,  { meta, error }) => {
+      state.status[meta.arg] = rejected;
+      state.error = error;
+    },
   }
 });
+
+export default reducer;
 
 export const productsSelector = (state) => state.products.entities;
 
