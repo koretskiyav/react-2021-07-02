@@ -61,7 +61,6 @@ function Restaurants({
         >
           &#x20B4;
         </Button>
-        <div>{currentCurrency}</div>
       </div>
       <Tabs tabs={tabs} onChange={changeRestaurant} activeId={activeId} />
       <Restaurant id={activeId} />
