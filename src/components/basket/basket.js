@@ -1,20 +1,24 @@
 import { connect } from 'react-redux';
-
 import styles from './basket.module.css';
 import itemStyles from './basket-item/basket-item.module.css';
 import BasketItem from './basket-item';
 import Button from '../button';
 import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 import { UserConsumer } from '../../contexts/user';
+import { useContext } from 'react';
+import { currencyContext } from '../../contexts/currency';
 
 function Basket({ title = 'Basket', total, orderProducts }) {
   console.log('render Basket');
   // const { name } = useContext(userContext);
+  const { formatPrice, currency } = useContext(currencyContext);
+
+  const summTotal = formatPrice(total, currency);
 
   if (!total) {
     return (
       <div className={styles.basket}>
-        <h4 className={styles.title}>Select a meal from the list</h4>
+        <h4 className={styles.title}> Select a meal from the list</h4>
       </div>
     );
   }
@@ -36,10 +40,10 @@ function Basket({ title = 'Basket', total, orderProducts }) {
       <hr className={styles.hr} />
       <div className={itemStyles.basketItem}>
         <div className={itemStyles.name}>
-          <p>Total</p>
+          <p> Total</p>
         </div>
         <div className={itemStyles.info}>
-          <p>{`${total} $`}</p>
+          <p> {summTotal}</p>
         </div>
       </div>
       <Button primary block>

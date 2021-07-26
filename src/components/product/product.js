@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import Button from '../button';
+import { useContext } from 'react';
+import { currencyContext } from '../../contexts/currency';
 
 import {
   amountSelector,
@@ -11,13 +13,16 @@ import {
 import { productSelector } from '../../redux/features/products';
 
 function Product({ product, amount, decrement, increment }) {
+  const { formatPrice, currency } = useContext(currencyContext);
   return (
     <div className={styles.product} data-id="product">
       <div className={styles.content}>
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            {formatPrice(product.price, currency)}
+          </div>
         </div>
         <div>
           <div className={styles.counter}>

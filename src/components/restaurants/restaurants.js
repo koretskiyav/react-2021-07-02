@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Tabs from '../tabs';
 import Loader from '../loader';
+import Money from '../money';
+import styles from './restaurants.module.css';
 
 import {
   activeRestaurantIdSelector,
@@ -35,6 +37,10 @@ function Restaurants({
 
   return (
     <div>
+       <div className={styles.money}>
+        <span className={styles.text}>Выберете валюту</span>
+        <Money />
+      </div>
       <Tabs tabs={tabs} onChange={changeRestaurant} activeId={activeId} />
       <Restaurant id={activeId} />
     </div>
