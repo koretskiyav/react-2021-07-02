@@ -1,8 +1,13 @@
+import { useContext } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './product.module.css';
 import Button from '../button';
-
+import {
+  currencyContext,
+  calculatePrice,
+  getSignFromCurrency,
+} from '../../contexts/currency';
 import {
   amountSelector,
   decrement,
@@ -11,13 +16,18 @@ import {
 import { productSelector } from '../../redux/features/products';
 
 function Product({ product, amount, decrement, increment }) {
+  const { currentCurrency } = useContext(currencyContext);
+
   return (
     <div className={styles.product} data-id="product">
       <div className={styles.content}>
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            {calculatePrice(product.price, currentCurrency)}{' '}
+            {getSignFromCurrency(currentCurrency)}
+          </div>
         </div>
         <div>
           <div className={styles.counter}>

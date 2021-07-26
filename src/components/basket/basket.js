@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
 
 import styles from './basket.module.css';
+import { useContext } from 'react';
 import itemStyles from './basket-item/basket-item.module.css';
 import BasketItem from './basket-item';
 import Button from '../button';
 import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 import { UserConsumer } from '../../contexts/user';
+import {
+  currencyContext,
+  calculatePrice,
+  getSignFromCurrency,
+} from '../../contexts/currency';
 
 function Basket({ title = 'Basket', total, orderProducts }) {
   console.log('render Basket');
-  // const { name } = useContext(userContext);
-
+  const { currentCurrency } = useContext(currencyContext);
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -21,7 +26,6 @@ function Basket({ title = 'Basket', total, orderProducts }) {
 
   return (
     <div className={styles.basket}>
-      {/* <h4 className={styles.title}>{`${name}'n ${title}`}</h4> */}
       <h4 className={styles.title}>
         <UserConsumer>{({ name }) => `${name}'n ${title}`}</UserConsumer>
       </h4>
@@ -39,7 +43,9 @@ function Basket({ title = 'Basket', total, orderProducts }) {
           <p>Total</p>
         </div>
         <div className={itemStyles.info}>
-          <p>{`${total} $`}</p>
+          <p>{`${calculatePrice(total, currentCurrency)} ${getSignFromCurrency(
+            currentCurrency
+          )}`}</p>
         </div>
       </div>
       <Button primary block>
