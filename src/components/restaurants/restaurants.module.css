@@ -1,0 +1,13 @@
+.money {
+  position: absolute;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.text {
+  color: var(--black);
+  font-size: 20;
+  padding-right: 5px;
+}
