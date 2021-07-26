@@ -1,30 +1,25 @@
-import {
-  createAction,
-  createAsyncThunk,
-  createSlice,
-  createEntityAdapter,
-} from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
 import api from '../../api';
-import { pending, fulfilled, rejected } from '../constants';
+import { fulfilled, pending, rejected } from '../constants';
 
 import { isLoaded, shouldLoad } from '../utils';
 
 export const addReview = createAction('reviews/add', (review, restId) => ({
   payload: { review, restId },
-  meta: { generateId: ['reviewId', 'userId'] },
+  meta: { generateId: ['reviewId', 'userId'] }
 }));
 
 export const loadReviews = createAsyncThunk('reviews/load', api.loadReviews, {
   condition: (restId, { getState }) =>
-    shouldLoadReviewsSelector(getState(), { restId }),
+    shouldLoadReviewsSelector(getState(), { restId })
 });
 
 const Reviews = createEntityAdapter();
 
 const initialState = Reviews.getInitialState({
   status: {},
-  error: null,
+  error: null
 });
 
 const { reducer } = createSlice({
@@ -47,8 +42,8 @@ const { reducer } = createSlice({
       const { review, reviewId, userId } = payload;
       const { text, rating } = review;
       Reviews.addOne(state, { id: reviewId, userId, text, rating });
-    },
-  },
+    }
+  }
 });
 
 export default reducer;
