@@ -15,7 +15,6 @@ import {
 
 function Basket({ title = 'Basket', total, orderProducts }) {
   console.log('render Basket');
-  // const { name } = useContext(userContext);
   const { currentCurrency } = useContext(currencyContext);
   if (!total) {
     return (
@@ -27,7 +26,6 @@ function Basket({ title = 'Basket', total, orderProducts }) {
 
   return (
     <div className={styles.basket}>
-      {/* <h4 className={styles.title}>{`${name}'n ${title}`}</h4> */}
       <h4 className={styles.title}>
         <UserConsumer>{({ name }) => `${name}'n ${title}`}</UserConsumer>
       </h4>

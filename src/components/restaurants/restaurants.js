@@ -26,7 +26,7 @@ function Restaurants({
   useEffect(() => {
     if (shouldLoad) loadRestaurants();
   }, [shouldLoad]); // eslint-disable-line
-  const { currentCurrency, setCurency } = useContext(currencyContext);
+  const { setCurency } = useContext(currencyContext);
   const tabs = useMemo(
     () => restaurants.map(({ id, name }) => ({ id, label: name })),
     [restaurants]
