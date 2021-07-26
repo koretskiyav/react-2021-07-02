@@ -11,14 +11,14 @@ const { currency, changeCurrency } = useContext(currencyContext);
 
  return (
       <div className={styles.currencySelector}>
-       {Object.keys(currencies).map((currencyItem) =>
+       {Object.keys(currencies).map((currencyId) =>
           <Button
-              onClick={() => changeCurrency(currencyItem)}
-              secondary={currencyItem !== currency}
-              primary={currencyItem === currency}
-              key={currencyItem}
+              onClick={() => changeCurrency(currencyId)}
+              secondary={currencyId !== currency}
+              primary={currencyId === currency}
+              key={currencyId}
           >
-              {currencyItem}
+              {currencies[currencyId].label}
           </Button>
       )}
   </div>

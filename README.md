@@ -54,7 +54,6 @@
 ## HT6
 
 1. Перенести все на **@reduxjs/toolkit**:
-
    - редьюсеры и екшены переписать с использованием **createSlice** и **createEntityAdapter**
    - загрузки данных переписать с использование **createAsyncThunk**
    - удалить **apiCall middleware** и констатны **REQUEST/SUCCESS/FAILURE**

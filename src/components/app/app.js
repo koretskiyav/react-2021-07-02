@@ -3,11 +3,13 @@ import Restaurants from '../restaurants';
 import Header from '../header';
 import { UserProvider } from '../../contexts/user';
 import { CurrencyProvider } from '../../contexts/currency';
+import { currencies } from '../../constants';
 
 const App = () => {
-
   const [name, setName] = useState('Andrey');
-  const [currency, changeCurrency] = useState('USD');
+  const defaultCurrency = Object.keys(currencies)[0];
+  const [currency, changeCurrency] = useState(defaultCurrency);
+
   return (
     <div>
       <UserProvider value={{ name, setName }}>
