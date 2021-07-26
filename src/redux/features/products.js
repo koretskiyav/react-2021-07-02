@@ -1,55 +1,38 @@
-import { createNextState } from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import api from '../../api';
-import {
-  pending,
-  fulfilled,
-  rejected,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from '../constants';
+import { fulfilled, pending, rejected } from '../constants';
 
-import { arrToMap, isLoaded, shouldLoad } from '../utils';
+import { isLoaded, shouldLoad } from '../utils';
 
-const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
-
-export const loadProducts = (restId) => ({
-  type: LOAD_PRODUCTS,
-  meta: {
-    apiCall: () => api.loadProducts(restId),
-    restId,
-  },
-});
-
-const initialState = {
+const Products = createEntityAdapter();
+const initialState = Products.getInitialState({
   status: {},
-  entities: {},
-  error: null,
-};
-
-export default createNextState((draft = initialState, action) => {
-  const { type, payload, error, meta } = action;
-
-  switch (type) {
-    case LOAD_PRODUCTS + REQUEST: {
-      draft.status[meta.restId] = pending;
-      draft.error = null;
-      break;
+  error: null
+});
+export const loadProducts = createAsyncThunk('products/load', api.loadProducts, {
+  condition: (restId, { getState }) =>
+    shouldLoadProductsSelector(getState(), { restId })
+});
+const { reducer } = createSlice({
+  name: 'reviews',
+  initialState,
+  extraReducers: {
+    [loadProducts.pending]: (state, { meta }) => {
+      state.status[meta.arg] = pending;
+      state.error = null;
+    },
+    [loadProducts.fulfilled]: (state, action) => {
+      state.status[action.meta.arg] = fulfilled;
+      Products.addMany(state, action);
+    },
+    [loadProducts.rejected]: (state, { meta, error }) => {
+      state.status[meta.arg] = rejected;
+      state.error = error;
     }
-    case LOAD_PRODUCTS + SUCCESS: {
-      draft.status[meta.restId] = fulfilled;
-      Object.assign(draft.entities, arrToMap(payload));
-      break;
-    }
-    case LOAD_PRODUCTS + FAILURE: {
-      draft.status[meta.restId] = rejected;
-      draft.error = error;
-      break;
-    }
-    default:
-      return draft;
   }
 });
+
+export default reducer;
 
 export const productsSelector = (state) => state.products.entities;
 
