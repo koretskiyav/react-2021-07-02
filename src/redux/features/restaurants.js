@@ -1,4 +1,4 @@
-import { createSelector, createNextState } from '@reduxjs/toolkit';
+import { createAction, createSelector, createReducer } from '@reduxjs/toolkit';
 import { arrToMap, isLoaded, shouldLoad } from '../utils';
 import api from '../../api';
 import {
@@ -12,20 +12,13 @@ import {
 } from '../constants';
 import { addReview } from './reviews';
 
-const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
-const LOAD_RESTAURANTS = 'LOAD_RESTAURANTS';
-
-export const changeRestaurant = (activeId) => ({
-  type: CHANGE_RESTAURANT,
-  payload: activeId,
-});
-
-export const loadRestaurants = () => ({
-  type: LOAD_RESTAURANTS,
-  meta: {
-    apiCall: () => api.loadRestaurants(),
-  },
-});
+export const changeRestaurant = createAction('restaurant/change');
+export const loadRestaurants = createAction('restaurants/load', 
+  () => ({meta: {
+      apiCall: () => api.loadRestaurants(),
+    }
+  })
+);
 
 const initialState = {
   activeId: null,
@@ -34,32 +27,28 @@ const initialState = {
   error: null,
 };
 
-export default (state = initialState, action) => {
-  const { type, payload, error } = action;
-
-  switch (type) {
-    case CHANGE_RESTAURANT:
-      return { ...state, activeId: payload };
-    case LOAD_RESTAURANTS + REQUEST:
-      return { ...state, status: pending, error: null };
-    case LOAD_RESTAURANTS + SUCCESS:
-      return {
+export default createReducer (initialState, {
+    [changeRestaurant.type]: (state, action) => ({ ...state, activeId: action.payload }),
+    [loadRestaurants.type + REQUEST]: (state) => ({ ...state, status: pending, error: null }),
+    [loadRestaurants.type + SUCCESS]: (state, action) => ({
         ...state,
-        activeId: payload[0].id,
+        activeId: action.payload[0].id,
         status: fulfilled,
-        entities: arrToMap(payload),
-      };
-    case LOAD_RESTAURANTS + FAILURE:
-      return { ...state, status: rejected, error };
-    case addReview.type:
-      return createNextState(state, (draft) => {
-        draft.entities[payload.restId].reviews.push(payload.reviewId);
-      });
-
-    default:
-      return state;
+        entities: arrToMap(action.payload),
+      }),
+    [loadRestaurants.type + FAILURE]: (state, action) => ({ ...state, status: rejected, error: action.payload.error }),
+    [addReview.type]: (state, action) => ({
+        ...state, 
+        entities: {
+          ...state.entities, 
+          [action.payload.restId]: {
+            ...state.entities[action.payload.restId], 
+            reviews: [...state.entities[action.payload.restId].reviews,action.payload.reviewId]
+          }
+        }
+      })
   }
-};
+);
 
 export const activeRestaurantIdSelector = (state) => state.restaurants.activeId;
 const restaurantsSelector = (state) => state.restaurants.entities;
