@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styles from './product.module.css';
+
 import Button from '../button';
+import Price from '../price';
+
+import styles from './product.module.css';
 
 import {
   amountSelector,
@@ -17,7 +20,9 @@ function Product({ product, amount, decrement, increment }) {
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            <Price>{product.price}</Price>
+          </div>
         </div>
         <div>
           <div className={styles.counter}>
