@@ -9,6 +9,7 @@ import {
   increment,
 } from '../../redux/features/order';
 import { productSelector } from '../../redux/features/products';
+import PriceModifier from '../priceModifier';
 
 function Product({ product, amount, decrement, increment }) {
   return (
@@ -17,7 +18,9 @@ function Product({ product, amount, decrement, increment }) {
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            <PriceModifier price={product.price} />
+          </div>
         </div>
         <div>
           <div className={styles.counter}>
