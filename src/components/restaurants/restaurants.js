@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import Loader from '../loader';
@@ -25,10 +25,6 @@ function Restaurants({ restaurants, loaded, loadRestaurants, match, history }) {
 
   if (!loaded) return <Loader />;
 
-  // console.log(match);
-
-  const { restId } = match.params;
-
   return (
     <div>
       <div className={styles.tabs}>
@@ -43,7 +39,12 @@ function Restaurants({ restaurants, loaded, loadRestaurants, match, history }) {
           </NavLink>
         ))}
       </div>
-      <Restaurant id={restId} />
+      <Switch>
+        <Route path="/restaurants/:restId">
+          {({ match }) => <Restaurant id={match.params.restId} />}
+        </Route>
+        <Redirect to={`/restaurants/${restaurants[0].id}`} />
+      </Switch>
     </div>
   );
 }
