@@ -13,3 +13,15 @@
   right: 20px;
   top: 0;
 }
+
+.currency {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.title {
+  color: var(--white);
+  margin-right: 10px;
+}

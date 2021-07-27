@@ -43,8 +43,8 @@ Restaurant.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  restaurant: restaurantSelector(state, props),
-  averageRating: averageRatingSelector(state, props),
+  restaurant: restaurantSelector(state, props.id),
+  averageRating: averageRatingSelector(state, props.id),
 });
 
 export default connect(mapStateToProps)(Restaurant);

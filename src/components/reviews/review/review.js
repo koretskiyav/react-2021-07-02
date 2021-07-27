@@ -33,6 +33,7 @@ Review.defaultProps = {
   user: 'Anonymous',
 };
 
-const mapStateToProps = reviewWitUserSelector;
+const mapStateToProps = (state, props) =>
+  reviewWitUserSelector(state, props.id);
 
 export default connect(mapStateToProps)(Review);

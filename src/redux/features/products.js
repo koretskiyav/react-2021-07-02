@@ -1,60 +1,56 @@
-import { createNextState } from '@reduxjs/toolkit';
-import api from '../../api';
 import {
-  pending,
-  fulfilled,
-  rejected,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from '../constants';
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from '@reduxjs/toolkit';
 
-import { arrToMap, isLoaded, shouldLoad } from '../utils';
+import api from '../../api';
+import { pending, fulfilled, rejected } from '../constants';
 
-const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
+import { isLoaded, shouldLoad } from '../utils';
 
-export const loadProducts = (restId) => ({
-  type: LOAD_PRODUCTS,
-  meta: {
-    apiCall: () => api.loadProducts(restId),
-    restId,
+export const loadProducts = createAsyncThunk(
+  'products/load',
+  api.loadProducts,
+  {
+    condition: (restId, { getState }) => {
+      shouldLoadProductsSelector(getState(), { restId });
+    },
+  }
+);
+
+const Products = createEntityAdapter();
+
+const initialState = Products.getInitialState({
+  status: {},
+  error: null,
+});
+
+const { reducer } = createSlice({
+  name: 'products',
+  initialState,
+  extraReducers: {
+    [loadProducts.pending]: (state, { meta }) => {
+      state.status[meta.arg] = pending;
+      state.error = null;
+    },
+    [loadProducts.fulfilled]: (state, { payload, meta }) => {
+      state.status[meta.arg] = fulfilled;
+      Products.addMany(state, payload);
+    },
+    [loadProducts.rejected]: (state, { error, meta }) => {
+      state.status[meta.arg] = rejected;
+      state.error = error;
+    },
   },
 });
 
-const initialState = {
-  status: {},
-  entities: {},
-  error: null,
-};
+export default reducer;
 
-export default createNextState((draft = initialState, action) => {
-  const { type, payload, error, meta } = action;
+export const { selectEntities: productsSelector, selectById: productSelector } =
+  Products.getSelectors((state) => state.products);
 
-  switch (type) {
-    case LOAD_PRODUCTS + REQUEST: {
-      draft.status[meta.restId] = pending;
-      draft.error = null;
-      break;
-    }
-    case LOAD_PRODUCTS + SUCCESS: {
-      draft.status[meta.restId] = fulfilled;
-      Object.assign(draft.entities, arrToMap(payload));
-      break;
-    }
-    case LOAD_PRODUCTS + FAILURE: {
-      draft.status[meta.restId] = rejected;
-      draft.error = error;
-      break;
-    }
-    default:
-      return draft;
-  }
-});
-
-export const productsSelector = (state) => state.products.entities;
-
-export const productSelector = (state, { id }) => productsSelector(state)[id];
-const productsStatusSelector = (state, { restId }) =>
-  state.products.status[restId];
+export const productsStatusSelector = (state, { restId }) =>
+  state.products?.status[restId];
 export const productsLoadedSelector = isLoaded(productsStatusSelector);
 export const shouldLoadProductsSelector = shouldLoad(productsStatusSelector);

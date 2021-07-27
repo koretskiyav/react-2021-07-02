@@ -53,9 +53,9 @@ const { reducer } = createSlice({
 
 export default reducer;
 
-export const reviewsSelector = (state) => state.reviews.entities;
+export const { selectEntities: reviewsSelector, selectById: reviewSelector } =
+  Reviews.getSelectors((state) => state.reviews);
 
-export const reviewSelector = (state, { id }) => reviewsSelector(state)[id];
 const reviewsStatusSelector = (state, { restId }) =>
   state.reviews.status[restId];
 export const reviewsLoadedSelector = isLoaded(reviewsStatusSelector);
