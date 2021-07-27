@@ -1,25 +1,19 @@
 import { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
-import Tabs from '../tabs';
 import Loader from '../loader';
 
 import {
-  activeRestaurantIdSelector,
   restaurantsListSelector,
-  changeRestaurant,
   loadRestaurants,
   restaurantsLoadedSelector,
 } from '../../redux/features/restaurants';
 
-function Restaurants({
-  activeId,
-  restaurants,
-  loaded,
-  changeRestaurant,
-  loadRestaurants,
-}) {
+import styles from './restaurants.module.css';
+
+function Restaurants({ restaurants, loaded, loadRestaurants, match, history }) {
   useEffect(() => {
     loadRestaurants();
   }, []); // eslint-disable-line
@@ -31,10 +25,25 @@ function Restaurants({
 
   if (!loaded) return <Loader />;
 
+  // console.log(match);
+
+  const { restId } = match.params;
+
   return (
     <div>
-      <Tabs tabs={tabs} onChange={changeRestaurant} activeId={activeId} />
-      <Restaurant id={activeId} />
+      <div className={styles.tabs}>
+        {tabs.map(({ id, label }) => (
+          <NavLink
+            key={id}
+            to={`/restaurants/${id}`}
+            className={styles.tab}
+            activeClassName={styles.active}
+          >
+            {label}
+          </NavLink>
+        ))}
+      </div>
+      <Restaurant id={restId} />
     </div>
   );
 }
@@ -49,13 +58,11 @@ Restaurants.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeId: activeRestaurantIdSelector(state),
   restaurants: restaurantsListSelector(state),
   loaded: restaurantsLoadedSelector(state),
 });
 
 const mapDispatchToProps = {
-  changeRestaurant,
   loadRestaurants,
 };
 

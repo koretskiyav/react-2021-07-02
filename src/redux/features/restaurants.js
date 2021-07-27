@@ -21,14 +21,9 @@ const initialState = Restaurants.getInitialState({
   error: null,
 });
 
-const { reducer, actions } = createSlice({
+const { reducer } = createSlice({
   name: 'restaurants',
   initialState,
-  reducers: {
-    changeRestaurant(state, { payload: activeId }) {
-      state.activeId = activeId;
-    },
-  },
   extraReducers: {
     [loadRestaurants.pending]: (state) => {
       state.status = pending;
@@ -50,14 +45,11 @@ const { reducer, actions } = createSlice({
 });
 
 export default reducer;
-const { changeRestaurant } = actions;
-export { changeRestaurant };
 
 const restaurantsSelectors = Restaurants.getSelectors(
   (state) => state.restaurants
 );
 
-export const activeRestaurantIdSelector = (state) => state.restaurants.activeId;
 const restaurantsStatusSelector = (state) => state.restaurants.status;
 
 export const restaurantsListSelector = restaurantsSelectors.selectAll;
