@@ -1,78 +1,69 @@
-import { createSelector, createNextState } from '@reduxjs/toolkit';
-import { arrToMap, isLoaded, shouldLoad } from '../utils';
-import api from '../../api';
 import {
-  idle,
-  pending,
-  fulfilled,
-  rejected,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from '../constants';
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from '@reduxjs/toolkit';
+import api from '../../api';
+import { idle, pending, fulfilled, rejected } from '../constants';
 import { addReview } from './reviews';
+import { isLoaded, shouldLoad } from '../utils';
 
-const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT';
-const LOAD_RESTAURANTS = 'LOAD_RESTAURANTS';
+export const loadRestaurants = createAsyncThunk(
+  'restaurants/load',
+  api.loadRestaurants,
+  { condition: (_, { getState }) => shouldLoadRestaurantsSelector(getState()) }
+);
 
-export const changeRestaurant = (activeId) => ({
-  type: CHANGE_RESTAURANT,
-  payload: activeId,
+const Restaurants = createEntityAdapter();
+
+const initialState = Restaurants.getInitialState({
+  status: idle,
+  error: null,
 });
 
-export const loadRestaurants = () => ({
-  type: LOAD_RESTAURANTS,
-  meta: {
-    apiCall: () => api.loadRestaurants(),
+const { reducer, actions } = createSlice({
+  name: 'restaurants',
+  initialState,
+  reducers: {
+    changeRestaurant(state, { payload: activeId }) {
+      state.activeId = activeId;
+    },
+  },
+  extraReducers: {
+    [loadRestaurants.pending]: (state) => {
+      state.status = pending;
+      state.error = null;
+    },
+    [loadRestaurants.fulfilled]: (state, { payload }) => {
+      state.status = fulfilled;
+      state.activeId = payload[0].id;
+      Restaurants.addMany(state, payload);
+    },
+    [loadRestaurants.rejected]: (state, { error }) => {
+      state.status = rejected;
+      state.error = error;
+    },
+    [addReview]: (state, { payload }) => {
+      state.entities[payload.restId].reviews.push(payload.reviewId);
+    },
   },
 });
 
-const initialState = {
-  activeId: null,
-  status: idle,
-  entities: {},
-  error: null,
-};
+export default reducer;
+const { changeRestaurant } = actions;
+export { changeRestaurant };
 
-export default (state = initialState, action) => {
-  const { type, payload, error } = action;
-
-  switch (type) {
-    case CHANGE_RESTAURANT:
-      return { ...state, activeId: payload };
-    case LOAD_RESTAURANTS + REQUEST:
-      return { ...state, status: pending, error: null };
-    case LOAD_RESTAURANTS + SUCCESS:
-      return {
-        ...state,
-        activeId: payload[0].id,
-        status: fulfilled,
-        entities: arrToMap(payload),
-      };
-    case LOAD_RESTAURANTS + FAILURE:
-      return { ...state, status: rejected, error };
-    case addReview.type:
-      return createNextState(state, (draft) => {
-        draft.entities[payload.restId].reviews.push(payload.reviewId);
-      });
-
-    default:
-      return state;
-  }
-};
+const restaurantsSelectors = Restaurants.getSelectors(
+  (state) => state.restaurants
+);
 
 export const activeRestaurantIdSelector = (state) => state.restaurants.activeId;
-const restaurantsSelector = (state) => state.restaurants.entities;
 const restaurantsStatusSelector = (state) => state.restaurants.status;
 
-export const restaurantsListSelector = createSelector(
-  restaurantsSelector,
-  Object.values
-);
+export const restaurantsListSelector = restaurantsSelectors.selectAll;
+
 export const restaurantSelector = (state, { id }) =>
-  restaurantsSelector(state)[id];
+  restaurantsSelectors.selectById(state, id);
 
 export const restaurantsLoadedSelector = isLoaded(restaurantsStatusSelector);
-export const shouldLoadRestaurantsSelector = shouldLoad(
-  restaurantsStatusSelector
-);
+const shouldLoadRestaurantsSelector = shouldLoad(restaurantsStatusSelector);
