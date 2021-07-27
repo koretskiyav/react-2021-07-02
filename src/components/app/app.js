@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Route } from 'react-router-dom';
 import Restaurants from '../restaurants';
 import Header from '../header';
+import Basket from '../basket';
 import { UserProvider } from '../../contexts/user';
 
 const App = () => {
@@ -9,7 +11,8 @@ const App = () => {
     <div>
       <UserProvider value={{ name, setName }}>
         <Header />
-        <Restaurants />
+        <Route path="/checkout" component={Basket} />
+        <Route path="/restaurants" component={Restaurants} />
       </UserProvider>
     </div>
   );

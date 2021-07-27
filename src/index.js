@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 
 import App from './components/app';
@@ -12,9 +13,11 @@ window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>
-    <MoneyProvider>
-      <App />
-    </MoneyProvider>
+    <BrowserRouter>
+      <MoneyProvider>
+        <App />
+      </MoneyProvider>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
