@@ -10,6 +10,10 @@ router.get('/products', (req, res, next) => {
   const { id } = req.query;
   let result = products;
   if (id) {
+    // if (id === '982bfbce-c5e0-41a0-9f99-d5c20ecee49d') {
+    //   reply(res, 'not found', 1000, 404);
+    //   return;
+    // }
     const restaurant = getById(restaurants)(id);
     if (restaurant) {
       result = restaurant.menu.map(getById(result));

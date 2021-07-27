@@ -1,23 +1,24 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import './index.css';
 
 import App from './components/app';
 import { MoneyProvider } from './contexts/money';
 
 import store from './redux/store';
+import history from './history';
 
 // DEV ONLY!!!
 window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <MoneyProvider>
         <App />
       </MoneyProvider>
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

@@ -1,4 +1,10 @@
-const get = (url) => fetch(url).then((res) => res.json());
+const get = (url) =>
+  fetch(url).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    throw new Error();
+  });
 
 export default {
   loadRestaurants: () => get('/api/restaurants'),

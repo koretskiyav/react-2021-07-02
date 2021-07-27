@@ -3,13 +3,18 @@ import {
   createAsyncThunk,
   createEntityAdapter,
 } from '@reduxjs/toolkit';
+import { replace } from 'connected-react-router';
 import api from '../../api';
 import { pending, fulfilled, rejected } from '../constants';
 import { isLoaded, shouldLoad } from '../utils';
 
 export const loadProducts = createAsyncThunk(
   'products/load',
-  api.loadProducts,
+  (restId, { dispatch }) =>
+    api.loadProducts(restId).catch((error) => {
+      dispatch(replace('/error'));
+      throw error;
+    }),
   {
     condition: (restId, { getState }) =>
       shouldLoadProductsSelector(getState(), { restId }),
