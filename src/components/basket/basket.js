@@ -10,7 +10,9 @@ import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 import { UserConsumer } from '../../contexts/user';
 import moneyContext from '../../contexts/money';
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+import { idsDictionarySelector } from '../../redux/selectors';
+
+function Basket({ title = 'Basket', total, orderProducts, idsDictionary }) {
   const { m } = useContext(moneyContext);
 
   if (!total) {
@@ -31,6 +33,7 @@ function Basket({ title = 'Basket', total, orderProducts }) {
           product={product}
           amount={amount}
           key={product.id}
+          restId={idsDictionary[product.id]}
           subtotal={subtotal}
         />
       ))}
@@ -56,6 +59,7 @@ const mapStateToProps = (state) => {
   return {
     total: totalSelector(state),
     orderProducts: orderProductsSelector(state),
+    idsDictionary: idsDictionarySelector(state),
   };
 };
 
