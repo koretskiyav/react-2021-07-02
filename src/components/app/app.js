@@ -12,7 +12,7 @@ const App = () => {
       <UserProvider value={{ name, setName }}>
         <Header />
         <Switch>
-          <Route path="/" exact component={() => <p>Home Page!</p>} />
+          <Route path="/" exact component={Restaurants} />
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={Restaurants} />
           <Route path="/error" component={() => <p>Error Page!</p>} />
