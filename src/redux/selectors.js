@@ -44,3 +44,5 @@ export const averageRatingSelector = createSelector(
     );
   }
 );
+
+export const pathnameSelector = (state) => state.router.location.pathname;

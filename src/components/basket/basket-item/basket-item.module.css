@@ -72,3 +72,11 @@
 .info p:first-child {
   font-weight: bold;
 }
+/* 
+.link {
+  cursor: pointer;
+}
+
+.link:hover span {
+  color: tomato;
+} */

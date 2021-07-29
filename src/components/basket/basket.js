@@ -6,11 +6,11 @@ import styles from './basket.module.css';
 import itemStyles from './basket-item/basket-item.module.css';
 import BasketItem from './basket-item';
 import Button from '../button';
-import { orderProductsSelector, totalSelector } from '../../redux/selectors';
+import { orderProductsSelector, totalSelector, pathnameSelector } from '../../redux/selectors';
 import { UserConsumer } from '../../contexts/user';
 import moneyContext from '../../contexts/money';
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+function Basket({ title = 'Basket', total, orderProducts, pathname }) {
   const { m } = useContext(moneyContext);
 
   if (!total) {
@@ -43,11 +43,20 @@ function Basket({ title = 'Basket', total, orderProducts }) {
           <p>{m(total)}</p>
         </div>
       </div>
-      <Link to="/checkout">
-        <Button primary block>
+      {
+        (pathname === "/checkout") ?
+        <Button 
+          primary block
+          onClick={() => (alert('ЗАказ отправлен'))}
+        >
           checkout
-        </Button>
-      </Link>
+        </Button> :
+        <Link to="/checkout">
+          <Button primary block>
+            checkout
+          </Button>
+        </Link>
+      }
     </div>
   );
 }
@@ -56,6 +65,7 @@ const mapStateToProps = (state) => {
   return {
     total: totalSelector(state),
     orderProducts: orderProductsSelector(state),
+    pathname: pathnameSelector(state),
   };
 };
 
