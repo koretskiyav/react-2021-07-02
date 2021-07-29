@@ -4,6 +4,7 @@ import Restaurants from '../restaurants';
 import Header from '../header';
 import Basket from '../basket';
 import { UserProvider } from '../../contexts/user';
+import { Redirect } from 'react-router-dom'
 
 const App = () => {
   const [name, setName] = useState('Andrey');
@@ -12,7 +13,9 @@ const App = () => {
       <UserProvider value={{ name, setName }}>
         <Header />
         <Switch>
-          <Route path="/" exact component={() => <p>Home Page!</p>} />
+          <Route path="/" exact>
+            <Redirect to="/restaurants" />
+          </Route>
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={Restaurants} />
           <Route path="/error" component={() => <p>Error Page!</p>} />
