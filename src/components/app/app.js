@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Restaurants from '../restaurants';
 import Header from '../header';
 import Basket from '../basket';
@@ -12,7 +12,9 @@ const App = () => {
       <UserProvider value={{ name, setName }}>
         <Header />
         <Switch>
-          <Route path="/" exact component={() => <p>Home Page!</p>} />
+          <Route path="/" exact >
+            <Redirect to="/restaurants"/>
+          </Route>
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={Restaurants} />
           <Route path="/error" component={() => <p>Error Page!</p>} />
