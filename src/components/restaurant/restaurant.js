@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemmo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
@@ -10,10 +10,8 @@ import Tabs from '../tabs';
 import { restaurantSelector } from '../../redux/features/restaurants';
 import { averageRatingSelector } from '../../redux/selectors';
 
-const Restaurant = ({ restaurant, averageRating }) => {
+const Restaurant = ({ restaurant, averageRating, activeTab }) => {
   const { id, name, menu, reviews } = restaurant;
-
-  const [activeTab, setActiveTab] = useState('menu');
 
   const tabs = [
     { id: 'menu', label: 'Menu' },
@@ -25,7 +23,7 @@ const Restaurant = ({ restaurant, averageRating }) => {
       <Banner heading={name}>
         {!!averageRating && <Rate value={averageRating} />}
       </Banner>
-      <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
+      <Tabs tabs={tabs} activeId={activeTab} restId={id} />
       {activeTab === 'menu' && <Menu menu={menu} key={id} restId={id} />}
       {activeTab === 'reviews' && <Reviews reviews={reviews} restId={id} />}
     </div>
