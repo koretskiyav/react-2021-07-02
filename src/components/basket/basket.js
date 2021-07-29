@@ -33,12 +33,12 @@ function Basket({
     processOrder(data)
   }
 
-  const mapper = (products) => (
-    Object.keys(products)
-      .map(key => ({
-        id: key,
-        amount: products[key]
-      }))
+  const mapper = (items) => (
+    items.map(item => ({
+      id: item.product.id,
+      amount: item.amount
+    }))
+      
   )
     
   if (!total) {
