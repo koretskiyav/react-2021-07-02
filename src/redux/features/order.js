@@ -43,7 +43,8 @@ const { reducer, actions } = createSlice({
     },
     [processOrder.rejected]: (state, { error }) => {
       state.status = rejected;
-      state.error = error
+      state.error = error;
+      state.entities['foo'] = 100;
     }
   },
 });
@@ -53,5 +54,8 @@ const { increment, decrement, remove } = actions;
 export { increment, decrement, remove };
 
 export const orderSelector = (state) => state.order.entities;
+
+export const orderSuccessSelector = (state) => (state.order.status === fulfilled) 
+export const orderErrorSelector = (state) => (state.order.status === rejected) 
 
 export const amountSelector = (state, { id }) => orderSelector(state)[id] || 0;

@@ -1,6 +1,6 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 
 import styles from './basket.module.css';
 import itemStyles from './basket-item/basket-item.module.css';
@@ -9,10 +9,38 @@ import Button from '../button';
 import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 import { UserConsumer } from '../../contexts/user';
 import moneyContext from '../../contexts/money';
+import {
+  processOrder,
+  orderSuccessSelector,
+  orderErrorSelector
+} from '../../redux/features/order'
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  total,
+  orderProducts,
+  match,
+  processOrder
+}) {
   const { m } = useContext(moneyContext);
 
+  const onCheckoutPage = useMemo(() => (
+    match.url === '/checkout'
+  ), [match])
+
+  const handleProcessOrder = () => {
+    const data = mapper(orderProducts)
+    processOrder(data)
+  }
+
+  const mapper = (products) => (
+    Object.keys(products)
+      .map(key => ({
+        id: key,
+        amount: products[key]
+      }))
+  )
+    
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -43,11 +71,18 @@ function Basket({ title = 'Basket', total, orderProducts }) {
           <p>{m(total)}</p>
         </div>
       </div>
-      <Link to="/checkout">
-        <Button primary block>
+      {onCheckoutPage ? (
+        <Button primary block onClick={handleProcessOrder}>
           checkout
         </Button>
-      </Link>
+      ) : (
+        <Link to="/checkout">
+          <Button primary block>
+            to checkout
+          </Button>
+        </Link>
+      )}
+      
     </div>
   );
 }
@@ -56,7 +91,13 @@ const mapStateToProps = (state) => {
   return {
     total: totalSelector(state),
     orderProducts: orderProductsSelector(state),
+    orderSuccess: orderSuccessSelector(state),
+    orderError: orderErrorSelector(state),
   };
 };
 
-export default connect(mapStateToProps)(Basket);
+const mapDispatchToProps = {
+  processOrder
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Basket));
