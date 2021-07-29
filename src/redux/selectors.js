@@ -46,21 +46,11 @@ export const averageRatingSelector = createSelector(
   }
 );
 
-export const restIdProductSelector = createSelector(
+export const restaurantByProductSelector = createSelector(
   restaurantsListSelector,
   productSelector,
-  (restaurants, product) => {
-    // это явно не лучший способ 😒
-    let result = null
-    restaurants.forEach(restaurant => {
-      const found = restaurant.menu.find((id) => {
-        return id === product.id
-      })
-      if (found) {
-        result = restaurant.id
-      }
-    })
-
-    return result
-  }
+  (restaurants, product) => 
+    restaurants.find(({ menu }) => (
+      menu.find((id) => id === product.id)
+    ))
 )

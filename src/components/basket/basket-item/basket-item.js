@@ -5,7 +5,7 @@ import { increment, decrement, remove } from '../../../redux/features/order';
 import Button from '../../button';
 import styles from './basket-item.module.css';
 import { Link } from 'react-router-dom'
-import { restIdProductSelector } from '../../../redux/selectors'
+import { restaurantByProductSelector } from '../../../redux/selectors'
 
 import moneyContext from '../../../contexts/money';
 
@@ -16,13 +16,17 @@ function BasketItem({
   increment,
   decrement,
   remove,
-  restId
+  restaurant
 }) {
   const { m } = useContext(moneyContext);
+  const link = restaurant?.id 
+    ? `/restaurants/${restaurant.id}`
+    : '/restaurants'
+   
   return (
     <div className={styles.basketItem}>
       <div className={styles.name}>
-        <Link to={`/restaurants/${restId}`}>{product.name}</Link>
+        <Link to={link}>{product.name}</Link>
       </div>
       <div className={styles.info}>
         <div className={styles.counter}>
@@ -38,7 +42,7 @@ function BasketItem({
 }
 
 const mapStateToProps = (state, props) => ({
-  restId: restIdProductSelector(state, props.product)
+  restaurant: restaurantByProductSelector(state, props.product)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
