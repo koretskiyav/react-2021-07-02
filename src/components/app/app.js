@@ -13,9 +13,7 @@ const App = () => {
       <UserProvider value={{ name, setName }}>
         <Header />
         <Switch>
-          <Route path="/" exact>
-            <Redirect to="/restaurants" />
-          </Route>
+          <Route path="/" component={() => <Redirect to="/restaurants" />} exact />
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={Restaurants} />
           <Route path="/error" component={() => <p>Error Page!</p>} />

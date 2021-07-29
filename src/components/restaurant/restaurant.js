@@ -31,10 +31,10 @@ const Restaurant = ({
       </Banner>
       <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
       <Switch>
-        <Route path="/restaurants/:restId/reviews" exact>
+        <Route path="/restaurants/:restId/reviews">
           <Reviews reviews={reviews} restId={id} />
         </Route>
-        <Route path="/restaurants/:restId/menu" exact>
+        <Route path="/restaurants/:restId/menu">
           <Menu menu={menu} key={id} restId={id} />
         </Route>
       </Switch>
