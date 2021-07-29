@@ -1,10 +1,6 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createEntityAdapter,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import api from '../../api';
-import { idle, pending, fulfilled, rejected } from '../constants';
+import { fulfilled, idle, pending, rejected } from '../constants';
 import { addReview } from './reviews';
 import { isLoaded, shouldLoad } from '../utils';
 
@@ -18,7 +14,7 @@ const Restaurants = createEntityAdapter();
 
 const initialState = Restaurants.getInitialState({
   status: idle,
-  error: null,
+  error: null
 });
 
 const { reducer } = createSlice({
@@ -31,7 +27,6 @@ const { reducer } = createSlice({
     },
     [loadRestaurants.fulfilled]: (state, { payload }) => {
       state.status = fulfilled;
-      state.activeId = payload[0].id;
       Restaurants.addMany(state, payload);
     },
     [loadRestaurants.rejected]: (state, { error }) => {
@@ -40,8 +35,8 @@ const { reducer } = createSlice({
     },
     [addReview]: (state, { payload }) => {
       state.entities[payload.restId].reviews.push(payload.reviewId);
-    },
-  },
+    }
+  }
 });
 
 export default reducer;
