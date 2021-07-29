@@ -6,7 +6,7 @@ import Reviews from '../reviews';
 import Banner from '../banner';
 import Rate from '../rate';
 import Tabs from '../tabs';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { restaurantSelector } from '../../redux/features/restaurants';
 import { averageRatingSelector } from '../../redux/selectors';
@@ -36,6 +36,9 @@ const Restaurant = ({
         </Route>
         <Route path="/restaurants/:restId/menu">
           <Menu menu={menu} key={id} restId={id} />
+        </Route>
+        <Route path="/restaurants/:restId" exact>
+          <Redirect to={`/restaurants/${id}/menu`} />
         </Route>
       </Switch>
     </div>
