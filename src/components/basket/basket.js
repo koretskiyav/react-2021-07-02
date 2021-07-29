@@ -12,7 +12,8 @@ import moneyContext from '../../contexts/money';
 import {
   processOrder,
   orderSuccessSelector,
-  orderErrorSelector
+  orderErrorSelector,
+  remove
 } from '../../redux/features/order'
 
 function Basket({
@@ -20,7 +21,9 @@ function Basket({
   total,
   orderProducts,
   match,
-  processOrder
+  processOrder,
+  orderSuccess,
+  orderError
 }) {
   const { m } = useContext(moneyContext);
 
@@ -29,8 +32,8 @@ function Basket({
   ), [match])
 
   const handleProcessOrder = () => {
-    const data = mapper(orderProducts)
-    processOrder(data)
+    const data = mapper(orderProducts);
+    processOrder(data);
   }
 
   const mapper = (items) => (
@@ -38,9 +41,17 @@ function Basket({
       id: item.product.id,
       amount: item.amount
     }))
-      
   )
-    
+  
+  if (orderSuccess) {
+    remove();
+    return <Redirect to="/checkout/success" />;
+  }
+
+  if (orderError) {
+    return <Redirect to="/checkout/failure" />;
+  }
+
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -97,7 +108,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  processOrder
+  processOrder,
+  remove
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Basket));
