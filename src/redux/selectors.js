@@ -1,9 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { orderSelector } from './features/order';
 import { productsSelector } from './features/products';
-import { restaurantSelector } from './features/restaurants';
+import { restaurantSelector, restaurantsListSelector } from './features/restaurants';
 import { reviewSelector, reviewsSelector } from './features/reviews';
 import { usersSelector } from './features/users';
+import { productSelector } from './features/products';
 
 export const orderProductsSelector = createSelector(
   productsSelector,
@@ -44,3 +45,12 @@ export const averageRatingSelector = createSelector(
     );
   }
 );
+
+export const restaurantByProductSelector = createSelector(
+  restaurantsListSelector,
+  productSelector,
+  (restaurants, product) => 
+    restaurants.find(({ menu }) => (
+      menu.find((id) => id === product.id)
+    ))
+)

@@ -4,6 +4,9 @@ import Restaurants from '../restaurants';
 import Header from '../header';
 import Basket from '../basket';
 import { UserProvider } from '../../contexts/user';
+import { Redirect } from 'react-router-dom'
+import OrderSuccess from '../order-success/order-success'
+import OrderFailure from '../order-failure/order-failure'
 
 const App = () => {
   const [name, setName] = useState('Andrey');
@@ -12,8 +15,10 @@ const App = () => {
       <UserProvider value={{ name, setName }}>
         <Header />
         <Switch>
-          <Route path="/" exact component={() => <p>Home Page!</p>} />
-          <Route path="/checkout" component={Basket} />
+          <Route path="/" component={() => <Redirect to="/restaurants" />} exact />
+          <Route path="/checkout" component={Basket} exact/>
+          <Route path="/checkout/success" component={OrderSuccess} exact/>
+          <Route path="/checkout/failure" component={OrderFailure} exact/>
           <Route path="/restaurants" component={Restaurants} />
           <Route path="/error" component={() => <p>Error Page!</p>} />
           <Route path="/" component={() => <p>404 - Page Not Found :(</p>} />

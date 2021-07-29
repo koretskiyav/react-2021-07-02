@@ -1,6 +1,6 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import styles from './basket.module.css';
 import itemStyles from './basket-item/basket-item.module.css';
@@ -9,9 +9,51 @@ import Button from '../button';
 import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 import { UserConsumer } from '../../contexts/user';
 import moneyContext from '../../contexts/money';
+import { remove } from '../../redux/features/order'
+import {
+  processCheckout,
+  checkoutSuccessSelector,
+  checkoutErrorSelector,
+  checkoutProcessingSelector
+} from '../../redux/features/checkout'
 
-function Basket({ title = 'Basket', total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  total,
+  orderProducts,
+  match,
+  checkoutSuccess,
+  checkoutError,
+  checkoutProcessing,
+  processCheckout,
+  history
+}) {
   const { m } = useContext(moneyContext);
+
+  const onCheckoutPage = useMemo(() => (
+    match.url === '/checkout'
+  ), [match])
+
+  const handleProcessCheckout = () => {
+    const data = mapper(orderProducts);
+    processCheckout(data);
+  }
+
+  const mapper = (items) => (
+    items.map(item => ({
+      id: item.product.id,
+      amount: item.amount
+    }))
+  )
+  
+  if (checkoutSuccess) {
+    remove();
+    history.push('/checkout/success');
+  }
+
+  if (checkoutError) {
+    history.push('/checkout/failure');
+  }
 
   if (!total) {
     return (
@@ -43,11 +85,23 @@ function Basket({ title = 'Basket', total, orderProducts }) {
           <p>{m(total)}</p>
         </div>
       </div>
-      <Link to="/checkout">
-        <Button primary block>
+      {onCheckoutPage ? (
+        <Button
+          primary
+          block
+          onClick={handleProcessCheckout}
+          disabled={checkoutProcessing}
+        >
           checkout
         </Button>
-      </Link>
+      ) : (
+        <Link to="/checkout">
+          <Button primary block>
+            to checkout
+          </Button>
+        </Link>
+      )}
+      
     </div>
   );
 }
@@ -56,7 +110,15 @@ const mapStateToProps = (state) => {
   return {
     total: totalSelector(state),
     orderProducts: orderProductsSelector(state),
+    checkoutSuccess: checkoutSuccessSelector(state),
+    checkoutError: checkoutErrorSelector(state),
+    checkoutProcessing: checkoutProcessingSelector(state)
   };
 };
 
-export default connect(mapStateToProps)(Basket);
+const mapDispatchToProps = {
+  processCheckout,
+  remove
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Basket));
