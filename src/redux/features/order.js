@@ -1,4 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk
+} from '@reduxjs/toolkit';
+import api from '../../api';
+
+export const processOrder = createAsyncThunk(
+  'order/process',
+  api.processOrder,
+)
 
 const { reducer, actions } = createSlice({
   name: 'order',
