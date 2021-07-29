@@ -10,15 +10,8 @@ import {
   rejected
 } from '../constants';
 
-export const processOrder = createAsyncThunk(
-  'order/process',
-  api.processOrder,
-)
-
 const initialState = {
   entities: {},
-  status: idle,
-  error: null
 }
 
 const { reducer, actions } = createSlice({
@@ -34,18 +27,6 @@ const { reducer, actions } = createSlice({
     remove(state, { payload: id }) {
       state.entities[id] = 0;
     },
-    [processOrder.pending]: (state, _) => {
-      state.status = pending;
-      state.error = null;
-    },
-    [processOrder.fulfilled]: (state, _) => {
-      state.status = fulfilled;
-    },
-    [processOrder.rejected]: (state, { error }) => {
-      state.status = rejected;
-      state.error = error;
-      state.entities['foo'] = 100;
-    }
   },
 });
 
@@ -54,8 +35,5 @@ const { increment, decrement, remove } = actions;
 export { increment, decrement, remove };
 
 export const orderSelector = (state) => state.order.entities;
-
-export const orderSuccessSelector = (state) => (state.order.status === fulfilled) 
-export const orderErrorSelector = (state) => (state.order.status === rejected) 
 
 export const amountSelector = (state, { id }) => orderSelector(state)[id] || 0;

@@ -1,6 +1,6 @@
 import { useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import styles from './basket.module.css';
 import itemStyles from './basket-item/basket-item.module.css';
@@ -9,21 +9,24 @@ import Button from '../button';
 import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 import { UserConsumer } from '../../contexts/user';
 import moneyContext from '../../contexts/money';
+import { remove } from '../../redux/features/order'
 import {
-  processOrder,
-  orderSuccessSelector,
-  orderErrorSelector,
-  remove
-} from '../../redux/features/order'
+  processCheckout,
+  checkoutSuccessSelector,
+  checkoutErrorSelector,
+  checkoutProcessingSelector
+} from '../../redux/features/checkout'
 
 function Basket({
   title = 'Basket',
   total,
   orderProducts,
   match,
-  processOrder,
-  orderSuccess,
-  orderError
+  checkoutSuccess,
+  checkoutError,
+  checkoutProcessing,
+  processCheckout,
+  history
 }) {
   const { m } = useContext(moneyContext);
 
@@ -31,9 +34,9 @@ function Basket({
     match.url === '/checkout'
   ), [match])
 
-  const handleProcessOrder = () => {
+  const handleProcessCheckout = () => {
     const data = mapper(orderProducts);
-    processOrder(data);
+    processCheckout(data);
   }
 
   const mapper = (items) => (
@@ -43,13 +46,13 @@ function Basket({
     }))
   )
   
-  if (orderSuccess) {
+  if (checkoutSuccess) {
     remove();
-    return <Redirect to="/checkout/success" />;
+    history.push('/checkout/success');
   }
 
-  if (orderError) {
-    return <Redirect to="/checkout/failure" />;
+  if (checkoutError) {
+    history.push('/checkout/failure');
   }
 
   if (!total) {
@@ -83,7 +86,12 @@ function Basket({
         </div>
       </div>
       {onCheckoutPage ? (
-        <Button primary block onClick={handleProcessOrder}>
+        <Button
+          primary
+          block
+          onClick={handleProcessCheckout}
+          disabled={checkoutProcessing}
+        >
           checkout
         </Button>
       ) : (
@@ -102,13 +110,14 @@ const mapStateToProps = (state) => {
   return {
     total: totalSelector(state),
     orderProducts: orderProductsSelector(state),
-    orderSuccess: orderSuccessSelector(state),
-    orderError: orderErrorSelector(state),
+    checkoutSuccess: checkoutSuccessSelector(state),
+    checkoutError: checkoutErrorSelector(state),
+    checkoutProcessing: checkoutProcessingSelector(state)
   };
 };
 
 const mapDispatchToProps = {
-  processOrder,
+  processCheckout,
   remove
 }
 
