@@ -1,23 +1,23 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { orderSelector } from './features/order';
 import { productsSelector } from './features/products';
-import { restaurantSelector } from './features/restaurants';
+import { restaurantSelector, restaurantsListSelector } from './features/restaurants';
 import { reviewSelector, reviewsSelector } from './features/reviews';
 import { usersSelector } from './features/users';
 
 export const orderProductsSelector = createSelector(
   productsSelector,
   orderSelector,
-  (products, order) =>
-    Object.keys(order)
+  (products, order) => {
+    return Object.keys(order)
       .filter((productId) => order[productId] > 0)
       .map((productId) => products[productId])
       .map((product) => ({
         product,
         amount: order[product.id],
-        subtotal: order[product.id] * product.price,
-      }))
-);
+        subtotal: order[product.id] * product.price
+      }));
+  });
 
 export const totalSelector = createSelector(
   orderProductsSelector,
@@ -30,7 +30,7 @@ export const reviewWitUserSelector = createSelector(
   usersSelector,
   (review, users) => ({
     ...review,
-    user: users[review.userId]?.name,
+    user: users[review.userId]?.name
   })
 );
 
@@ -44,3 +44,14 @@ export const averageRatingSelector = createSelector(
     );
   }
 );
+
+export const orderProductsWithRestIdSelector = createSelector(
+  restaurantsListSelector,
+  orderProductsSelector,
+  (restaurants, order) =>  order.map(obj => {
+      const res = restaurants.find(rest => rest.menu.includes(obj.product.id));
+      obj.restId = res.id;
+      return obj;
+    })
+);
+
