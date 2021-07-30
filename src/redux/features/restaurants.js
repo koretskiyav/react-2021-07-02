@@ -46,7 +46,7 @@ const { reducer } = createSlice({
 
 export default reducer;
 
-const restaurantsSelectors = Restaurants.getSelectors(
+export const restaurantsSelectors = Restaurants.getSelectors(
   (state) => state.restaurants
 );
 

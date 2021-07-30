@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
@@ -13,8 +13,6 @@ import { averageRatingSelector } from '../../redux/selectors';
 const Restaurant = ({ restaurant, averageRating }) => {
   const { id, name, menu, reviews } = restaurant;
 
-  const [activeTab, setActiveTab] = useState('menu');
-
   const tabs = [
     { id: 'menu', label: 'Menu' },
     { id: 'reviews', label: 'Reviews' },
@@ -25,9 +23,22 @@ const Restaurant = ({ restaurant, averageRating }) => {
       <Banner heading={name}>
         {!!averageRating && <Rate value={averageRating} />}
       </Banner>
-      <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
-      {activeTab === 'menu' && <Menu menu={menu} key={id} restId={id} />}
-      {activeTab === 'reviews' && <Reviews reviews={reviews} restId={id} />}
+      <Tabs tabs={tabs} to={(tabId) => `/restaurants/${id}/${tabId}`} />
+      <Switch>
+        <Route path={`/restaurants/${id}/:tabId`}>
+          {({ match }) => {
+            const {
+              params: { tabId },
+            } = match;
+
+            if (tabId === 'menu')
+              return <Menu menu={menu} key={id} restId={id} />;
+            if (tabId === 'reviews')
+              return <Reviews reviews={reviews} restId={id} />;
+          }}
+        </Route>
+        <Redirect to={`/restaurants/${id}/menu`} />
+      </Switch>
     </div>
   );
 };

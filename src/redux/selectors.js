@@ -1,7 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { orderSelector } from './features/order';
 import { productsSelector } from './features/products';
-import { restaurantSelector } from './features/restaurants';
+import {
+  restaurantsSelectors,
+  restaurantSelector,
+} from './features/restaurants';
 import { reviewSelector, reviewsSelector } from './features/reviews';
 import { usersSelector } from './features/users';
 
@@ -43,4 +46,15 @@ export const averageRatingSelector = createSelector(
       ratings.reduce((acc, rating) => acc + rating, 0) / ratings.length
     );
   }
+);
+
+export const idsDictionarySelector = createSelector(
+  restaurantsSelectors.selectEntities,
+  (restaurants) =>
+    Object.entries(restaurants).reduce((dictionary, [restID, { menu }]) => {
+      return (dictionary = {
+        ...dictionary,
+        ...Object.fromEntries(menu.map((product) => [product, restID])),
+      });
+    }, {})
 );
