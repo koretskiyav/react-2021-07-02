@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
@@ -31,6 +31,7 @@ const Restaurant = ({ restaurant, averageRating }) => {
         <Route path="/restaurants/:restId/reviews">
           <Reviews reviews={reviews} restId={id} />
         </Route>
+        <Redirect to="/restaurants/:restId/menu" />
       </Switch>
     </div>
   );
