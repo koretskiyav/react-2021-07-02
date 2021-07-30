@@ -1,4 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAction } from '@reduxjs/toolkit';
+
+export const clearOrder = createAction('order/clear', () => ({
+  
+}));
 
 const { reducer, actions } = createSlice({
   name: 'order',
@@ -12,6 +16,9 @@ const { reducer, actions } = createSlice({
     },
     remove(state, { payload: id }) {
       state[id] = 0;
+    },
+    clearOrder(state, action) {
+     console.log('5', state)
     },
   },
 });

@@ -5,6 +5,7 @@ import restaurants from './features/restaurants';
 import products from './features/products';
 import reviews from './features/reviews';
 import users from './features/users';
+import basket from './features/basket';
 
 import history from '../history';
 
@@ -15,4 +16,5 @@ export default {
   products,
   reviews,
   users,
+  basket,
 };

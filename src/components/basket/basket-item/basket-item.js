@@ -6,6 +6,7 @@ import Button from '../../button';
 import styles from './basket-item.module.css';
 
 import moneyContext from '../../../contexts/money';
+import { Link } from 'react-router-dom';
 
 function BasketItem({
   product,
@@ -14,21 +15,40 @@ function BasketItem({
   increment,
   decrement,
   remove,
+  basketStatus,
 }) {
   const { m } = useContext(moneyContext);
   return (
     <div className={styles.basketItem}>
-      <div className={styles.name}>
+      <Link to={`/restaurants/${product.restId}/menu`} className={styles.name}>
         <span>{product.name}</span>
-      </div>
+      </Link>
       <div className={styles.info}>
         <div className={styles.counter}>
-          <Button onClick={decrement} icon="minus" secondary small />
+          <Button
+            disabled={basketStatus}
+            onClick={decrement}
+            icon="minus"
+            secondary
+            small
+          />
           <span className={styles.count}>{amount}</span>
-          <Button onClick={increment} icon="plus" secondary small />
+          <Button
+            disabled={basketStatus}
+            onClick={increment}
+            icon="plus"
+            secondary
+            small
+          />
         </div>
         <p className={cn(styles.count, styles.price)}>{m(subtotal)}</p>
-        <Button onClick={remove} icon="delete" secondary small />
+        <Button
+          disabled={basketStatus}
+          onClick={remove}
+          icon="delete"
+          secondary
+          small
+        />
       </div>
     </div>
   );

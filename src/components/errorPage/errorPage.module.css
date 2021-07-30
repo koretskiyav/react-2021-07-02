@@ -1,0 +1,10 @@
+.banner {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.message {
+  color: red;
+  font-size: 32px;
+}

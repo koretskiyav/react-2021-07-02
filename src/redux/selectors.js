@@ -19,6 +19,16 @@ export const orderProductsSelector = createSelector(
       }))
 );
 
+export const orderBasketsSelector = createSelector(
+  productsSelector,
+  orderSelector,
+  (products, order) =>
+    Object.keys(order)
+      .filter((productId) => order[productId] > 0)
+      .map((productId) => products[productId])
+      .map((product) => ({ id: product.id, amount: order[product.id] }))
+);
+
 export const totalSelector = createSelector(
   orderProductsSelector,
   (orderProducts) =>

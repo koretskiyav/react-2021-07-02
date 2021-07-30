@@ -18,6 +18,7 @@ class Menu extends Component {
     restId: PropTypes.string.isRequired,
     menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   };
+  
 
   state = { error: null };
 
@@ -34,6 +35,7 @@ class Menu extends Component {
   componentDidCatch(error) {
     this.setState({ error });
   }
+  z
 
   render() {
     const { menu, loaded } = this.props;
