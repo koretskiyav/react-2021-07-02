@@ -2,6 +2,7 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
 } from '@reduxjs/toolkit';
 import api from '../../api';
 import { idle, pending, fulfilled, rejected } from '../constants';
@@ -59,3 +60,16 @@ export const restaurantSelector = (state, { id }) =>
 
 export const restaurantsLoadedSelector = isLoaded(restaurantsStatusSelector);
 const shouldLoadRestaurantsSelector = shouldLoad(restaurantsStatusSelector);
+
+export const restsIdsByProductsSelector = createSelector(
+  restaurantsListSelector,
+  (restaurants) =>
+    restaurants
+      .flatMap((rest) =>
+        rest.menu.map((productId) => ({ productId, restId: rest.id }))
+      )
+      .reduce(
+        (acc, { productId, restId }) => ({ ...acc, [productId]: restId }),
+        {}
+      )
+);
