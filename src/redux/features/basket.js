@@ -6,7 +6,6 @@ import {
 import { replace } from 'connected-react-router';
 import api from '../../api';
 import { pending, fulfilled, rejected, idle } from '../constants';
-import { clearOrder } from './order';
 
 export const requestBasket = createAsyncThunk(
   'basket/process',
@@ -14,7 +13,8 @@ export const requestBasket = createAsyncThunk(
     api
       .requestBasket(orderBaskets)
       .then((res) => {
-        dispatch(clearOrder);
+        // почему нельзя вызвать dispatch  отсюда?
+        // dispatch(clearOrder);
         dispatch(replace('/success'));
         return res;
       })
