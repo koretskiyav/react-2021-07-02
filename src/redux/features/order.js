@@ -1,8 +1,4 @@
-import { createSlice, createAction } from '@reduxjs/toolkit';
-
-export const clearOrder = createAction('order/clear', () => ({
-  
-}));
+import { createSlice } from '@reduxjs/toolkit';
 
 const { reducer, actions } = createSlice({
   name: 'order',
@@ -17,15 +13,15 @@ const { reducer, actions } = createSlice({
     remove(state, { payload: id }) {
       state[id] = 0;
     },
-    clearOrder(state, action) {
-     console.log('5', state)
+    clearOrder() {
+      return {};
     },
   },
 });
 
 export default reducer;
-const { increment, decrement, remove } = actions;
-export { increment, decrement, remove };
+const { increment, decrement, remove, clearOrder } = actions;
+export { increment, decrement, remove, clearOrder };
 
 export const orderSelector = (state) => state.order;
 

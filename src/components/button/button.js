@@ -24,9 +24,9 @@ const Button = ({
   ...props
 }) => {
   const Icon = icons[icon];
-  console.log('5', disabled)
   return (
-    <button disabled={disabled}
+    <button
+      disabled={disabled}
       className={cn(styles.button, {
         [styles.primary]: primary,
         [styles.secondary]: secondary,

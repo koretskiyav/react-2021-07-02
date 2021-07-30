@@ -18,8 +18,8 @@ const App = () => {
           <Route path="/restaurants" component={Restaurants} />
           <Route path="/error" component={ErrorPage} />
           <Route path="/success" component={SuccessPage} />
-          <Redirect from={"/"} to={`/restaurants`} />
-          <Route path="/" component={() => <p>404 - Page Not Found :(</p>} />
+          <Redirect from={'/'} to={`/restaurants`} />
+          <Route path="/" component={() => <p>404 - Page Not Found :</p>} />
         </Switch>
       </UserProvider>
     </div>

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -22,7 +22,6 @@ function Basket({
   orderProducts,
   pathname,
   orderBaskets,
-  onSubmit,
   requestBasket,
   basketStatus,
 }) {
@@ -31,10 +30,6 @@ function Basket({
   const handleClick = useCallback(() => {
     requestBasket(orderBaskets);
   }, [orderBaskets, requestBasket]);
-
-  useEffect(() => {
-    console.log(basketStatus);
-  }, [basketStatus]);
 
   if (!total) {
     return (

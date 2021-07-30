@@ -38,9 +38,11 @@ const { reducer } = createSlice({
     [loadProducts.fulfilled]: (state, action) => {
       state.status[action.meta.arg] = fulfilled;
       const { arg } = action.meta;
-      const productNew = action.payload.map(({ id, name, price, ingredients }) => {
-        return { restId: arg, id, name, price, ingredients };
-      });
+      const productNew = action.payload.map(
+        ({ id, name, price, ingredients }) => {
+          return { restId: arg, id, name, price, ingredients };
+        }
+      );
       Products.addMany(state, productNew);
     },
     [loadProducts.rejected]: (state, { meta, error }) => {
