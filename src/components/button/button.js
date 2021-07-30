@@ -20,11 +20,13 @@ const Button = ({
   secondary = false,
   small = false,
   block = false,
+  disabled = false,
   ...props
 }) => {
   const Icon = icons[icon];
   return (
     <button
+      disabled={disabled}
       className={cn(styles.button, {
         [styles.primary]: primary,
         [styles.secondary]: secondary,

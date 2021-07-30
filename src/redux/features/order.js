@@ -13,12 +13,15 @@ const { reducer, actions } = createSlice({
     remove(state, { payload: id }) {
       state[id] = 0;
     },
+    clearOrder() {
+      return {};
+    },
   },
 });
 
 export default reducer;
-const { increment, decrement, remove } = actions;
-export { increment, decrement, remove };
+const { increment, decrement, remove, clearOrder } = actions;
+export { increment, decrement, remove, clearOrder };
 
 export const orderSelector = (state) => state.order;
 
